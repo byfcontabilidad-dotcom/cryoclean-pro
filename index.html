@@ -567,7 +567,7 @@
                 <a href="#servicios">Servicios</a>
                 <a href="#beneficios">Beneficios</a>
                 <a href="#contacto">Contacto</a>
-                <button class="btn btn-primary" onclick="showAdminLogin()">Admin</button>
+                <button class="btn btn-primary" id="adminBtn">Admin</button>
             </div>
         </nav>
     </header>
@@ -711,7 +711,7 @@
             </div>
 
             <div id="servicesTab" class="tab-content active">
-                <button class="btn btn-primary" onclick="showAddServiceForm()" style="margin-bottom: 25px;">
+                <button class="btn btn-primary" id="addServiceBtn" style="margin-bottom: 25px;">
                     + Agregar Nuevo Servicio
                 </button>
                 <div id="servicesList" class="service-list"></div>
@@ -855,11 +855,37 @@
         function init() {
             renderServices();
             loadSettings();
+            
+            // Configurar eventos
+            setupEventListeners();
+        }
+
+        // Configurar event listeners
+        function setupEventListeners() {
+            // Botón Admin
+            const adminBtn = document.getElementById('adminBtn');
+            if (adminBtn) {
+                adminBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showAdminLogin();
+                });
+            }
+            
+            // Botón agregar servicio
+            const addServiceBtn = document.getElementById('addServiceBtn');
+            if (addServiceBtn) {
+                addServiceBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showAddServiceForm();
+                });
+            }
         }
 
         // Renderizar servicios
         function renderServices() {
             const grid = document.querySelector('.services-grid');
+            if (!grid) return;
+            
             grid.innerHTML = services.map(service => `
                 <div class="service-card">
                     <span class="service-icon">${service.icon}</span>
@@ -868,12 +894,20 @@
                     <ul class="service-features">
                         ${service.features.map(f => `<li>${f}</li>`).join('')}
                     </ul>
-                    <div class="service-price">Desde $${service.price.toFixed(2)}</div>
-                    <button class="btn btn-primary" onclick="requestQuote(${service.id})" style="width: 100%;">
+                    <div class="service-price">Desde ${service.price.toFixed(2)}</div>
+                    <button class="btn btn-primary quote-btn" data-service-id="${service.id}" style="width: 100%;">
                         Solicitar Cotización
                     </button>
                 </div>
             `).join('');
+            
+            // Agregar eventos a botones de cotización
+            document.querySelectorAll('.quote-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const serviceId = parseInt(this.getAttribute('data-service-id'));
+                    requestQuote(serviceId);
+                });
+            });
         }
 
         // Solicitar cotización
