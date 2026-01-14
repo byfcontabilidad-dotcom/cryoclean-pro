@@ -81,25 +81,11 @@
             font-weight: 500;
             transition: color 0.3s;
             position: relative;
+            cursor: pointer;
         }
 
         .nav-links a:hover {
             color: var(--primary);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
         }
 
         .btn {
@@ -331,7 +317,6 @@
             z-index: 2000;
             align-items: center;
             justify-content: center;
-            animation: fadeIn 0.3s;
         }
 
         .modal.active {
@@ -347,11 +332,6 @@
             max-height: 90vh;
             overflow-y: auto;
             animation: slideUp 0.4s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
         }
 
         @keyframes slideUp {
@@ -512,28 +492,6 @@
             to { transform: translateY(0); opacity: 1; }
         }
 
-        @media (max-width: 768px) {
-            .hero {
-                padding: 50px 30px;
-            }
-
-            .hero h1 {
-                font-size: 36px;
-            }
-
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .benefits-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
         .cta-section {
             background: linear-gradient(135deg, var(--primary), var(--ice-blue));
             color: white;
@@ -554,6 +512,28 @@
             margin-bottom: 30px;
             opacity: 0.95;
         }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 50px 30px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -567,20 +547,20 @@
                 <a href="#servicios">Servicios</a>
                 <a href="#beneficios">Beneficios</a>
                 <a href="#contacto">Contacto</a>
-                <button class="btn btn-primary" id="adminBtn">Admin</button>
+                <button class="btn btn-primary" id="btnAdmin">Admin</button>
             </div>
         </nav>
     </header>
 
-    <div class="container">
+    <div id="mainContent" class="container">
         <section class="hero">
             <div class="hero-content">
                 <div class="eco-badge">
                     🌱 100% Ecológico & Sustentable
                 </div>
-                <h1>Limpieza Industrial del Futuro</h1>
-                <p>Tecnología de punta con hielo seco y láser para limpieza industrial y automotriz. Sin químicos, sin residuos, sin daños.</p>
-                <button class="btn btn-primary" onclick="scrollToServices()" style="font-size: 18px; padding: 16px 40px;">
+                <h1 id="heroTitle">Limpieza Industrial del Futuro</h1>
+                <p id="heroDesc">Tecnología de punta con hielo seco y láser para limpieza industrial y automotriz. Sin químicos, sin residuos, sin daños.</p>
+                <button class="btn btn-primary" id="btnVerServicios" style="font-size: 18px; padding: 16px 40px;">
                     Descubre Nuestros Servicios
                 </button>
             </div>
@@ -588,8 +568,8 @@
 
         <section id="servicios" class="services-section">
             <h2 class="section-title">Nuestros Servicios Especializados</h2>
-            <div class="services-grid">
-                <!-- Los servicios se cargarán aquí -->
+            <div class="services-grid" id="servicesContainer">
+                <!-- Servicios se cargan aquí -->
             </div>
         </section>
 
@@ -619,10 +599,10 @@
             </div>
         </section>
 
-        <section class="cta-section">
+        <section id="contacto" class="cta-section">
             <h2>¿Listo para Transformar tu Proceso de Limpieza?</h2>
             <p>Contáctanos hoy y descubre cómo podemos ayudarte</p>
-            <button class="btn btn-secondary" style="background: white; color: var(--primary);" onclick="alert('📧 Contacto: info@cryocleanpro.com | ☎️ Tel: +593-XX-XXX-XXXX')">
+            <button class="btn btn-secondary" id="btnContacto" style="background: white; color: var(--primary);">
                 Solicitar Cotización
             </button>
         </section>
@@ -633,7 +613,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2>💼 Solicitar Cotización</h2>
-                <button class="close-btn" onclick="closeModal('quoteModal')">&times;</button>
+                <button class="close-btn" data-modal="quoteModal">&times;</button>
             </div>
             <div id="quoteDetails"></div>
             <form id="quoteForm">
@@ -674,7 +654,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2>🔐 Acceso Administrativo</h2>
-                <button class="close-btn" onclick="closeModal('adminLoginModal')">&times;</button>
+                <button class="close-btn" data-modal="adminLoginModal">&times;</button>
             </div>
             <form id="adminLoginForm">
                 <div class="form-group">
@@ -700,18 +680,18 @@
         <div class="admin-panel">
             <div class="admin-header">
                 <h2>⚙️ Panel de Administración - CryoClean Pro</h2>
-                <button class="btn btn-danger" onclick="logout()">Cerrar Sesión</button>
+                <button class="btn btn-danger" id="btnLogout">Cerrar Sesión</button>
             </div>
 
             <div id="successMessage" class="success-message"></div>
 
             <div class="admin-tabs">
-                <button class="tab-btn active" onclick="switchTab('services')">Servicios</button>
-                <button class="tab-btn" onclick="switchTab('settings')">Configuración</button>
+                <button class="tab-btn active" data-tab="services">Servicios</button>
+                <button class="tab-btn" data-tab="settings">Configuración</button>
             </div>
 
             <div id="servicesTab" class="tab-content active">
-                <button class="btn btn-primary" id="addServiceBtn" style="margin-bottom: 25px;">
+                <button class="btn btn-primary" id="btnAddService" style="margin-bottom: 25px;">
                     + Agregar Nuevo Servicio
                 </button>
                 <div id="servicesList" class="service-list"></div>
@@ -721,11 +701,11 @@
                 <form id="settingsForm">
                     <div class="form-group">
                         <label>Título Principal</label>
-                        <input type="text" id="heroTitle" value="Limpieza Industrial del Futuro">
+                        <input type="text" id="settingHeroTitle" value="Limpieza Industrial del Futuro">
                     </div>
                     <div class="form-group">
                         <label>Descripción Principal</label>
-                        <textarea id="heroDescription" rows="3">Tecnología de punta con hielo seco y láser para limpieza industrial y automotriz. Sin químicos, sin residuos, sin daños.</textarea>
+                        <textarea id="settingHeroDesc" rows="3">Tecnología de punta con hielo seco y láser para limpieza industrial y automotriz. Sin químicos, sin residuos, sin daños.</textarea>
                     </div>
                     <div class="form-group">
                         <label>Email de Contacto</label>
@@ -746,7 +726,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2 id="serviceModalTitle">Agregar Servicio</h2>
-                <button class="close-btn" onclick="closeModal('serviceModal')">&times;</button>
+                <button class="close-btn" data-modal="serviceModal">&times;</button>
             </div>
             <form id="serviceForm">
                 <input type="hidden" id="serviceId">
@@ -778,8 +758,8 @@
     </div>
 
     <script>
-        // Estado de la aplicación con persistencia
-        let services = loadFromStorage('services') || [
+        // Estado de la aplicación
+        let services = [
             {
                 id: 1,
                 name: "Limpieza con Hielo Seco Industrial",
@@ -814,79 +794,172 @@
             }
         ];
 
-        let settings = loadFromStorage('settings') || {
+        let settings = {
             heroTitle: "Limpieza Industrial del Futuro",
             heroDescription: "Tecnología de punta con hielo seco y láser para limpieza industrial y automotriz. Sin químicos, sin residuos, sin daños.",
             contactEmail: "info@cryocleanpro.com",
             contactPhone: "+593-XX-XXX-XXXX"
         };
 
-        // Funciones de almacenamiento en memoria
-        function saveToStorage(key, data) {
-            try {
-                const storage = {};
-                storage[key] = data;
-                // Guardamos en una variable global para simular persistencia en la sesión
-                window['appStorage'] = window['appStorage'] || {};
-                window['appStorage'][key] = data;
-                return true;
-            } catch (e) {
-                console.error('Error guardando:', e);
-                return false;
-            }
-        }
-
-        function loadFromStorage(key) {
-            try {
-                if (window['appStorage'] && window['appStorage'][key]) {
-                    return window['appStorage'][key];
-                }
-                return null;
-            } catch (e) {
-                console.error('Error cargando:', e);
-                return null;
-            }
-        }
-
-        let isAdmin = false;
         let currentService = null;
 
-        // Inicializar aplicación
-        function init() {
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
             renderServices();
-            loadSettings();
-            
-            // Configurar eventos
-            setupEventListeners();
+            setupEvents();
+        });
+
+        // Configurar todos los eventos
+        function setupEvents() {
+            // Botón Admin
+            const btnAdmin = document.getElementById('btnAdmin');
+            if (btnAdmin) {
+                btnAdmin.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openModal('adminLoginModal');
+                });
+            }
+
+            // Botón Ver Servicios
+            const btnVerServicios = document.getElementById('btnVerServicios');
+            if (btnVerServicios) {
+                btnVerServicios.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.getElementById('servicios').scrollIntoView({ behavior: 'smooth' });
+                });
+            }
+
+            // Botón Contacto
+            const btnContacto = document.getElementById('btnContacto');
+            if (btnContacto) {
+                btnContacto.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('📧 Contacto: info@cryocleanpro.com\n☎️ Tel: +593-XX-XXX-XXXX');
+                });
+            }
+
+            // Botones cerrar modal
+            document.querySelectorAll('.close-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const modalId = this.getAttribute('data-modal');
+                    closeModal(modalId);
+                });
+            });
+
+            // Click fuera del modal
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.classList.remove('active');
+                    }
+                });
+            });
+
+            // Form login admin
+            document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const user = document.getElementById('adminUser').value;
+                const pass = document.getElementById('adminPass').value;
+
+                if (user === 'admin' && pass === 'admin123') {
+                    closeModal('adminLoginModal');
+                    document.getElementById('mainContent').style.display = 'none';
+                    document.querySelector('header').style.display = 'none';
+                    document.getElementById('adminPanel').style.display = 'block';
+                    renderAdminServices();
+                    setupAdminEvents();
+                } else {
+                    alert('❌ Credenciales incorrectas');
+                }
+            });
+
+            // Form cotización
+            document.getElementById('quoteForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('✅ ¡Cotización enviada exitosamente! Nos pondremos en contacto pronto.');
+                closeModal('quoteModal');
+                this.reset();
+            });
         }
 
-        // Configurar event listeners
-        function setupEventListeners() {
-            // Botón Admin
-            const adminBtn = document.getElementById('adminBtn');
-            if (adminBtn) {
-                adminBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    showAdminLogin();
+        // Setup eventos del admin
+        function setupAdminEvents() {
+            // Botón logout
+            document.getElementById('btnLogout').addEventListener('click', function() {
+                document.getElementById('mainContent').style.display = 'block';
+                document.querySelector('header').style.display = 'block';
+                document.getElementById('adminPanel').style.display = 'none';
+            });
+
+            // Tabs
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tabName = this.getAttribute('data-tab');
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    document.getElementById(tabName + 'Tab').classList.add('active');
                 });
-            }
-            
+            });
+
             // Botón agregar servicio
-            const addServiceBtn = document.getElementById('addServiceBtn');
-            if (addServiceBtn) {
-                addServiceBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    showAddServiceForm();
-                });
-            }
+            document.getElementById('btnAddService').addEventListener('click', function() {
+                currentService = null;
+                document.getElementById('serviceModalTitle').textContent = 'Agregar Servicio';
+                document.getElementById('serviceForm').reset();
+                openModal('serviceModal');
+            });
+
+            // Form servicio
+            document.getElementById('serviceForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const serviceData = {
+                    name: document.getElementById('serviceName').value,
+                    description: document.getElementById('serviceDescription').value,
+                    features: document.getElementById('serviceFeatures').value.split(',').map(f => f.trim()).filter(f => f),
+                    price: parseFloat(document.getElementById('servicePrice').value),
+                    icon: document.getElementById('serviceIcon').value || '🔧'
+                };
+
+                if (currentService) {
+                    const index = services.findIndex(s => s.id === currentService.id);
+                    services[index] = { ...services[index], ...serviceData };
+                    showSuccess('✅ Servicio actualizado exitosamente');
+                } else {
+                    const newId = Math.max(...services.map(s => s.id), 0) + 1;
+                    services.push({ id: newId, ...serviceData });
+                    showSuccess('✅ Servicio agregado exitosamente');
+                }
+
+                renderAdminServices();
+                renderServices();
+                closeModal('serviceModal');
+                this.reset();
+            });
+
+            // Form settings
+            document.getElementById('settingsForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                settings.heroTitle = document.getElementById('settingHeroTitle').value;
+                settings.heroDescription = document.getElementById('settingHeroDesc').value;
+                settings.contactEmail = document.getElementById('contactEmail').value;
+                settings.contactPhone = document.getElementById('contactPhone').value;
+                
+                document.getElementById('heroTitle').textContent = settings.heroTitle;
+                document.getElementById('heroDesc').textContent = settings.heroDescription;
+                
+                showSuccess('✅ Configuración guardada exitosamente');
+            });
         }
 
         // Renderizar servicios
         function renderServices() {
-            const grid = document.querySelector('.services-grid');
-            if (!grid) return;
+            const container = document.getElementById('servicesContainer');
+            if (!container) return;
             
-            grid.innerHTML = services.map(service => `
+            container.innerHTML = services.map(service => `
                 <div class="service-card">
                     <span class="service-icon">${service.icon}</span>
                     <h3 class="service-title">${service.name}</h3>
@@ -895,16 +968,16 @@
                         ${service.features.map(f => `<li>${f}</li>`).join('')}
                     </ul>
                     <div class="service-price">Desde ${service.price.toFixed(2)}</div>
-                    <button class="btn btn-primary quote-btn" data-service-id="${service.id}" style="width: 100%;">
+                    <button class="btn btn-primary" data-service="${service.id}" style="width: 100%;">
                         Solicitar Cotización
                     </button>
                 </div>
             `).join('');
             
             // Agregar eventos a botones de cotización
-            document.querySelectorAll('.quote-btn').forEach(btn => {
+            container.querySelectorAll('.btn').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    const serviceId = parseInt(this.getAttribute('data-service-id'));
+                    const serviceId = parseInt(this.getAttribute('data-service'));
                     requestQuote(serviceId);
                 });
             });
@@ -918,29 +991,100 @@
                     <h3 style="margin-bottom: 12px; color: var(--dark);">${service.icon} ${service.name}</h3>
                     <p style="color: var(--gray); margin-bottom: 12px;">${service.description}</p>
                     <div style="font-size: 28px; font-weight: bold; color: var(--primary);">
-                        Desde: $${service.price.toFixed(2)}
+                        Desde: ${service.price.toFixed(2)}
                     </div>
                 </div>
             `;
             openModal('quoteModal');
         }
 
-        // Procesar cotización
-        document.getElementById('quoteForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        // Renderizar servicios en admin
+        function renderAdminServices() {
+            const list = document.getElementById('servicesList');
+            if (!list) return;
             
-            setTimeout(() => {
-                alert('✅ ¡Cotización enviada exitosamente! Nos pondremos en contacto pronto.');
-                closeModal('quoteModal');
-                this.reset();
-            }, 1000);
-        });
-
-        // Admin Login
-        function showAdminLogin() {
-            openModal('adminLoginModal');
+            list.innerHTML = services.map(service => `
+                <div class="service-item">
+                    <div class="service-item-info">
+                        <h3>${service.icon} ${service.name}</h3>
+                        <p style="color: var(--gray); margin: 8px 0;">${service.description}</p>
+                        <strong style="color: var(--primary);">Desde ${service.price.toFixed(2)}</strong>
+                    </div>
+                    <div class="service-item-actions">
+                        <button class="btn btn-secondary" data-edit="${service.id}">
+                            Editar
+                        </button>
+                        <button class="btn btn-danger" data-delete="${service.id}">
+                            Eliminar
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Eventos para editar
+            list.querySelectorAll('[data-edit]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-edit'));
+                    editService(id);
+                });
+            });
+            
+            // Eventos para eliminar
+            list.querySelectorAll('[data-delete]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-delete'));
+                    deleteService(id);
+                });
+            });
         }
 
-        document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const user = document.getElementByI
+        // Editar servicio
+        function editService(id) {
+            currentService = services.find(s => s.id === id);
+            document.getElementById('serviceModalTitle').textContent = 'Editar Servicio';
+            document.getElementById('serviceName').value = currentService.name;
+            document.getElementById('serviceDescription').value = currentService.description;
+            document.getElementById('serviceFeatures').value = currentService.features.join(', ');
+            document.getElementById('servicePrice').value = currentService.price;
+            document.getElementById('serviceIcon').value = currentService.icon;
+            openModal('serviceModal');
+        }
+
+        // Eliminar servicio
+        function deleteService(id) {
+            if (confirm('¿Estás seguro de eliminar este servicio?')) {
+                services = services.filter(s => s.id !== id);
+                renderAdminServices();
+                renderServices();
+                showSuccess('✅ Servicio eliminado exitosamente');
+            }
+        }
+
+        // Mostrar mensaje de éxito
+        function showSuccess(message) {
+            const msgEl = document.getElementById('successMessage');
+            msgEl.textContent = message;
+            msgEl.classList.add('show');
+            setTimeout(() => {
+                msgEl.classList.remove('show');
+            }, 3000);
+        }
+
+        // Abrir modal
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.classList.add('active');
+            }
+        }
+
+        // Cerrar modal
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>
