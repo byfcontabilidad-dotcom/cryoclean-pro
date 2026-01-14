@@ -778,8 +778,8 @@
     </div>
 
     <script>
-        // Estado de la aplicación
-        let services = [
+        // Estado de la aplicación con persistencia
+        let services = loadFromStorage('services') || [
             {
                 id: 1,
                 name: "Limpieza con Hielo Seco Industrial",
@@ -814,12 +814,39 @@
             }
         ];
 
-        let settings = {
+        let settings = loadFromStorage('settings') || {
             heroTitle: "Limpieza Industrial del Futuro",
             heroDescription: "Tecnología de punta con hielo seco y láser para limpieza industrial y automotriz. Sin químicos, sin residuos, sin daños.",
             contactEmail: "info@cryocleanpro.com",
             contactPhone: "+593-XX-XXX-XXXX"
         };
+
+        // Funciones de almacenamiento en memoria
+        function saveToStorage(key, data) {
+            try {
+                const storage = {};
+                storage[key] = data;
+                // Guardamos en una variable global para simular persistencia en la sesión
+                window['appStorage'] = window['appStorage'] || {};
+                window['appStorage'][key] = data;
+                return true;
+            } catch (e) {
+                console.error('Error guardando:', e);
+                return false;
+            }
+        }
+
+        function loadFromStorage(key) {
+            try {
+                if (window['appStorage'] && window['appStorage'][key]) {
+                    return window['appStorage'][key];
+                }
+                return null;
+            } catch (e) {
+                console.error('Error cargando:', e);
+                return null;
+            }
+        }
 
         let isAdmin = false;
         let currentService = null;
