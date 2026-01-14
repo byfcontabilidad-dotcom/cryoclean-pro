@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryoClean Pro - Limpieza Industrial Ecológica</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #10b981;
+            --primary-dark: #059669;
+            --secondary: #3b82f6;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --success: #10b981;
+            --eco-green: #22c55e;
+            --ice-blue: #06b6d4;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 50%, #dcfce7 100%);
+            min-height: 100vh;
+            color: var(--dark);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .logo-icon {
+            font-size: 36px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 15px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--eco-green));
+            color: white;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: white;
+            border-radius: 24px;
+            padding: 80px 60px;
+            margin: 40px 0;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--ice-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 22px;
+            color: var(--gray);
+            margin-bottom: 35px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .eco-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 10px 20px;
+            border-radius: 50px;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        /* Services Section */
+        .services-section {
+            margin: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 50px;
+            color: var(--dark);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 35px;
+            margin: 40px 0;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s;
+            border: 2px solid transparent;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(16, 185, 129, 0.15);
+            border-color: var(--primary);
+        }
+
+        .service-icon {
+            font-size: 64px;
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .service-title {
+            font-size: 26px;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .service-description {
+            color: var(--gray);
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .service-features {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .service-features li {
+            padding: 8px 0;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .service-features li::before {
+            content: '✓';
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .service-price {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 20px 0;
+        }
+
+        /* Benefits Section */
+        .benefits-section {
+            background: white;
+            border-radius: 24px;
+            padding: 60px;
+            margin: 60px 0;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .benefit-item {
+            text-align: center;
+        }
+
+        .benefit-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .benefit-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .benefit-text {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 24px;
+            padding: 45px;
+            max-width: 550px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.4s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .modal-header h2 {
+            font-size: 28px;
+            color: var(--dark);
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 32px;
+            cursor: pointer;
+            color: var(--gray);
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: #ef4444;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .payment-summary {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            padding: 25px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            border: 2px solid var(--primary);
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            background: white;
+            border-radius: 24px;
+            padding: 50px;
+            margin: 40px 0;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 25px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .admin-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .tab-btn {
+            padding: 14px 28px;
+            background: #f1f5f9;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--eco-green));
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .service-list {
+            display: grid;
+            gap: 20px;
+        }
+
+        .service-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px;
+            background: #f8fafc;
+            border-radius: 16px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .service-item-info {
+            flex: 1;
+        }
+
+        .service-item-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .success-message {
+            background: #d1fae5;
+            color: var(--success);
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            display: none;
+            border: 2px solid var(--primary);
+        }
+
+        .success-message.show {
+            display: block;
+            animation: slideDown 0.3s;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 50px 30px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary), var(--ice-blue));
+            color: white;
+            padding: 60px;
+            border-radius: 24px;
+            text-align: center;
+            margin: 60px 0;
+            box-shadow: 0 20px 60px rgba(16, 185, 129, 0.3);
+        }
+
+        .cta-section h2 {
+            font-size: 38px;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <span class="logo-icon">❄️</span>
+                <span>CryoClean Pro</span>
+            </div>
+            <div class="nav-links">
+                <a href="#servicios">Servicios</a>
+                <a href="#beneficios">Beneficios</a>
+                <a href="#contacto">Contacto</a>
+                <button class="btn btn-primary" onclick="showAdminLogin()">Admin</button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section class="hero">
+            <div class="hero-content">
+                <div class="eco-badge">
+                    🌱 100% Ecológico & Sustentable
+                </div>
+                <h1>Limpieza Industrial del Futuro</h1>
+                <p>Tecnología de punta con hielo seco y láser para limpieza industrial y automotriz. Sin químicos, sin residuos, sin daños.</p>
+                <button class="btn btn-primary" onclick="scrollToServices()" style="font-size: 18px; padding: 16px 40px;">
+                    Descubre Nuestros Servicios
+                </button>
+            </div>
+        </section>
+
+        <section id="servicios" class="services-section">
+            <h2 class="section-title">Nuestros Servicios Especializados</h2>
+            <div class="services-grid">
+                <!-- Los servicios se cargarán aquí -->
+            </div>
+        </section>
+
+        <section id="beneficios" class="benefits-section">
+            <h2 class="section-title">¿Por Qué Elegir CryoClean Pro?</h2>
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <div class="benefit-icon">🌍</div>
+                    <h3 class="benefit-title">Eco-Amigable</h3>
+                    <p class="benefit-text">Sin químicos tóxicos ni residuos contaminantes. Cuidamos el planeta.</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">⚡</div>
+                    <h3 class="benefit-title">Alta Eficiencia</h3>
+                    <p class="benefit-text">Procesos rápidos que reducen tiempo de inactividad.</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">🛡️</div>
+                    <h3 class="benefit-title">No Abrasivo</h3>
+                    <p class="benefit-text">Protege superficies delicadas sin causar daños.</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">💧</div>
+                    <h3 class="benefit-title">Sin Agua</h3>
+                    <p class="benefit-text">Proceso seco que no genera desperdicio de agua.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <h2>¿Listo para Transformar tu Proceso de Limpieza?</h2>
+            <p>Contáctanos hoy y descubre cómo podemos ayudarte</p>
+            <button class="btn btn-secondary" style="background: white; color: var(--primary);" onclick="alert('📧 Contacto: info@cryocleanpro.com | ☎️ Tel: +593-XX-XXX-XXXX')">
+                Solicitar Cotización
+            </button>
+        </section>
+    </div>
+
+    <!-- Modal de Cotización -->
+    <div id="quoteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>💼 Solicitar Cotización</h2>
+                <button class="close-btn" onclick="closeModal('quoteModal')">&times;</button>
+            </div>
+            <div id="quoteDetails"></div>
+            <form id="quoteForm">
+                <div class="form-group">
+                    <label>Nombre Completo / Empresa</label>
+                    <input type="text" id="clientName" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="clientEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Teléfono</label>
+                    <input type="tel" id="clientPhone" required>
+                </div>
+                <div class="form-group">
+                    <label>Tipo de Proyecto</label>
+                    <select id="projectType" required>
+                        <option value="">Seleccione...</option>
+                        <option value="industrial">Industrial</option>
+                        <option value="automotriz">Automotriz</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Detalles Adicionales</label>
+                    <textarea id="projectDetails" rows="4" placeholder="Cuéntanos sobre tu proyecto..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-success" style="width: 100%; margin-top: 15px;">
+                    Enviar Solicitud
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Login Admin -->
+    <div id="adminLoginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🔐 Acceso Administrativo</h2>
+                <button class="close-btn" onclick="closeModal('adminLoginModal')">&times;</button>
+            </div>
+            <form id="adminLoginForm">
+                <div class="form-group">
+                    <label>Usuario</label>
+                    <input type="text" id="adminUser" value="admin" required>
+                </div>
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" id="adminPass" value="admin123" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    Iniciar Sesión
+                </button>
+                <p style="margin-top: 15px; text-align: center; color: var(--gray); font-size: 13px;">
+                    Usuario: admin | Contraseña: admin123
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Panel de Administración -->
+    <div id="adminPanel" class="container" style="display: none;">
+        <div class="admin-panel">
+            <div class="admin-header">
+                <h2>⚙️ Panel de Administración - CryoClean Pro</h2>
+                <button class="btn btn-danger" onclick="logout()">Cerrar Sesión</button>
+            </div>
+
+            <div id="successMessage" class="success-message"></div>
+
+            <div class="admin-tabs">
+                <button class="tab-btn active" onclick="switchTab('services')">Servicios</button>
+                <button class="tab-btn" onclick="switchTab('settings')">Configuración</button>
+            </div>
+
+            <div id="servicesTab" class="tab-content active">
+                <button class="btn btn-primary" onclick="showAddServiceForm()" style="margin-bottom: 25px;">
+                    + Agregar Nuevo Servicio
+                </button>
+                <div id="servicesList" class="service-list"></div>
+            </div>
+
+            <div id="settingsTab" class="tab-content">
+                <form id="settingsForm">
+                    <div class="form-group">
+                        <label>Título Principal</label>
+                        <input type="text" id="heroTitle" value="Limpieza Industrial del Futuro">
+                    </div>
+                    <div class="form-group">
+                        <label>Descripción Principal</label>
+                        <textarea id="heroDescription" rows="3">Tecnología de punta con hielo seco y láser para limpieza industrial y automotriz. Sin químicos, sin residuos, sin daños.</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Email de Contacto</label>
+                        <input type="email" id="contactEmail" value="info@cryocleanpro.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="tel" id="contactPhone" value="+593-XX-XXX-XXXX">
+                    </div>
+                    <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Agregar/Editar Servicio -->
+    <div id="serviceModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="serviceModalTitle">Agregar Servicio</h2>
+                <button class="close-btn" onclick="closeModal('serviceModal')">&times;</button>
+            </div>
+            <form id="serviceForm">
+                <input type="hidden" id="serviceId">
+                <div class="form-group">
+                    <label>Nombre del Servicio</label>
+                    <input type="text" id="serviceName" required>
+                </div>
+                <div class="form-group">
+                    <label>Descripción</label>
+                    <textarea id="serviceDescription" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Características (separadas por coma)</label>
+                    <textarea id="serviceFeatures" rows="3" placeholder="Ej: Sin químicos, Eco-amigable, Rápido"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Precio Desde ($)</label>
+                    <input type="number" id="servicePrice" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>Icono (Emoji)</label>
+                    <input type="text" id="serviceIcon" placeholder="❄️" maxlength="2">
+                </div>
+                <button type="submit" class="btn btn-success" style="width: 100%;">
+                    Guardar Servicio
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Estado de la aplicación
+        let services = [
+            {
+                id: 1,
+                name: "Limpieza con Hielo Seco Industrial",
+                description: "Limpieza profunda para maquinaria industrial pesada sin dañar componentes sensibles. Ideal para plantas de manufactura.",
+                features: ["Sin químicos", "No abrasivo", "Sin tiempo de secado", "Reduce paros de producción"],
+                price: 299.99,
+                icon: "❄️"
+            },
+            {
+                id: 2,
+                name: "Limpieza Láser Industrial",
+                description: "Tecnología láser de alta precisión para remover óxido, pintura y contaminantes sin dañar el material base.",
+                features: ["Precisión extrema", "Eco-amigable", "Sin consumibles", "Automatizable"],
+                price: 399.99,
+                icon: "⚡"
+            },
+            {
+                id: 3,
+                name: "Restauración Automotriz Premium",
+                description: "Limpieza especializada para vehículos clásicos y de lujo. Motores, chasis y componentes delicados.",
+                features: ["No daña pintura original", "Limpieza de motores", "Restaura brillo", "Detallado profesional"],
+                price: 249.99,
+                icon: "🚗"
+            },
+            {
+                id: 4,
+                name: "Limpieza de Moldes y Herramientas",
+                description: "Eliminación eficiente de residuos en moldes de inyección y herramientas de producción sin desmontaje.",
+                features: ["In-situ", "Sin desmontaje", "Ahorra tiempo", "Aumenta vida útil"],
+                price: 349.99,
+                icon: "🔧"
+            }
+        ];
+
+        let settings = {
+            heroTitle: "Limpieza Industrial del Futuro",
+            heroDescription: "Tecnología de punta con hielo seco y láser para limpieza industrial y automotriz. Sin químicos, sin residuos, sin daños.",
+            contactEmail: "info@cryocleanpro.com",
+            contactPhone: "+593-XX-XXX-XXXX"
+        };
+
+        let isAdmin = false;
+        let currentService = null;
+
+        // Inicializar aplicación
+        function init() {
+            renderServices();
+            loadSettings();
+        }
+
+        // Renderizar servicios
+        function renderServices() {
+            const grid = document.querySelector('.services-grid');
+            grid.innerHTML = services.map(service => `
+                <div class="service-card">
+                    <span class="service-icon">${service.icon}</span>
+                    <h3 class="service-title">${service.name}</h3>
+                    <p class="service-description">${service.description}</p>
+                    <ul class="service-features">
+                        ${service.features.map(f => `<li>${f}</li>`).join('')}
+                    </ul>
+                    <div class="service-price">Desde $${service.price.toFixed(2)}</div>
+                    <button class="btn btn-primary" onclick="requestQuote(${service.id})" style="width: 100%;">
+                        Solicitar Cotización
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // Solicitar cotización
+        function requestQuote(id) {
+            const service = services.find(s => s.id === id);
+            document.getElementById('quoteDetails').innerHTML = `
+                <div class="payment-summary">
+                    <h3 style="margin-bottom: 12px; color: var(--dark);">${service.icon} ${service.name}</h3>
+                    <p style="color: var(--gray); margin-bottom: 12px;">${service.description}</p>
+                    <div style="font-size: 28px; font-weight: bold; color: var(--primary);">
+                        Desde: $${service.price.toFixed(2)}
+                    </div>
+                </div>
+            `;
+            openModal('quoteModal');
+        }
+
+        // Procesar cotización
+        document.getElementById('quoteForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            setTimeout(() => {
+                alert('✅ ¡Cotización enviada exitosamente! Nos pondremos en contacto pronto.');
+                closeModal('quoteModal');
+                this.reset();
+            }, 1000);
+        });
+
+        // Admin Login
+        function showAdminLogin() {
+            openModal('adminLoginModal');
+        }
+
+        document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const user = document.getElementByI
