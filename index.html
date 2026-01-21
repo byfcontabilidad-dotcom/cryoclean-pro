@@ -21,6 +21,7 @@
             --success: #10b981;
             --eco-green: #22c55e;
             --ice-blue: #06b6d4;
+            --whatsapp: #25D366;
         }
 
         body {
@@ -34,6 +35,58 @@
             max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
+        }
+
+        /* WhatsApp Floating Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 65px;
+            height: 65px;
+            background: var(--whatsapp);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            cursor: pointer;
+            z-index: 9999;
+            transition: all 0.3s;
+            animation: pulse 2s infinite;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
+        }
+
+        .whatsapp-float svg {
+            width: 35px;
+            height: 35px;
+            fill: white;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); }
+            50% { box-shadow: 0 4px 30px rgba(37, 211, 102, 0.7); }
+        }
+
+        /* Shopping Cart Badge */
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ef4444;
+            color: white;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
         }
 
         /* Header */
@@ -65,10 +118,6 @@
             color: var(--primary);
         }
 
-        .logo-icon {
-            font-size: 36px;
-        }
-
         .nav-links {
             display: flex;
             gap: 30px;
@@ -80,7 +129,6 @@
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
-            position: relative;
             cursor: pointer;
         }
 
@@ -96,6 +144,7 @@
             cursor: pointer;
             transition: all 0.3s;
             font-size: 15px;
+            position: relative;
         }
 
         .btn-primary {
@@ -115,11 +164,6 @@
             border: 2px solid var(--primary);
         }
 
-        .btn-secondary:hover {
-            background: var(--primary);
-            color: white;
-        }
-
         .btn-success {
             background: var(--success);
             color: white;
@@ -127,6 +171,11 @@
 
         .btn-danger {
             background: #ef4444;
+            color: white;
+        }
+
+        .btn-whatsapp {
+            background: var(--whatsapp);
             color: white;
         }
 
@@ -138,23 +187,6 @@
             margin: 40px 0;
             text-align: center;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
         }
 
         .hero h1 {
@@ -164,16 +196,12 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            line-height: 1.2;
         }
 
         .hero p {
             font-size: 22px;
             color: var(--gray);
             margin-bottom: 35px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
         }
 
         .eco-badge {
@@ -188,18 +216,7 @@
             margin-bottom: 25px;
         }
 
-        /* Services Section */
-        .services-section {
-            margin: 60px 0;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 42px;
-            margin-bottom: 50px;
-            color: var(--dark);
-        }
-
+        /* Services Grid */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -228,39 +245,6 @@
             display: block;
         }
 
-        .service-title {
-            font-size: 26px;
-            margin-bottom: 15px;
-            color: var(--dark);
-        }
-
-        .service-description {
-            color: var(--gray);
-            line-height: 1.7;
-            margin-bottom: 20px;
-            font-size: 16px;
-        }
-
-        .service-features {
-            list-style: none;
-            margin: 20px 0;
-        }
-
-        .service-features li {
-            padding: 8px 0;
-            color: var(--dark);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .service-features li::before {
-            content: '✓';
-            color: var(--primary);
-            font-weight: bold;
-            font-size: 18px;
-        }
-
         .service-price {
             font-size: 32px;
             font-weight: bold;
@@ -268,8 +252,8 @@
             margin: 20px 0;
         }
 
-        /* Benefits Section */
-        .benefits-section {
+        /* Gallery Section */
+        .gallery-section {
             background: white;
             border-radius: 24px;
             padding: 60px;
@@ -277,35 +261,46 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
         }
 
-        .benefits-grid {
+        .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
             margin-top: 40px;
         }
 
-        .benefit-item {
-            text-align: center;
+        .gallery-item {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
-        .benefit-icon {
-            font-size: 48px;
-            margin-bottom: 15px;
+        .before-after {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
         }
 
-        .benefit-title {
-            font-size: 20px;
+        .gallery-label {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
             font-weight: 600;
-            margin-bottom: 10px;
-            color: var(--dark);
         }
 
-        .benefit-text {
-            color: var(--gray);
-            line-height: 1.6;
-        }
-
-        /* Modal Styles */
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -327,16 +322,10 @@
             background: white;
             border-radius: 24px;
             padding: 45px;
-            max-width: 550px;
+            max-width: 600px;
             width: 90%;
             max-height: 90vh;
             overflow-y: auto;
-            animation: slideUp 0.4s;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
         }
 
         .modal-header {
@@ -346,22 +335,12 @@
             margin-bottom: 30px;
         }
 
-        .modal-header h2 {
-            font-size: 28px;
-            color: var(--dark);
-        }
-
         .close-btn {
             background: none;
             border: none;
             font-size: 32px;
             cursor: pointer;
             color: var(--gray);
-            transition: color 0.3s;
-        }
-
-        .close-btn:hover {
-            color: #ef4444;
         }
 
         .form-group {
@@ -372,7 +351,6 @@
             display: block;
             margin-bottom: 10px;
             font-weight: 600;
-            color: var(--dark);
         }
 
         .form-group input,
@@ -383,7 +361,6 @@
             border: 2px solid #e2e8f0;
             border-radius: 10px;
             font-size: 15px;
-            transition: border-color 0.3s;
         }
 
         .form-group input:focus,
@@ -393,12 +370,56 @@
             border-color: var(--primary);
         }
 
-        .payment-summary {
-            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
-            padding: 25px;
-            border-radius: 16px;
-            margin-bottom: 25px;
-            border: 2px solid var(--primary);
+        /* Cart */
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 12px;
+            margin-bottom: 10px;
+        }
+
+        .cart-total {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary);
+            text-align: right;
+            margin: 20px 0;
+        }
+
+        /* Calendar */
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .calendar-day {
+            padding: 15px;
+            text-align: center;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .calendar-day:hover {
+            border-color: var(--primary);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .calendar-day.selected {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .calendar-day.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
         }
 
         /* Admin Panel */
@@ -410,21 +431,6 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
         }
 
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-            padding-bottom: 25px;
-            border-bottom: 2px solid #e2e8f0;
-        }
-
-        .admin-tabs {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 40px;
-        }
-
         .tab-btn {
             padding: 14px 28px;
             background: #f1f5f9;
@@ -432,7 +438,8 @@
             border-radius: 12px;
             cursor: pointer;
             font-weight: 600;
-            transition: all 0.3s;
+            margin-right: 10px;
+            margin-bottom: 10px;
         }
 
         .tab-btn.active {
@@ -448,30 +455,6 @@
             display: block;
         }
 
-        .service-list {
-            display: grid;
-            gap: 20px;
-        }
-
-        .service-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 25px;
-            background: #f8fafc;
-            border-radius: 16px;
-            border: 2px solid #e2e8f0;
-        }
-
-        .service-item-info {
-            flex: 1;
-        }
-
-        .service-item-actions {
-            display: flex;
-            gap: 12px;
-        }
-
         .success-message {
             background: #d1fae5;
             color: var(--success);
@@ -479,222 +462,281 @@
             border-radius: 12px;
             margin-bottom: 25px;
             display: none;
-            border: 2px solid var(--primary);
         }
 
         .success-message.show {
             display: block;
-            animation: slideDown 0.3s;
         }
 
-        @keyframes slideDown {
-            from { transform: translateY(-20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+        .user-item, .appointment-item {
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #e2e8f0;
         }
 
-        .cta-section {
-            background: linear-gradient(135deg, var(--primary), var(--ice-blue));
-            color: white;
-            padding: 60px;
-            border-radius: 24px;
+        .section-title {
+            font-size: 42px;
             text-align: center;
-            margin: 60px 0;
-            box-shadow: 0 20px 60px rgba(16, 185, 129, 0.3);
-        }
-
-        .cta-section h2 {
-            font-size: 38px;
-            margin-bottom: 20px;
-        }
-
-        .cta-section p {
-            font-size: 20px;
-            margin-bottom: 30px;
-            opacity: 0.95;
+            margin-bottom: 40px;
+            color: var(--dark);
         }
 
         @media (max-width: 768px) {
-            .hero {
-                padding: 50px 30px;
-            }
-
-            .hero h1 {
-                font-size: 36px;
-            }
-
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-links {
-                gap: 15px;
-            }
-
-            .benefits-grid {
-                grid-template-columns: 1fr;
-            }
+            .hero h1 { font-size: 36px; }
+            .services-grid, .gallery-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .whatsapp-float { width: 55px; height: 55px; }
         }
     </style>
 </head>
 <body>
+    <!-- WhatsApp Floating Button -->
+    <div class="whatsapp-float" id="whatsappBtn">
+        <svg viewBox="0 0 32 32"><path d="M16 0c-8.837 0-16 7.163-16 16 0 2.825 0.737 5.607 2.137 8.048l-2.137 7.952 7.933-2.127c2.42 1.37 5.173 2.127 8.067 2.127 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 29.467c-2.482 0-4.908-0.646-7.07-1.87l-0.507-0.292-5.247 1.408 1.417-5.267-0.316-0.522c-1.314-2.178-2.009-4.688-2.009-7.257 0-7.384 6.001-13.385 13.385-13.385s13.385 6.001 13.385 13.385c0 7.384-6.001 13.385-13.385 13.385zM21.944 18.651c-0.316-0.158-1.869-0.921-2.158-1.027-0.289-0.105-0.5-0.158-0.711 0.158s-0.816 1.027-1.001 1.238c-0.184 0.211-0.369 0.237-0.685 0.079s-1.336-0.491-2.544-1.565c-0.94-0.836-1.575-1.869-1.759-2.185s-0.020-0.487 0.139-0.645c0.142-0.142 0.316-0.369 0.474-0.553s0.211-0.316 0.316-0.527c0.105-0.211 0.053-0.395-0.026-0.553s-0.711-1.712-0.974-2.343c-0.257-0.615-0.518-0.532-0.711-0.541-0.184-0.009-0.395-0.011-0.606-0.011s-0.553 0.079-0.843 0.395c-0.289 0.316-1.106 1.080-1.106 2.632s1.132 3.053 1.29 3.264c0.158 0.211 2.227 3.4 5.394 4.766 0.753 0.325 1.341 0.519 1.799 0.664 0.757 0.241 1.446 0.207 1.991 0.126 0.607-0.091 1.869-0.763 2.132-1.5s0.263-1.369 0.184-1.5c-0.079-0.132-0.289-0.211-0.606-0.369z"/></svg>
+    </div>
+
     <header>
         <nav>
             <div class="logo">
-                <span class="logo-icon">❄️</span>
+                <span style="font-size: 36px;">❄️</span>
                 <span>CryoClean Pro</span>
             </div>
             <div class="nav-links">
                 <a href="#servicios">Servicios</a>
-                <a href="#beneficios">Beneficios</a>
-                <a href="#contacto">Contacto</a>
-                <button class="btn btn-primary" id="btnAdmin">Admin</button>
+                <a href="#galeria">Galería</a>
+                <a href="#agendar">Agendar</a>
+                <button class="btn btn-primary" id="btnCart" style="position: relative;">
+                    🛒 Carrito
+                    <span class="cart-badge" id="cartBadge" style="display: none;">0</span>
+                </button>
+                <button class="btn btn-secondary" id="btnLogin">Iniciar Sesión</button>
             </div>
         </nav>
     </header>
 
     <div id="mainContent" class="container">
         <section class="hero">
-            <div class="hero-content">
-                <div class="eco-badge">
-                    🌱 100% Ecológico & Sustentable
-                </div>
-                <h1 id="heroTitle">Limpieza Industrial del Futuro</h1>
-                <p id="heroDesc">Tecnología de punta con hielo seco y láser para limpieza industrial y automotriz. Sin químicos, sin residuos, sin daños.</p>
-                <button class="btn btn-primary" id="btnVerServicios" style="font-size: 18px; padding: 16px 40px;">
-                    Descubre Nuestros Servicios
-                </button>
-            </div>
+            <div class="eco-badge">🌱 100% Ecológico & Sustentable</div>
+            <h1 id="heroTitle">Limpieza Industrial del Futuro</h1>
+            <p id="heroDesc">Tecnología de punta con hielo seco y láser para limpieza industrial y automotriz. Sin químicos, sin residuos, sin daños.</p>
+            <button class="btn btn-primary" id="btnVerServicios" style="font-size: 18px; padding: 16px 40px;">
+                Descubre Nuestros Servicios
+            </button>
         </section>
 
         <section id="servicios" class="services-section">
             <h2 class="section-title">Nuestros Servicios Especializados</h2>
-            <div class="services-grid" id="servicesContainer">
-                <!-- Servicios se cargan aquí -->
-            </div>
+            <div class="services-grid" id="servicesContainer"></div>
         </section>
 
-        <section id="beneficios" class="benefits-section">
-            <h2 class="section-title">¿Por Qué Elegir CryoClean Pro?</h2>
-            <div class="benefits-grid">
-                <div class="benefit-item">
-                    <div class="benefit-icon">🌍</div>
-                    <h3 class="benefit-title">Eco-Amigable</h3>
-                    <p class="benefit-text">Sin químicos tóxicos ni residuos contaminantes. Cuidamos el planeta.</p>
-                </div>
-                <div class="benefit-item">
-                    <div class="benefit-icon">⚡</div>
-                    <h3 class="benefit-title">Alta Eficiencia</h3>
-                    <p class="benefit-text">Procesos rápidos que reducen tiempo de inactividad.</p>
-                </div>
-                <div class="benefit-item">
-                    <div class="benefit-icon">🛡️</div>
-                    <h3 class="benefit-title">No Abrasivo</h3>
-                    <p class="benefit-text">Protege superficies delicadas sin causar daños.</p>
-                </div>
-                <div class="benefit-item">
-                    <div class="benefit-icon">💧</div>
-                    <h3 class="benefit-title">Sin Agua</h3>
-                    <p class="benefit-text">Proceso seco que no genera desperdicio de agua.</p>
-                </div>
-            </div>
+        <section id="galeria" class="gallery-section">
+            <h2 class="section-title">Transformaciones Reales</h2>
+            <p style="text-align: center; color: var(--gray); margin-bottom: 30px;">
+                Antes y después de nuestros servicios de limpieza profesional
+            </p>
+            <div class="gallery-grid" id="galleryContainer"></div>
         </section>
 
-        <section id="contacto" class="cta-section">
-            <h2>¿Listo para Transformar tu Proceso de Limpieza?</h2>
-            <p>Contáctanos hoy y descubre cómo podemos ayudarte</p>
-            <button class="btn btn-secondary" id="btnContacto" style="background: white; color: var(--primary);">
-                Solicitar Cotización
-            </button>
+        <section id="agendar" class="gallery-section">
+            <h2 class="section-title">Agenda Tu Servicio</h2>
+            <p style="text-align: center; color: var(--gray); margin-bottom: 30px;">
+                Disponibles 24/7 para atenderte
+            </p>
+            <div style="text-align: center;">
+                <button class="btn btn-primary" id="btnAgendarCita" style="font-size: 18px; padding: 16px 40px;">
+                    📅 Agendar Ahora
+                </button>
+            </div>
         </section>
     </div>
 
-    <!-- Modal de Cotización -->
-    <div id="quoteModal" class="modal">
+    <!-- Modal Login/Registro -->
+    <div id="loginModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>💼 Solicitar Cotización</h2>
-                <button class="close-btn" data-modal="quoteModal">&times;</button>
+                <h2 id="loginTitle">Iniciar Sesión</h2>
+                <button class="close-btn" data-modal="loginModal">&times;</button>
             </div>
-            <div id="quoteDetails"></div>
-            <form id="quoteForm">
-                <div class="form-group">
-                    <label>Nombre Completo / Empresa</label>
-                    <input type="text" id="clientName" required>
-                </div>
+            <div id="loginForm">
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="email" id="clientEmail" required>
-                </div>
-                <div class="form-group">
-                    <label>Teléfono</label>
-                    <input type="tel" id="clientPhone" required>
-                </div>
-                <div class="form-group">
-                    <label>Tipo de Proyecto</label>
-                    <select id="projectType" required>
-                        <option value="">Seleccione...</option>
-                        <option value="industrial">Industrial</option>
-                        <option value="automotriz">Automotriz</option>
-                        <option value="otro">Otro</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Detalles Adicionales</label>
-                    <textarea id="projectDetails" rows="4" placeholder="Cuéntanos sobre tu proyecto..."></textarea>
-                </div>
-                <button type="submit" class="btn btn-success" style="width: 100%; margin-top: 15px;">
-                    Enviar Solicitud
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Modal de Login Admin -->
-    <div id="adminLoginModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>🔐 Acceso Administrativo</h2>
-                <button class="close-btn" data-modal="adminLoginModal">&times;</button>
-            </div>
-            <form id="adminLoginForm">
-                <div class="form-group">
-                    <label>Usuario</label>
-                    <input type="text" id="adminUser" value="admin" required>
+                    <input type="email" id="loginEmail" required>
                 </div>
                 <div class="form-group">
                     <label>Contraseña</label>
-                    <input type="password" id="adminPass" value="admin123" required>
+                    <input type="password" id="loginPassword" required>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                <button class="btn btn-primary" id="btnLoginSubmit" style="width: 100%; margin-bottom: 15px;">
                     Iniciar Sesión
                 </button>
-                <p style="margin-top: 15px; text-align: center; color: var(--gray); font-size: 13px;">
-                    Usuario: admin | Contraseña: admin123
-                </p>
+                <button class="btn btn-secondary" id="btnShowRegister" style="width: 100%;">
+                    Crear Cuenta Nueva
+                </button>
+            </div>
+            <div id="registerForm" style="display: none;">
+                <div class="form-group">
+                    <label>Nombre Completo</label>
+                    <input type="text" id="regName" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="regEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Teléfono</label>
+                    <input type="tel" id="regPhone" required>
+                </div>
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" id="regPassword" required>
+                </div>
+                <div class="form-group">
+                    <label>Confirmar Contraseña</label>
+                    <input type="password" id="regPasswordConfirm" required>
+                </div>
+                <button class="btn btn-primary" id="btnRegisterSubmit" style="width: 100%; margin-bottom: 15px;">
+                    Crear Cuenta
+                </button>
+                <button class="btn btn-secondary" id="btnShowLogin" style="width: 100%;">
+                    Ya tengo cuenta
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Carrito -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🛒 Mi Carrito</h2>
+                <button class="close-btn" data-modal="cartModal">&times;</button>
+            </div>
+            <div id="cartItems"></div>
+            <div class="cart-total" id="cartTotal">Total: $0.00</div>
+            <button class="btn btn-primary" id="btnProceedBooking" style="width: 100%;">
+                Proceder a Agendar
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal Agendar Cita -->
+    <div id="appointmentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📅 Agendar Cita</h2>
+                <button class="close-btn" data-modal="appointmentModal">&times;</button>
+            </div>
+            <form id="appointmentForm">
+                <div class="form-group">
+                    <label>Nombre Completo</label>
+                    <input type="text" id="apptName" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="apptEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Teléfono/WhatsApp</label>
+                    <input type="tel" id="apptPhone" required>
+                </div>
+                <div class="form-group">
+                    <label>Fecha</label>
+                    <input type="date" id="apptDate" required>
+                </div>
+                <div class="form-group">
+                    <label>Hora</label>
+                    <select id="apptTime" required>
+                        <option value="">Seleccione...</option>
+                        <option value="00:00">00:00</option>
+                        <option value="01:00">01:00</option>
+                        <option value="02:00">02:00</option>
+                        <option value="03:00">03:00</option>
+                        <option value="04:00">04:00</option>
+                        <option value="05:00">05:00</option>
+                        <option value="06:00">06:00</option>
+                        <option value="07:00">07:00</option>
+                        <option value="08:00">08:00</option>
+                        <option value="09:00">09:00</option>
+                        <option value="10:00">10:00</option>
+                        <option value="11:00">11:00</option>
+                        <option value="12:00">12:00</option>
+                        <option value="13:00">13:00</option>
+                        <option value="14:00">14:00</option>
+                        <option value="15:00">15:00</option>
+                        <option value="16:00">16:00</option>
+                        <option value="17:00">17:00</option>
+                        <option value="18:00">18:00</option>
+                        <option value="19:00">19:00</option>
+                        <option value="20:00">20:00</option>
+                        <option value="21:00">21:00</option>
+                        <option value="22:00">22:00</option>
+                        <option value="23:00">23:00</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Servicios Seleccionados</label>
+                    <div id="apptServices" style="background: #f8fafc; padding: 15px; border-radius: 10px; margin-bottom: 15px;"></div>
+                </div>
+                <div class="form-group">
+                    <label>Notas Adicionales</label>
+                    <textarea id="apptNotes" rows="3" placeholder="Información adicional sobre su proyecto..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-success" style="width: 100%; margin-bottom: 10px;">
+                    ✅ Confirmar Cita
+                </button>
+                <button type="button" class="btn btn-whatsapp" id="btnWhatsAppConfirm" style="width: 100%;">
+                    💬 Confirmar por WhatsApp
+                </button>
             </form>
         </div>
     </div>
 
-    <!-- Panel de Administración -->
+    <!-- Panel Admin -->
     <div id="adminPanel" class="container" style="display: none;">
         <div class="admin-panel">
-            <div class="admin-header">
-                <h2>⚙️ Panel de Administración - CryoClean Pro</h2>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; padding-bottom: 25px; border-bottom: 2px solid #e2e8f0;">
+                <h2>⚙️ Panel de Administración</h2>
                 <button class="btn btn-danger" id="btnLogout">Cerrar Sesión</button>
             </div>
 
             <div id="successMessage" class="success-message"></div>
 
-            <div class="admin-tabs">
+            <div style="margin-bottom: 30px;">
                 <button class="tab-btn active" data-tab="services">Servicios</button>
+                <button class="tab-btn" data-tab="gallery">Galería</button>
+                <button class="tab-btn" data-tab="users">Usuarios</button>
+                <button class="tab-btn" data-tab="appointments">Citas</button>
                 <button class="tab-btn" data-tab="settings">Configuración</button>
+                <button class="tab-btn" data-tab="profile">Mi Perfil</button>
             </div>
 
             <div id="servicesTab" class="tab-content active">
                 <button class="btn btn-primary" id="btnAddService" style="margin-bottom: 25px;">
-                    + Agregar Nuevo Servicio
+                    + Agregar Servicio
                 </button>
-                <div id="servicesList" class="service-list"></div>
+                <div id="servicesList"></div>
+            </div>
+
+            <div id="galleryTab" class="tab-content">
+                <button class="btn btn-primary" id="btnAddGallery" style="margin-bottom: 25px;">
+                    + Agregar Imagen Antes/Después
+                </button>
+                <p style="color: var(--gray); margin-bottom: 20px;">
+                    💡 Sube tus imágenes a un servicio como <a href="https://imgur.com" target="_blank">Imgur</a> y pega la URL aquí
+                </p>
+                <div id="galleryList"></div>
+            </div>
+
+            <div id="usersTab" class="tab-content">
+                <h3 style="margin-bottom: 20px;">Usuarios Registrados</h3>
+                <div id="usersList"></div>
+            </div>
+
+            <div id="appointmentsTab" class="tab-content">
+                <h3 style="margin-bottom: 20px;">Citas Agendadas</h3>
+                <div id="appointmentsList"></div>
             </div>
 
             <div id="settingsTab" class="tab-content">
@@ -708,20 +750,39 @@
                         <textarea id="settingHeroDesc" rows="3">Tecnología de punta con hielo seco y láser para limpieza industrial y automotriz. Sin químicos, sin residuos, sin daños.</textarea>
                     </div>
                     <div class="form-group">
-                        <label>Email de Contacto</label>
-                        <input type="email" id="contactEmail" value="info@cryocleanpro.com">
+                        <label>Email de Notificaciones</label>
+                        <input type="email" id="settingEmail" value="info@cryocleanpro.com" placeholder="Tu email aquí">
                     </div>
                     <div class="form-group">
-                        <label>Teléfono</label>
-                        <input type="tel" id="contactPhone" value="+593-XX-XXX-XXXX">
+                        <label>Número de WhatsApp</label>
+                        <input type="tel" id="settingWhatsApp" value="+593989898143">
                     </div>
                     <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                </form>
+            </div>
+
+            <div id="profileTab" class="tab-content">
+                <h3 style="margin-bottom: 20px;">Cambiar Contraseña</h3>
+                <form id="changePasswordForm">
+                    <div class="form-group">
+                        <label>Contraseña Actual</label>
+                        <input type="password" id="currentPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Nueva Contraseña</label>
+                        <input type="password" id="newPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirmar Nueva Contraseña</label>
+                        <input type="password" id="confirmPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-success">Actualizar Contraseña</button>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- Modal Agregar/Editar Servicio -->
+    <!-- Modal Servicio -->
     <div id="serviceModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -743,7 +804,7 @@
                     <textarea id="serviceFeatures" rows="3" placeholder="Ej: Sin químicos, Eco-amigable, Rápido"></textarea>
                 </div>
                 <div class="form-group">
-                    <label>Precio Desde ($)</label>
+                    <label>Precio ($)</label>
                     <input type="number" id="servicePrice" step="0.01" required>
                 </div>
                 <div class="form-group">
@@ -757,21 +818,54 @@
         </div>
     </div>
 
+    <!-- Modal Galería -->
+    <div id="galleryModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Agregar Antes/Después</h2>
+                <button class="close-btn" data-modal="galleryModal">&times;</button>
+            </div>
+            <form id="galleryForm">
+                <div class="form-group">
+                    <label>Título</label>
+                    <input type="text" id="galleryTitle" placeholder="Ej: Limpieza de Motor Industrial" required>
+                </div>
+                <div class="form-group">
+                    <label>URL Imagen "Antes"</label>
+                    <input type="url" id="galleryBefore" placeholder="https://i.imgur.com/ejemplo.jpg" required>
+                    <small style="color: var(--gray);">Sube tu imagen a Imgur y pega la URL directa</small>
+                </div>
+                <div class="form-group">
+                    <label>URL Imagen "Después"</label>
+                    <input type="url" id="galleryAfter" placeholder="https://i.imgur.com/ejemplo.jpg" required>
+                </div>
+                <button type="submit" class="btn btn-success" style="width: 100%;">
+                    Agregar a Galería
+                </button>
+            </form>
+        </div>
+    </div>
+
     <script>
+        // EmailJS se puede configurar más adelante si lo necesitas
+        // Por ahora, las notificaciones funcionan vía WhatsApp
+
         // Estado de la aplicación
+        let currentUser = null;
+        let cart = [];
         let services = [
             {
                 id: 1,
                 name: "Limpieza con Hielo Seco Industrial",
-                description: "Limpieza profunda para maquinaria industrial pesada sin dañar componentes sensibles. Ideal para plantas de manufactura.",
-                features: ["Sin químicos", "No abrasivo", "Sin tiempo de secado", "Reduce paros de producción"],
+                description: "Limpieza profunda para maquinaria industrial pesada sin dañar componentes sensibles.",
+                features: ["Sin químicos", "No abrasivo", "Sin tiempo de secado", "Reduce paros"],
                 price: 299.99,
                 icon: "❄️"
             },
             {
                 id: 2,
                 name: "Limpieza Láser Industrial",
-                description: "Tecnología láser de alta precisión para remover óxido, pintura y contaminantes sin dañar el material base.",
+                description: "Tecnología láser de alta precisión para remover óxido, pintura y contaminantes.",
                 features: ["Precisión extrema", "Eco-amigable", "Sin consumibles", "Automatizable"],
                 price: 399.99,
                 icon: "⚡"
@@ -779,310 +873,696 @@
             {
                 id: 3,
                 name: "Restauración Automotriz Premium",
-                description: "Limpieza especializada para vehículos clásicos y de lujo. Motores, chasis y componentes delicados.",
-                features: ["No daña pintura original", "Limpieza de motores", "Restaura brillo", "Detallado profesional"],
+                description: "Limpieza especializada para vehículos clásicos y de lujo.",
+                features: ["No daña pintura", "Limpieza de motores", "Restaura brillo", "Detallado"],
                 price: 249.99,
                 icon: "🚗"
             },
             {
                 id: 4,
                 name: "Limpieza de Moldes y Herramientas",
-                description: "Eliminación eficiente de residuos en moldes de inyección y herramientas de producción sin desmontaje.",
+                description: "Eliminación eficiente de residuos sin desmontaje.",
                 features: ["In-situ", "Sin desmontaje", "Ahorra tiempo", "Aumenta vida útil"],
                 price: 349.99,
                 icon: "🔧"
             }
         ];
 
+        let gallery = [
+            {
+                id: 1,
+                title: "Motor Industrial - Antes",
+                type: "before",
+                image: "https://via.placeholder.com/400x300/667eea/ffffff?text=ANTES"
+            },
+            {
+                id: 2,
+                title: "Motor Industrial - Después",
+                type: "after",
+                image: "https://via.placeholder.com/400x300/10b981/ffffff?text=DESPUÉS"
+            },
+            {
+                id: 3,
+                title: "Componente Automotriz - Antes",
+                type: "before",
+                image: "https://via.placeholder.com/400x300/667eea/ffffff?text=ANTES"
+            },
+            {
+                id: 4,
+                title: "Componente Automotriz - Después",
+                type: "after",
+                image: "https://via.placeholder.com/400x300/10b981/ffffff?text=DESPUÉS"
+            }
+        ];
+
+        let users = [
+            {
+                id: 1,
+                name: "Admin",
+                email: "admin@cryocleanpro.com",
+                password: "admin123",
+                role: "admin",
+                phone: "+593989898143"
+            }
+        ];
+
+        let appointments = [];
+
         let settings = {
             heroTitle: "Limpieza Industrial del Futuro",
             heroDescription: "Tecnología de punta con hielo seco y láser para limpieza industrial y automotriz. Sin químicos, sin residuos, sin daños.",
-            contactEmail: "info@cryocleanpro.com",
-            contactPhone: "+593-XX-XXX-XXXX"
+            email: "info@cryocleanpro.com",
+            whatsapp: "+593989898143"
         };
-
-        let currentService = null;
 
         // Inicializar
         document.addEventListener('DOMContentLoaded', function() {
             renderServices();
+            renderGallery();
             setupEvents();
         });
 
-        // Configurar todos los eventos
+        // Setup eventos
         function setupEvents() {
-            // Botón Admin
-            const btnAdmin = document.getElementById('btnAdmin');
-            if (btnAdmin) {
-                btnAdmin.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    openModal('adminLoginModal');
-                });
-            }
-
-            // Botón Ver Servicios
-            const btnVerServicios = document.getElementById('btnVerServicios');
-            if (btnVerServicios) {
-                btnVerServicios.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    document.getElementById('servicios').scrollIntoView({ behavior: 'smooth' });
-                });
-            }
-
-            // Botón Contacto
-            const btnContacto = document.getElementById('btnContacto');
-            if (btnContacto) {
-                btnContacto.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    alert('📧 Contacto: info@cryocleanpro.com\n☎️ Tel: +593-XX-XXX-XXXX');
-                });
-            }
-
-            // Botones cerrar modal
-            document.querySelectorAll('.close-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const modalId = this.getAttribute('data-modal');
-                    closeModal(modalId);
-                });
+            // WhatsApp
+            document.getElementById('whatsappBtn').addEventListener('click', function() {
+                const msg = encodeURIComponent('Hola! Me interesa conocer más sobre sus servicios de limpieza industrial.');
+                window.open(`https://wa.me/${settings.whatsapp.replace(/[^0-9]/g, '')}?text=${msg}`, '_blank');
             });
 
-            // Click fuera del modal
-            document.querySelectorAll('.modal').forEach(modal => {
-                modal.addEventListener('click', function(e) {
-                    if (e.target === this) {
-                        this.classList.remove('active');
-                    }
-                });
+            // Login/Register
+            document.getElementById('btnLogin').addEventListener('click', () => openModal('loginModal'));
+            document.getElementById('btnShowRegister').addEventListener('click', showRegisterForm);
+            document.getElementById('btnShowLogin').addEventListener('click', showLoginForm);
+            document.getElementById('btnLoginSubmit').addEventListener('click', loginUser);
+            document.getElementById('btnRegisterSubmit').addEventListener('click', registerUser);
+
+            // Cart
+            document.getElementById('btnCart').addEventListener('click', () => openModal('cartModal'));
+            document.getElementById('btnProceedBooking').addEventListener('click', proceedToBooking);
+
+            // Appointment
+            document.getElementById('btnAgendarCita').addEventListener('click', () => openModal('appointmentModal'));
+            document.getElementById('btnVerServicios').addEventListener('click', () => {
+                document.getElementById('servicios').scrollIntoView({ behavior: 'smooth' });
             });
+            document.getElementById('appointmentForm').addEventListener('submit', submitAppointment);
+            document.getElementById('btnWhatsAppConfirm').addEventListener('click', confirmViaWhatsApp);
 
-            // Form login admin
-            document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const user = document.getElementById('adminUser').value;
-                const pass = document.getElementById('adminPass').value;
-
-                if (user === 'admin' && pass === 'admin123') {
-                    closeModal('adminLoginModal');
-                    document.getElementById('mainContent').style.display = 'none';
-                    document.querySelector('header').style.display = 'none';
-                    document.getElementById('adminPanel').style.display = 'block';
-                    renderAdminServices();
-                    setupAdminEvents();
-                } else {
-                    alert('❌ Credenciales incorrectas');
-                }
-            });
-
-            // Form cotización
-            document.getElementById('quoteForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('✅ ¡Cotización enviada exitosamente! Nos pondremos en contacto pronto.');
-                closeModal('quoteModal');
-                this.reset();
-            });
-        }
-
-        // Setup eventos del admin
-        function setupAdminEvents() {
-            // Botón logout
-            document.getElementById('btnLogout').addEventListener('click', function() {
-                document.getElementById('mainContent').style.display = 'block';
-                document.querySelector('header').style.display = 'block';
-                document.getElementById('adminPanel').style.display = 'none';
-            });
-
-            // Tabs
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const tabName = this.getAttribute('data-tab');
-                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                    this.classList.add('active');
-                    document.getElementById(tabName + 'Tab').classList.add('active');
-                });
-            });
-
-            // Botón agregar servicio
-            document.getElementById('btnAddService').addEventListener('click', function() {
-                currentService = null;
+            // Admin
+            document.getElementById('btnLogout').addEventListener('click', logout);
+            document.getElementById('btnAddService').addEventListener('click', () => {
                 document.getElementById('serviceModalTitle').textContent = 'Agregar Servicio';
                 document.getElementById('serviceForm').reset();
                 openModal('serviceModal');
             });
+            document.getElementById('btnAddGallery').addEventListener('click', () => openModal('galleryModal'));
+            document.getElementById('serviceForm').addEventListener('submit', saveService);
+            document.getElementById('galleryForm').addEventListener('submit', saveGallery);
+            document.getElementById('settingsForm').addEventListener('submit', saveSettings);
+            document.getElementById('changePasswordForm').addEventListener('submit', changePassword);
 
-            // Form servicio
-            document.getElementById('serviceForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const serviceData = {
-                    name: document.getElementById('serviceName').value,
-                    description: document.getElementById('serviceDescription').value,
-                    features: document.getElementById('serviceFeatures').value.split(',').map(f => f.trim()).filter(f => f),
-                    price: parseFloat(document.getElementById('servicePrice').value),
-                    icon: document.getElementById('serviceIcon').value || '🔧'
-                };
-
-                if (currentService) {
-                    const index = services.findIndex(s => s.id === currentService.id);
-                    services[index] = { ...services[index], ...serviceData };
-                    showSuccess('✅ Servicio actualizado exitosamente');
-                } else {
-                    const newId = Math.max(...services.map(s => s.id), 0) + 1;
-                    services.push({ id: newId, ...serviceData });
-                    showSuccess('✅ Servicio agregado exitosamente');
-                }
-
-                renderAdminServices();
-                renderServices();
-                closeModal('serviceModal');
-                this.reset();
-            });
-
-            // Form settings
-            document.getElementById('settingsForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                settings.heroTitle = document.getElementById('settingHeroTitle').value;
-                settings.heroDescription = document.getElementById('settingHeroDesc').value;
-                settings.contactEmail = document.getElementById('contactEmail').value;
-                settings.contactPhone = document.getElementById('contactPhone').value;
-                
-                document.getElementById('heroTitle').textContent = settings.heroTitle;
-                document.getElementById('heroDesc').textContent = settings.heroDescription;
-                
-                showSuccess('✅ Configuración guardada exitosamente');
-            });
-        }
-
-        // Renderizar servicios
-        function renderServices() {
-            const container = document.getElementById('servicesContainer');
-            if (!container) return;
-            
-            container.innerHTML = services.map(service => `
-                <div class="service-card">
-                    <span class="service-icon">${service.icon}</span>
-                    <h3 class="service-title">${service.name}</h3>
-                    <p class="service-description">${service.description}</p>
-                    <ul class="service-features">
-                        ${service.features.map(f => `<li>${f}</li>`).join('')}
-                    </ul>
-                    <div class="service-price">Desde ${service.price.toFixed(2)}</div>
-                    <button class="btn btn-primary" data-service="${service.id}" style="width: 100%;">
-                        Solicitar Cotización
-                    </button>
-                </div>
-            `).join('');
-            
-            // Agregar eventos a botones de cotización
-            container.querySelectorAll('.btn').forEach(btn => {
+            // Tabs
+            document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    const serviceId = parseInt(this.getAttribute('data-service'));
-                    requestQuote(serviceId);
+                    const tab = this.getAttribute('data-tab');
+                    switchTab(tab);
+                });
+            });
+
+            // Close modals
+            document.querySelectorAll('.close-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const modal = this.getAttribute('data-modal');
+                    closeModal(modal);
+                });
+            });
+
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) closeModal(this.id);
                 });
             });
         }
 
-        // Solicitar cotización
-        function requestQuote(id) {
-            const service = services.find(s => s.id === id);
-            document.getElementById('quoteDetails').innerHTML = `
-                <div class="payment-summary">
-                    <h3 style="margin-bottom: 12px; color: var(--dark);">${service.icon} ${service.name}</h3>
-                    <p style="color: var(--gray); margin-bottom: 12px;">${service.description}</p>
-                    <div style="font-size: 28px; font-weight: bold; color: var(--primary);">
-                        Desde: ${service.price.toFixed(2)}
-                    </div>
+        // Render Services
+        function renderServices() {
+            const container = document.getElementById('servicesContainer');
+            container.innerHTML = services.map(s => `
+                <div class="service-card">
+                    <span class="service-icon">${s.icon}</span>
+                    <h3 style="font-size: 24px; margin-bottom: 15px;">${s.name}</h3>
+                    <p style="color: var(--gray); margin-bottom: 15px;">${s.description}</p>
+                    <ul style="list-style: none; margin: 15px 0;">
+                        ${s.features.map(f => `<li style="padding: 5px 0;">✓ ${f}</li>`).join('')}
+                    </ul>
+                    <div class="service-price">${s.price.toFixed(2)}</div>
+                    <button class="btn btn-primary" data-add-cart="${s.id}" style="width: 100%;">
+                        Agregar al Carrito
+                    </button>
                 </div>
-            `;
-            openModal('quoteModal');
+            `).join('');
+
+            container.querySelectorAll('[data-add-cart]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    addToCart(parseInt(this.getAttribute('data-add-cart')));
+                });
+            });
         }
 
-        // Renderizar servicios en admin
-        function renderAdminServices() {
-            const list = document.getElementById('servicesList');
-            if (!list) return;
-            
-            list.innerHTML = services.map(service => `
-                <div class="service-item">
-                    <div class="service-item-info">
-                        <h3>${service.icon} ${service.name}</h3>
-                        <p style="color: var(--gray); margin: 8px 0;">${service.description}</p>
-                        <strong style="color: var(--primary);">Desde ${service.price.toFixed(2)}</strong>
+        // Render Gallery
+        function renderGallery() {
+            const container = document.getElementById('galleryContainer');
+            container.innerHTML = gallery.map(g => `
+                <div class="gallery-item">
+                    <div class="before-after" style="background-image: url('${g.image}'); background-size: cover; background-position: center;">
+                        <div class="gallery-label">${g.type === 'before' ? 'ANTES' : 'DESPUÉS'}</div>
                     </div>
-                    <div class="service-item-actions">
-                        <button class="btn btn-secondary" data-edit="${service.id}">
-                            Editar
-                        </button>
-                        <button class="btn btn-danger" data-delete="${service.id}">
+                    <div style="padding: 15px; background: white;">
+                        <strong>${g.title}</strong>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Cart functions
+        function addToCart(serviceId) {
+            const service = services.find(s => s.id === serviceId);
+            const existing = cart.find(item => item.id === serviceId);
+            
+            if (existing) {
+                existing.quantity++;
+            } else {
+                cart.push({ ...service, quantity: 1 });
+            }
+            
+            updateCartBadge();
+            showSuccess('✅ Servicio agregado al carrito');
+        }
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cartBadge');
+            const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            if (total > 0) {
+                badge.textContent = total;
+                badge.style.display = 'flex';
+            } else {
+                badge.style.display = 'none';
+            }
+            
+            renderCart();
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cartItems');
+            const totalEl = document.getElementById('cartTotal');
+            
+            if (cart.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--gray); padding: 40px;">Tu carrito está vacío</p>';
+                totalEl.textContent = 'Total: $0.00';
+                return;
+            }
+            
+            container.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div>
+                        <strong>${item.icon} ${item.name}</strong>
+                        <div style="color: var(--gray); font-size: 14px;">Cantidad: ${item.quantity}</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-size: 20px; font-weight: bold; color: var(--primary);">
+                            ${(item.price * item.quantity).toFixed(2)}
+                        </div>
+                        <button class="btn btn-danger" data-remove-cart="${item.id}" style="padding: 6px 12px; font-size: 12px; margin-top: 5px;">
                             Eliminar
                         </button>
                     </div>
                 </div>
             `).join('');
             
-            // Eventos para editar
-            list.querySelectorAll('[data-edit]').forEach(btn => {
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            totalEl.textContent = `Total: ${total.toFixed(2)}`;
+            
+            container.querySelectorAll('[data-remove-cart]').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    const id = parseInt(this.getAttribute('data-edit'));
-                    editService(id);
+                    removeFromCart(parseInt(this.getAttribute('data-remove-cart')));
+                });
+            });
+        }
+
+        function removeFromCart(serviceId) {
+            cart = cart.filter(item => item.id !== serviceId);
+            updateCartBadge();
+        }
+
+        function proceedToBooking() {
+            if (cart.length === 0) {
+                alert('Tu carrito está vacío');
+                return;
+            }
+            closeModal('cartModal');
+            openModal('appointmentModal');
+            
+            const servicesEl = document.getElementById('apptServices');
+            servicesEl.innerHTML = cart.map(item => `
+                <div style="margin-bottom: 8px;">
+                    ${item.icon} ${item.name} (x${item.quantity}) - ${(item.price * item.quantity).toFixed(2)}
+                </div>
+            `).join('');
+        }
+
+        // Appointment
+        function submitAppointment(e) {
+            e.preventDefault();
+            
+            const appointment = {
+                id: Date.now(),
+                name: document.getElementById('apptName').value,
+                email: document.getElementById('apptEmail').value,
+                phone: document.getElementById('apptPhone').value,
+                date: document.getElementById('apptDate').value,
+                time: document.getElementById('apptTime').value,
+                services: [...cart],
+                notes: document.getElementById('apptNotes').value,
+                status: 'pending',
+                createdAt: new Date().toISOString()
+            };
+            
+            appointments.push(appointment);
+            
+            // Enviar email (simulado)
+            sendAppointmentEmail(appointment);
+            
+            alert('✅ ¡Cita agendada exitosamente!\n\nRecibirás una confirmación por email.');
+            closeModal('appointmentModal');
+            cart = [];
+            updateCartBadge();
+            document.getElementById('appointmentForm').reset();
+        }
+
+        function confirmViaWhatsApp() {
+            const name = document.getElementById('apptName').value;
+            const date = document.getElementById('apptDate').value;
+            const time = document.getElementById('apptTime').value;
+            const services = cart.map(s => `${s.name} (x${s.quantity})`).join(', ');
+            
+            const msg = encodeURIComponent(
+                `Hola! Quiero agendar una cita:\n\n` +
+                `👤 Nombre: ${name}\n` +
+                `📅 Fecha: ${date}\n` +
+                `🕐 Hora: ${time}\n` +
+                `🛠️ Servicios: ${services}\n\n` +
+                `¿Pueden confirmar la disponibilidad?`
+            );
+            
+            window.open(`https://wa.me/${settings.whatsapp.replace(/[^0-9]/g, '')}?text=${msg}`, '_blank');
+        }
+
+        function sendAppointmentEmail(appointment) {
+            // Notificación vía consola (simula envío de email)
+            console.log('📧 Notificación de cita:', {
+                para: settings.email,
+                asunto: 'Nueva Cita Agendada - CryoClean Pro',
+                cliente: appointment.name,
+                fecha: appointment.date,
+                hora: appointment.time,
+                servicios: appointment.services.map(s => s.name).join(', ')
+            });
+            
+            // También enviar notificación por WhatsApp al admin
+            const adminMsg = encodeURIComponent(
+                `🔔 NUEVA CITA AGENDADA\n\n` +
+                `👤 Cliente: ${appointment.name}\n` +
+                `📅 Fecha: ${appointment.date}\n` +
+                `🕐 Hora: ${appointment.time}\n` +
+                `📧 Email: ${appointment.email}\n` +
+                `📱 Teléfono: ${appointment.phone}\n` +
+                `🛠️ Servicios: ${appointment.services.map(s => s.name).join(', ')}\n` +
+                `${appointment.notes ? `📝 Notas: ${appointment.notes}` : ''}`
+            );
+            
+            // Opcional: Descomentar para enviar notificación automática al admin
+            // setTimeout(() => {
+            //     window.open(`https://wa.me/${settings.whatsapp.replace(/[^0-9]/g, '')}?text=${adminMsg}`, '_blank');
+            // }, 1000);
+            
+            return true;
+        }
+
+        // Auth
+        function showRegisterForm() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+            document.getElementById('loginTitle').textContent = 'Crear Cuenta';
+        }
+
+        function showLoginForm() {
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('loginTitle').textContent = 'Iniciar Sesión';
+        }
+
+        function registerUser() {
+            const name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value;
+            const phone = document.getElementById('regPhone').value;
+            const password = document.getElementById('regPassword').value;
+            const passwordConfirm = document.getElementById('regPasswordConfirm').value;
+            
+            if (password !== passwordConfirm) {
+                alert('Las contraseñas no coinciden');
+                return;
+            }
+            
+            if (users.find(u => u.email === email)) {
+                alert('Este email ya está registrado');
+                return;
+            }
+            
+            const newUser = {
+                id: Date.now(),
+                name,
+                email,
+                phone,
+                password,
+                role: 'customer',
+                createdAt: new Date().toISOString()
+            };
+            
+            users.push(newUser);
+            alert('✅ Cuenta creada exitosamente');
+            showLoginForm();
+        }
+
+        function loginUser() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            const user = users.find(u => u.email === email && u.password === password);
+            
+            if (!user) {
+                alert('❌ Email o contraseña incorrectos');
+                return;
+            }
+            
+            currentUser = user;
+            closeModal('loginModal');
+            
+            if (user.role === 'admin') {
+                document.getElementById('mainContent').style.display = 'none';
+                document.querySelector('header').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+                renderAdminContent();
+            } else {
+                document.getElementById('btnLogin').textContent = `👤 ${user.name}`;
+                showSuccess(`Bienvenido ${user.name}!`);
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            document.getElementById('mainContent').style.display = 'block';
+            document.querySelector('header').style.display = 'block';
+            document.getElementById('adminPanel').style.display = 'none';
+            document.getElementById('btnLogin').textContent = 'Iniciar Sesión';
+        }
+
+        // Admin Functions
+        function renderAdminContent() {
+            renderAdminServices();
+            renderAdminGallery();
+            renderAdminUsers();
+            renderAdminAppointments();
+        }
+
+        function renderAdminServices() {
+            const list = document.getElementById('servicesList');
+            list.innerHTML = services.map(s => `
+                <div class="user-item" style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h3>${s.icon} ${s.name}</h3>
+                        <p style="color: var(--gray); margin: 5px 0;">${s.description}</p>
+                        <strong style="color: var(--primary);">${s.price.toFixed(2)}</strong>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn btn-secondary" data-edit-service="${s.id}">Editar</button>
+                        <button class="btn btn-danger" data-delete-service="${s.id}">Eliminar</button>
+                    </div>
+                </div>
+            `).join('');
+            
+            list.querySelectorAll('[data-edit-service]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    editService(parseInt(this.getAttribute('data-edit-service')));
                 });
             });
             
-            // Eventos para eliminar
-            list.querySelectorAll('[data-delete]').forEach(btn => {
+            list.querySelectorAll('[data-delete-service]').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    const id = parseInt(this.getAttribute('data-delete'));
-                    deleteService(id);
+                    deleteService(parseInt(this.getAttribute('data-delete-service')));
                 });
             });
         }
 
-        // Editar servicio
+        function renderAdminGallery() {
+            const list = document.getElementById('galleryList');
+            list.innerHTML = gallery.map(g => `
+                <div class="user-item" style="display: flex; gap: 15px; align-items: center;">
+                    <img src="${g.image}" style="width: 100px; height: 75px; object-fit: cover; border-radius: 8px;">
+                    <div style="flex: 1;">
+                        <strong>${g.title}</strong>
+                        <div style="color: var(--gray); font-size: 14px;">${g.type === 'before' ? 'ANTES' : 'DESPUÉS'}</div>
+                    </div>
+                    <button class="btn btn-danger" data-delete-gallery="${g.id}">Eliminar</button>
+                </div>
+            `).join('');
+            
+            list.querySelectorAll('[data-delete-gallery]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    deleteGallery(parseInt(this.getAttribute('data-delete-gallery')));
+                });
+            });
+        }
+
+        function renderAdminUsers() {
+            const list = document.getElementById('usersList');
+            list.innerHTML = users.map(u => `
+                <div class="user-item">
+                    <div style="display: flex; justify-content: space-between;">
+                        <div>
+                            <h4>${u.name}</h4>
+                            <div style="color: var(--gray); margin: 5px 0;">📧 ${u.email}</div>
+                            <div style="color: var(--gray);">📱 ${u.phone || 'N/A'}</div>
+                            <span style="background: ${u.role === 'admin' ? 'var(--primary)' : 'var(--gray)'}; color: white; padding: 4px 12px; border-radius: 6px; font-size: 12px; margin-top: 8px; display: inline-block;">
+                                ${u.role === 'admin' ? 'Administrador' : 'Cliente'}
+                            </span>
+                        </div>
+                        ${u.role !== 'admin' ? `<button class="btn btn-danger" data-delete-user="${u.id}">Eliminar</button>` : ''}
+                    </div>
+                </div>
+            `).join('');
+            
+            list.querySelectorAll('[data-delete-user]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (confirm('¿Eliminar este usuario?')) {
+                        users = users.filter(u => u.id !== parseInt(this.getAttribute('data-delete-user')));
+                        renderAdminUsers();
+                        showSuccess('Usuario eliminado');
+                    }
+                });
+            });
+        }
+
+        function renderAdminAppointments() {
+            const list = document.getElementById('appointmentsList');
+            if (appointments.length === 0) {
+                list.innerHTML = '<p style="text-align: center; color: var(--gray); padding: 40px;">No hay citas agendadas</p>';
+                return;
+            }
+            
+            list.innerHTML = appointments.map(a => `
+                <div class="appointment-item">
+                    <h4>${a.name}</h4>
+                    <div style="color: var(--gray); margin: 8px 0;">
+                        📅 ${a.date} a las ${a.time}
+                    </div>
+                    <div style="color: var(--gray); margin: 5px 0;">📧 ${a.email}</div>
+                    <div style="color: var(--gray); margin: 5px 0;">📱 ${a.phone}</div>
+                    <div style="margin: 10px 0;">
+                        <strong>Servicios:</strong>
+                        ${a.services.map(s => `<div>• ${s.name} (x${s.quantity})</div>`).join('')}
+                    </div>
+                    ${a.notes ? `<div style="background: #f8fafc; padding: 10px; border-radius: 8px; margin: 10px 0;"><strong>Notas:</strong> ${a.notes}</div>` : ''}
+                    <div style="display: flex; gap: 10px; margin-top: 15px;">
+                        <button class="btn btn-whatsapp" data-whatsapp-appt="${a.phone}">💬 Contactar</button>
+                        <button class="btn btn-danger" data-delete-appt="${a.id}">Eliminar</button>
+                    </div>
+                </div>
+            `).join('');
+            
+            list.querySelectorAll('[data-whatsapp-appt]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const phone = this.getAttribute('data-whatsapp-appt');
+                    window.open(`https://wa.me/${phone.replace(/[^0-9]/g, '')}`, '_blank');
+                });
+            });
+            
+            list.querySelectorAll('[data-delete-appt]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (confirm('¿Eliminar esta cita?')) {
+                        appointments = appointments.filter(a => a.id !== parseInt(this.getAttribute('data-delete-appt')));
+                        renderAdminAppointments();
+                        showSuccess('Cita eliminada');
+                    }
+                });
+            });
+        }
+
+        function saveService(e) {
+            e.preventDefault();
+            const id = document.getElementById('serviceId').value;
+            const serviceData = {
+                name: document.getElementById('serviceName').value,
+                description: document.getElementById('serviceDescription').value,
+                features: document.getElementById('serviceFeatures').value.split(',').map(f => f.trim()).filter(f => f),
+                price: parseFloat(document.getElementById('servicePrice').value),
+                icon: document.getElementById('serviceIcon').value || '🔧'
+            };
+            
+            if (id) {
+                const index = services.findIndex(s => s.id === parseInt(id));
+                services[index] = { ...services[index], ...serviceData };
+            } else {
+                services.push({ id: Date.now(), ...serviceData });
+            }
+            
+            renderServices();
+            renderAdminServices();
+            closeModal('serviceModal');
+            showSuccess('✅ Servicio guardado');
+        }
+
         function editService(id) {
-            currentService = services.find(s => s.id === id);
+            const service = services.find(s => s.id === id);
             document.getElementById('serviceModalTitle').textContent = 'Editar Servicio';
-            document.getElementById('serviceName').value = currentService.name;
-            document.getElementById('serviceDescription').value = currentService.description;
-            document.getElementById('serviceFeatures').value = currentService.features.join(', ');
-            document.getElementById('servicePrice').value = currentService.price;
-            document.getElementById('serviceIcon').value = currentService.icon;
+            document.getElementById('serviceId').value = service.id;
+            document.getElementById('serviceName').value = service.name;
+            document.getElementById('serviceDescription').value = service.description;
+            document.getElementById('serviceFeatures').value = service.features.join(', ');
+            document.getElementById('servicePrice').value = service.price;
+            document.getElementById('serviceIcon').value = service.icon;
             openModal('serviceModal');
         }
 
-        // Eliminar servicio
         function deleteService(id) {
-            if (confirm('¿Estás seguro de eliminar este servicio?')) {
+            if (confirm('¿Eliminar este servicio?')) {
                 services = services.filter(s => s.id !== id);
-                renderAdminServices();
                 renderServices();
-                showSuccess('✅ Servicio eliminado exitosamente');
+                renderAdminServices();
+                showSuccess('Servicio eliminado');
             }
         }
 
-        // Mostrar mensaje de éxito
-        function showSuccess(message) {
-            const msgEl = document.getElementById('successMessage');
-            msgEl.textContent = message;
-            msgEl.classList.add('show');
-            setTimeout(() => {
-                msgEl.classList.remove('show');
-            }, 3000);
+        function saveGallery(e) {
+            e.preventDefault();
+            const title = document.getElementById('galleryTitle').value;
+            const before = document.getElementById('galleryBefore').value;
+            const after = document.getElementById('galleryAfter').value;
+            
+            gallery.push(
+                { id: Date.now(), title: title + ' - Antes', type: 'before', image: before },
+                { id: Date.now() + 1, title: title + ' - Después', type: 'after', image: after }
+            );
+            
+            renderGallery();
+            renderAdminGallery();
+            closeModal('galleryModal');
+            document.getElementById('galleryForm').reset();
+            showSuccess('✅ Imágenes agregadas a la galería');
         }
 
-        // Abrir modal
+        function deleteGallery(id) {
+            if (confirm('¿Eliminar esta imagen?')) {
+                gallery = gallery.filter(g => g.id !== id);
+                renderGallery();
+                renderAdminGallery();
+                showSuccess('Imagen eliminada');
+            }
+        }
+
+        function saveSettings(e) {
+            e.preventDefault();
+            settings.heroTitle = document.getElementById('settingHeroTitle').value;
+            settings.heroDescription = document.getElementById('settingHeroDesc').value;
+            settings.email = document.getElementById('settingEmail').value;
+            settings.whatsapp = document.getElementById('settingWhatsApp').value;
+            
+            document.getElementById('heroTitle').textContent = settings.heroTitle;
+            document.getElementById('heroDesc').textContent = settings.heroDescription;
+            
+            showSuccess('✅ Configuración guardada exitosamente');
+        }
+
+        function changePassword(e) {
+            e.preventDefault();
+            const current = document.getElementById('currentPassword').value;
+            const newPass = document.getElementById('newPassword').value;
+            const confirm = document.getElementById('confirmPassword').value;
+            
+            if (currentUser.password !== current) {
+                alert('❌ Contraseña actual incorrecta');
+                return;
+            }
+            
+            if (newPass !== confirm) {
+                alert('❌ Las contraseñas nuevas no coinciden');
+                return;
+            }
+            
+            if (newPass.length < 6) {
+                alert('❌ La contraseña debe tener al menos 6 caracteres');
+                return;
+            }
+            
+            currentUser.password = newPass;
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            users[userIndex].password = newPass;
+            
+            document.getElementById('changePasswordForm').reset();
+            showSuccess('✅ Contraseña actualizada exitosamente');
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+            document.getElementById(tab + 'Tab').classList.add('active');
+        }
+
+        // Helper functions
         function openModal(id) {
-            const modal = document.getElementById(id);
-            if (modal) {
-                modal.classList.add('active');
-            }
+            document.getElementById(id).classList.add('active');
         }
 
-        // Cerrar modal
         function closeModal(id) {
-            const modal = document.getElementById(id);
-            if (modal) {
-                modal.classList.remove('active');
+            document.getElementById(id).classList.remove('active');
+        }
+
+        function showSuccess(message) {
+            const msg = document.getElementById('successMessage');
+            if (msg) {
+                msg.textContent = message;
+                msg.classList.add('show');
+                setTimeout(() => msg.classList.remove('show'), 3000);
+            } else {
+                // Para mensajes fuera del panel admin
+                const div = document.createElement('div');
+                div.style.cssText = 'position: fixed; top: 20px; right: 20px; background: #d1fae5; color: #10b981; padding: 18px 24px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); z-index: 10000; animation: slideIn 0.3s;';
+                div.textContent = message;
+                document.body.appendChild(div);
+                setTimeout(() => div.remove(), 3000);
             }
         }
     </script>
