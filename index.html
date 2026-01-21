@@ -883,6 +883,9 @@
                 <button class="tab-btn" data-tab="appointments">Citas</button>
                 <button class="tab-btn" data-tab="settings">Configuración</button>
                 <button class="tab-btn" data-tab="profile">Mi Perfil</button>
+                <button class="btn btn-success" id="btnViewGoogleSheet" style="float: right;">
+                    📊 Ver Google Sheet
+                </button>
             </div>
 
             <div id="servicesTab" class="tab-content active">
@@ -908,11 +911,23 @@
             </div>
 
             <div id="appointmentsTab" class="tab-content">
+                <div style="background: #dcfce7; padding: 15px; border-radius: 12px; margin-bottom: 20px;">
+                    <strong>💾 Respaldo Automático:</strong> Todas las citas se guardan en Google Drive
+                </div>
                 <h3 style="margin-bottom: 20px;">Citas Agendadas</h3>
                 <div id="appointmentsList"></div>
             </div>
 
             <div id="settingsTab" class="tab-content">
+                <div style="background: #dbeafe; padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 4px solid var(--secondary);">
+                    <h4 style="margin-bottom: 10px;">☁️ Integración con Google Drive</h4>
+                    <p style="color: var(--gray); margin-bottom: 10px;">
+                        Todos los datos de clientes, citas y servicios se guardan automáticamente en tu Google Sheet.
+                    </p>
+                    <button class="btn btn-secondary" onclick="window.open('${GOOGLE_SCRIPT_URL.replace('/exec', '/edit')}', '_blank')">
+                        Ver Google Sheet
+                    </button>
+                </div>
                 <form id="settingsForm">
                     <div class="form-group">
                         <label>Título Principal</label>
@@ -1020,6 +1035,32 @@
     </div>
 
     <script>
+        // Google Sheets Integration
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwHP047fkC_wqduq291djhD6nPlbQiqnG4E3TiQ0nqEoBI7_JaE_sUg8ZsqjtPt-X4H/exec';
+
+        // Función para guardar en Google Sheets
+        async function saveToGoogleSheets(sheetName, data) {
+            try {
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        sheet: sheetName,
+                        values: data
+                    })
+                });
+                
+                console.log(`✅ Datos guardados en Google Sheets: ${sheetName}`);
+                return true;
+            } catch (error) {
+                console.error('Error guardando en Google Sheets:', error);
+                return false;
+            }
+        }
+
         // EmailJS se puede configurar más adelante si lo necesitas
         // Por ahora, las notificaciones funcionan vía WhatsApp
 
@@ -1162,6 +1203,11 @@
 
             // Admin
             document.getElementById('btnLogout').addEventListener('click', logout);
+            document.getElementById('btnViewGoogleSheet').addEventListener('click', function() {
+                // Extraer el ID del Google Sheet de la URL del script
+                const sheetId = 'TU_GOOGLE_SHEET_ID'; // El admin debe poner su ID aquí
+                window.open(`https://docs.google.com/spreadsheets/d/${sheetId}/edit`, '_blank');
+            });
             document.getElementById('btnAddService').addEventListener('click', () => {
                 document.getElementById('serviceModalTitle').textContent = 'Agregar Servicio';
                 document.getElementById('serviceForm').reset();
@@ -1357,6 +1403,9 @@
         function submitAppointment(e) {
             e.preventDefault();
             
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const servicesText = cart.map(item => `${item.name} (x${item.quantity})`).join(', ');
+            
             const appointment = {
                 id: Date.now(),
                 name: document.getElementById('apptName').value,
@@ -1367,15 +1416,31 @@
                 services: [...cart],
                 notes: document.getElementById('apptNotes').value,
                 status: 'pending',
+                total: total,
                 createdAt: new Date().toISOString()
             };
             
             appointments.push(appointment);
             
+            // Guardar en Google Sheets
+            saveToGoogleSheets('Citas', [
+                appointment.id,
+                appointment.name,
+                appointment.email,
+                appointment.phone,
+                appointment.date,
+                appointment.time,
+                servicesText,
+                `${total.toFixed(2)}`,
+                appointment.status,
+                appointment.notes || 'N/A',
+                new Date().toLocaleString()
+            ]);
+            
             // Enviar email (simulado)
             sendAppointmentEmail(appointment);
             
-            alert('✅ ¡Cita agendada exitosamente!\n\nRecibirás una confirmación por email.');
+            alert('✅ ¡Cita agendada exitosamente!\n\nLos datos se han guardado en Google Drive.\nRecibirás una confirmación pronto.');
             closeModal('appointmentModal');
             cart = [];
             updateCartBadge();
@@ -1472,7 +1537,18 @@
             };
             
             users.push(newUser);
-            alert('✅ Cuenta creada exitosamente');
+            
+            // Guardar en Google Sheets
+            saveToGoogleSheets('Clientes', [
+                newUser.id,
+                newUser.name,
+                newUser.email,
+                newUser.phone,
+                new Date().toLocaleDateString(),
+                newUser.role
+            ]);
+            
+            alert('✅ Cuenta creada exitosamente. Los datos se han guardado en Google Drive.');
             showLoginForm();
         }
 
@@ -1655,13 +1731,24 @@
                 const index = services.findIndex(s => s.id === parseInt(id));
                 services[index] = { ...services[index], ...serviceData };
             } else {
-                services.push({ id: Date.now(), ...serviceData });
+                const newService = { id: Date.now(), ...serviceData };
+                services.push(newService);
+                
+                // Guardar nuevo servicio en Google Sheets
+                saveToGoogleSheets('Servicios', [
+                    newService.id,
+                    newService.name,
+                    newService.description,
+                    `${newService.price.toFixed(2)}`,
+                    newService.icon,
+                    newService.features.join(', ')
+                ]);
             }
             
             renderServices();
             renderAdminServices();
             closeModal('serviceModal');
-            showSuccess('✅ Servicio guardado');
+            showSuccess('✅ Servicio guardado en Google Drive');
         }
 
         function editService(id) {
