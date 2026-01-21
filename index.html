@@ -685,6 +685,7 @@
                     <span class="cart-badge" id="cartBadge" style="display: none;">0</span>
                 </button>
                 <button class="btn btn-secondary" id="btnLogin">Iniciar Sesión</button>
+                <button class="btn btn-danger" id="btnLogoutUser" style="display: none;">Cerrar Sesión</button>
             </div>
         </nav>
     </header>
@@ -744,8 +745,11 @@
                 <button class="btn btn-primary" id="btnLoginSubmit" style="width: 100%; margin-bottom: 15px;">
                     Iniciar Sesión
                 </button>
-                <button class="btn btn-secondary" id="btnShowRegister" style="width: 100%;">
+                <button class="btn btn-secondary" id="btnShowRegister" style="width: 100%; margin-bottom: 10px;">
                     Crear Cuenta Nueva
+                </button>
+                <button class="btn" id="btnForgotPassword" style="width: 100%; background: transparent; color: var(--primary); text-decoration: underline;">
+                    ¿Olvidaste tu contraseña?
                 </button>
             </div>
             <div id="registerForm" style="display: none;">
@@ -774,6 +778,21 @@
                 </button>
                 <button class="btn btn-secondary" id="btnShowLogin" style="width: 100%;">
                     Ya tengo cuenta
+                </button>
+            </div>
+            <div id="forgotPasswordForm" style="display: none;">
+                <p style="color: var(--gray); margin-bottom: 20px;">
+                    Ingresa tu email y recibirás instrucciones para recuperar tu contraseña vía WhatsApp
+                </p>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="forgotEmail" required>
+                </div>
+                <button class="btn btn-primary" id="btnResetPassword" style="width: 100%; margin-bottom: 15px;">
+                    Recuperar Contraseña
+                </button>
+                <button class="btn btn-secondary" id="btnBackToLogin" style="width: 100%;">
+                    Volver al Login
                 </button>
             </div>
         </div>
@@ -853,6 +872,21 @@
                     <div id="apptServices" style="background: #f8fafc; padding: 15px; border-radius: 10px; margin-bottom: 15px;"></div>
                 </div>
                 <div class="form-group">
+                    <label>Método de Pago</label>
+                    <select id="paymentMethod" required>
+                        <option value="">Seleccione...</option>
+                        <option value="transferencia">💳 Transferencia Bancaria</option>
+                        <option value="tarjeta">💳 Tarjeta de Crédito/Débito</option>
+                        <option value="btc">₿ Bitcoin (BTC)</option>
+                        <option value="usdt">💵 USDT (Tether)</option>
+                    </select>
+                </div>
+                <div id="paymentInfo" style="background: #f0f9ff; padding: 15px; border-radius: 10px; margin: 15px 0; display: none; border-left: 4px solid var(--secondary);">
+                    <p style="color: var(--gray); font-size: 14px;">
+                        Los datos de pago serán enviados por WhatsApp una vez confirmada la cita.
+                    </p>
+                </div>
+                <div class="form-group">
                     <label>Notas Adicionales</label>
                     <textarea id="apptNotes" rows="3" placeholder="Información adicional sobre su proyecto..."></textarea>
                 </div>
@@ -897,10 +931,11 @@
 
             <div id="galleryTab" class="tab-content">
                 <button class="btn btn-primary" id="btnAddGallery" style="margin-bottom: 25px;">
-                    + Agregar Imagen Antes/Después
+                    + Agregar Imagen/Video
                 </button>
                 <p style="color: var(--gray); margin-bottom: 20px;">
-                    💡 Sube tus imágenes a un servicio como <a href="https://imgur.com" target="_blank">Imgur</a> y pega la URL aquí
+                    💡 <strong>Para imágenes:</strong> Sube a <a href="https://imgur.com" target="_blank" style="color: var(--primary);">Imgur</a> y pega la URL<br>
+                    🎥 <strong>Para videos:</strong> Sube a <a href="https://youtube.com" target="_blank" style="color: var(--primary);">YouTube</a> o <a href="https://vimeo.com" target="_blank" style="color: var(--primary);">Vimeo</a> y pega el link
                 </p>
                 <div id="galleryList"></div>
             </div>
@@ -1010,22 +1045,46 @@
     <div id="galleryModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Agregar Antes/Después</h2>
+                <h2>Agregar Contenido</h2>
                 <button class="close-btn" data-modal="galleryModal">&times;</button>
             </div>
             <form id="galleryForm">
                 <div class="form-group">
-                    <label>Título</label>
-                    <input type="text" id="galleryTitle" placeholder="Ej: Limpieza de Motor Industrial" required>
+                    <label>Tipo de Contenido</label>
+                    <select id="galleryType" required>
+                        <option value="image">📷 Imagen Antes/Después</option>
+                        <option value="video">🎥 Video</option>
+                    </select>
                 </div>
-                <div class="form-group">
-                    <label>URL Imagen "Antes"</label>
-                    <input type="url" id="galleryBefore" placeholder="https://i.imgur.com/ejemplo.jpg" required>
-                    <small style="color: var(--gray);">Sube tu imagen a Imgur y pega la URL directa</small>
+                <div id="imageFields">
+                    <div class="form-group">
+                        <label>Título</label>
+                        <input type="text" id="galleryTitle" placeholder="Ej: Limpieza de Motor Industrial" required>
+                    </div>
+                    <div class="form-group">
+                        <label>URL Imagen "Antes"</label>
+                        <input type="url" id="galleryBefore" placeholder="https://i.imgur.com/ejemplo.jpg">
+                        <small style="color: var(--gray);">Sube tu imagen a Imgur y pega la URL directa</small>
+                    </div>
+                    <div class="form-group">
+                        <label>URL Imagen "Después"</label>
+                        <input type="url" id="galleryAfter" placeholder="https://i.imgur.com/ejemplo.jpg">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>URL Imagen "Después"</label>
-                    <input type="url" id="galleryAfter" placeholder="https://i.imgur.com/ejemplo.jpg" required>
+                <div id="videoFields" style="display: none;">
+                    <div class="form-group">
+                        <label>Título del Video</label>
+                        <input type="text" id="videoTitle" placeholder="Ej: Proceso de Limpieza Láser">
+                    </div>
+                    <div class="form-group">
+                        <label>URL del Video</label>
+                        <input type="url" id="videoUrl" placeholder="https://youtube.com/watch?v=...">
+                        <small style="color: var(--gray);">YouTube, Vimeo o enlace directo al video</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Descripción</label>
+                        <textarea id="videoDescription" rows="3" placeholder="Descripción breve del video..."></textarea>
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-success" style="width: 100%;">
                     Agregar a Galería
@@ -1107,25 +1166,23 @@
                 id: 1,
                 title: "Motor Industrial - Antes",
                 type: "before",
+                contentType: "image",
                 image: "https://via.placeholder.com/400x300/667eea/ffffff?text=ANTES"
             },
             {
                 id: 2,
                 title: "Motor Industrial - Después",
                 type: "after",
+                contentType: "image",
                 image: "https://via.placeholder.com/400x300/10b981/ffffff?text=DESPUÉS"
             },
             {
                 id: 3,
-                title: "Componente Automotriz - Antes",
-                type: "before",
-                image: "https://via.placeholder.com/400x300/667eea/ffffff?text=ANTES"
-            },
-            {
-                id: 4,
-                title: "Componente Automotriz - Después",
-                type: "after",
-                image: "https://via.placeholder.com/400x300/10b981/ffffff?text=DESPUÉS"
+                title: "Proceso de Limpieza",
+                type: "video",
+                contentType: "video",
+                videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                description: "Video demostrativo"
             }
         ];
 
@@ -1184,8 +1241,12 @@
 
             // Login/Register
             document.getElementById('btnLogin').addEventListener('click', () => openModal('loginModal'));
+            document.getElementById('btnLogoutUser').addEventListener('click', logoutUser);
             document.getElementById('btnShowRegister').addEventListener('click', showRegisterForm);
             document.getElementById('btnShowLogin').addEventListener('click', showLoginForm);
+            document.getElementById('btnForgotPassword').addEventListener('click', showForgotPasswordForm);
+            document.getElementById('btnBackToLogin').addEventListener('click', showLoginForm);
+            document.getElementById('btnResetPassword').addEventListener('click', resetPassword);
             document.getElementById('btnLoginSubmit').addEventListener('click', loginUser);
             document.getElementById('btnRegisterSubmit').addEventListener('click', registerUser);
 
@@ -1198,6 +1259,17 @@
             document.getElementById('btnVerServicios').addEventListener('click', () => {
                 document.getElementById('servicios').scrollIntoView({ behavior: 'smooth' });
             });
+            
+            // Mostrar info de pago cuando se selecciona método
+            document.getElementById('paymentMethod').addEventListener('change', function() {
+                const paymentInfo = document.getElementById('paymentInfo');
+                if (this.value) {
+                    paymentInfo.style.display = 'block';
+                } else {
+                    paymentInfo.style.display = 'none';
+                }
+            });
+            
             document.getElementById('appointmentForm').addEventListener('submit', submitAppointment);
             document.getElementById('btnWhatsAppConfirm').addEventListener('click', confirmViaWhatsApp);
 
@@ -1214,6 +1286,23 @@
                 openModal('serviceModal');
             });
             document.getElementById('btnAddGallery').addEventListener('click', () => openModal('galleryModal'));
+            document.getElementById('galleryType').addEventListener('change', function() {
+                const imageFields = document.getElementById('imageFields');
+                const videoFields = document.getElementById('videoFields');
+                if (this.value === 'video') {
+                    imageFields.style.display = 'none';
+                    videoFields.style.display = 'block';
+                    document.getElementById('galleryBefore').removeAttribute('required');
+                    document.getElementById('galleryAfter').removeAttribute('required');
+                    document.getElementById('videoUrl').setAttribute('required', 'required');
+                } else {
+                    imageFields.style.display = 'block';
+                    videoFields.style.display = 'none';
+                    document.getElementById('galleryBefore').setAttribute('required', 'required');
+                    document.getElementById('galleryAfter').setAttribute('required', 'required');
+                    document.getElementById('videoUrl').removeAttribute('required');
+                }
+            });
             document.getElementById('serviceForm').addEventListener('submit', saveService);
             document.getElementById('galleryForm').addEventListener('submit', saveGallery);
             document.getElementById('settingsForm').addEventListener('submit', saveSettings);
@@ -1300,16 +1389,45 @@
         // Render Gallery
         function renderGallery() {
             const container = document.getElementById('galleryContainer');
-            container.innerHTML = gallery.map(g => `
-                <div class="gallery-item">
-                    <div class="before-after" style="background-image: url('${g.image}'); background-size: cover; background-position: center;">
-                        <div class="gallery-label">${g.type === 'before' ? 'ANTES' : 'DESPUÉS'}</div>
-                    </div>
-                    <div style="padding: 15px; background: white;">
-                        <strong>${g.title}</strong>
-                    </div>
-                </div>
-            `).join('');
+            container.innerHTML = gallery.map(g => {
+                if (g.contentType === 'video') {
+                    // Convertir URL de YouTube a embed si es necesario
+                    let embedUrl = g.videoUrl;
+                    if (g.videoUrl.includes('youtube.com/watch')) {
+                        const videoId = g.videoUrl.split('v=')[1]?.split('&')[0];
+                        embedUrl = `https://www.youtube.com/embed/${videoId}`;
+                    } else if (g.videoUrl.includes('youtu.be/')) {
+                        const videoId = g.videoUrl.split('youtu.be/')[1];
+                        embedUrl = `https://www.youtube.com/embed/${videoId}`;
+                    }
+                    
+                    return `
+                        <div class="gallery-item">
+                            <iframe 
+                                style="width: 100%; height: 300px; border: none; border-radius: 16px 16px 0 0;" 
+                                src="${embedUrl}" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                            <div style="padding: 15px; background: white;">
+                                <strong>${g.title}</strong>
+                                ${g.description ? `<p style="color: var(--gray); font-size: 14px; margin-top: 5px;">${g.description}</p>` : ''}
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    return `
+                        <div class="gallery-item">
+                            <div class="before-after" style="background-image: url('${g.image}'); background-size: cover; background-position: center;">
+                                <div class="gallery-label">${g.type === 'before' ? 'ANTES' : 'DESPUÉS'}</div>
+                            </div>
+                            <div style="padding: 15px; background: white;">
+                                <strong>${g.title}</strong>
+                            </div>
+                        </div>
+                    `;
+                }
+            }).join('');
         }
 
         // Cart functions
@@ -1452,31 +1570,30 @@
             const date = document.getElementById('apptDate').value;
             const time = document.getElementById('apptTime').value;
             const services = cart.map(s => `${s.name} (x${s.quantity})`).join(', ');
+            const paymentMethod = document.getElementById('paymentMethod').options[document.getElementById('paymentMethod').selectedIndex]?.text || 'No especificado';
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             
             const msg = encodeURIComponent(
                 `Hola! Quiero agendar una cita:\n\n` +
                 `👤 Nombre: ${name}\n` +
                 `📅 Fecha: ${date}\n` +
                 `🕐 Hora: ${time}\n` +
-                `🛠️ Servicios: ${services}\n\n` +
-                `¿Pueden confirmar la disponibilidad?`
+                `🛠️ Servicios: ${services}\n` +
+                `💰 Total: ${total.toFixed(2)}\n` +
+                `💳 Método de Pago: ${paymentMethod}\n\n` +
+                `Por favor envíenme los datos de pago correspondientes.`
             );
             
             window.open(`https://wa.me/${settings.whatsapp.replace(/[^0-9]/g, '')}?text=${msg}`, '_blank');
         }
 
-        function sendAppointmentEmail(appointment) {
-            // Notificación vía consola (simula envío de email)
-            console.log('📧 Notificación de cita:', {
-                para: settings.email,
-                asunto: 'Nueva Cita Agendada - CryoClean Pro',
-                cliente: appointment.name,
-                fecha: appointment.date,
-                hora: appointment.time,
-                servicios: appointment.services.map(s => s.name).join(', ')
-            });
+        function sendAppointmentEmailWithPayment(appointment) {
+            // Notificación vía consola
+            console.log('📧 Notificación de cita:', appointment);
             
-            // También enviar notificación por WhatsApp al admin
+            // Preparar mensaje con datos de pago
+            const paymentInfo = getPaymentInfo(appointment.paymentMethod);
+            
             const adminMsg = encodeURIComponent(
                 `🔔 NUEVA CITA AGENDADA\n\n` +
                 `👤 Cliente: ${appointment.name}\n` +
@@ -1485,28 +1602,77 @@
                 `📧 Email: ${appointment.email}\n` +
                 `📱 Teléfono: ${appointment.phone}\n` +
                 `🛠️ Servicios: ${appointment.services.map(s => s.name).join(', ')}\n` +
-                `${appointment.notes ? `📝 Notas: ${appointment.notes}` : ''}`
+                `💰 Total: ${appointment.total.toFixed(2)}\n` +
+                `💳 Método de Pago: ${appointment.paymentMethodText}\n` +
+                `${appointment.notes ? `📝 Notas: ${appointment.notes}\n` : ''}\n` +
+                `--- DATOS DE PAGO ---\n${paymentInfo}`
             );
             
-            // Opcional: Descomentar para enviar notificación automática al admin
-            // setTimeout(() => {
-            //     window.open(`https://wa.me/${settings.whatsapp.replace(/[^0-9]/g, '')}?text=${adminMsg}`, '_blank');
-            // }, 1000);
-            
+            console.log('Mensaje de pago preparado para enviar al cliente');
             return true;
+        }
+
+        function getPaymentInfo(paymentMethod) {
+            const paymentData = {
+                transferencia: `🏦 TRANSFERENCIA BANCARIA\nBanco: Tu Banco\nCuenta: 1234-5678-9012\nTitular: CryoClean Pro\nRIF: J-XXXXXXXX-X`,
+                tarjeta: `💳 TARJETA DE CRÉDITO/DÉBITO\nEnviaremos enlace de pago seguro vía email`,
+                btc: `₿ BITCOIN (BTC)\nDirección: bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh\nRed: Bitcoin`,
+                usdt: `💵 USDT (Tether)\nDirección: 0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb\nRed: TRC20 (TRON)`
+            };
+            
+            return paymentData[paymentMethod] || 'Contactar para detalles de pago';
         }
 
         // Auth
         function showRegisterForm() {
             document.getElementById('loginForm').style.display = 'none';
             document.getElementById('registerForm').style.display = 'block';
+            document.getElementById('forgotPasswordForm').style.display = 'none';
             document.getElementById('loginTitle').textContent = 'Crear Cuenta';
         }
 
         function showLoginForm() {
             document.getElementById('registerForm').style.display = 'none';
             document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('forgotPasswordForm').style.display = 'none';
             document.getElementById('loginTitle').textContent = 'Iniciar Sesión';
+        }
+
+        function showForgotPasswordForm() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('forgotPasswordForm').style.display = 'block';
+            document.getElementById('loginTitle').textContent = 'Recuperar Contraseña';
+        }
+
+        function resetPassword() {
+            const email = document.getElementById('forgotEmail').value;
+            const user = users.find(u => u.email === email);
+            
+            if (!user) {
+                alert('❌ No existe una cuenta con ese email');
+                return;
+            }
+            
+            // Enviar contraseña por WhatsApp
+            const msg = encodeURIComponent(
+                `🔐 RECUPERACIÓN DE CONTRASEÑA\n\n` +
+                `Email: ${user.email}\n` +
+                `Contraseña: ${user.password}\n\n` +
+                `Por seguridad, te recomendamos cambiar tu contraseña después de iniciar sesión.`
+            );
+            
+            alert('✅ Se enviará tu contraseña por WhatsApp');
+            window.open(`https://wa.me/${user.phone.replace(/[^0-9]/g, '')}?text=${msg}`, '_blank');
+            showLoginForm();
+        }
+
+        function logoutUser() {
+            currentUser = null;
+            document.getElementById('btnLogin').style.display = 'inline-block';
+            document.getElementById('btnLogoutUser').style.display = 'none';
+            document.getElementById('btnLogin').textContent = 'Iniciar Sesión';
+            showSuccess('👋 Sesión cerrada exitosamente');
         }
 
         function registerUser() {
@@ -1572,8 +1738,10 @@
                 document.getElementById('adminPanel').style.display = 'block';
                 renderAdminContent();
             } else {
-                document.getElementById('btnLogin').textContent = `👤 ${user.name}`;
-                showSuccess(`Bienvenido ${user.name}!`);
+                document.getElementById('btnLogin').style.display = 'none';
+                document.getElementById('btnLogoutUser').style.display = 'inline-block';
+                document.getElementById('btnLogoutUser').textContent = `👤 ${user.name.split(' ')[0]}`;
+                showSuccess(`¡Bienvenido ${user.name}!`);
             }
         }
 
@@ -1624,16 +1792,34 @@
 
         function renderAdminGallery() {
             const list = document.getElementById('galleryList');
-            list.innerHTML = gallery.map(g => `
-                <div class="user-item" style="display: flex; gap: 15px; align-items: center;">
-                    <img src="${g.image}" style="width: 100px; height: 75px; object-fit: cover; border-radius: 8px;">
-                    <div style="flex: 1;">
-                        <strong>${g.title}</strong>
-                        <div style="color: var(--gray); font-size: 14px;">${g.type === 'before' ? 'ANTES' : 'DESPUÉS'}</div>
-                    </div>
-                    <button class="btn btn-danger" data-delete-gallery="${g.id}">Eliminar</button>
-                </div>
-            `).join('');
+            list.innerHTML = gallery.map(g => {
+                if (g.contentType === 'video') {
+                    return `
+                        <div class="user-item" style="display: flex; gap: 15px; align-items: center;">
+                            <div style="width: 100px; height: 75px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 30px;">
+                                🎥
+                            </div>
+                            <div style="flex: 1;">
+                                <strong>${g.title}</strong>
+                                <div style="color: var(--gray); font-size: 14px;">VIDEO</div>
+                                ${g.description ? `<p style="color: var(--gray); font-size: 13px; margin-top: 3px;">${g.description}</p>` : ''}
+                            </div>
+                            <button class="btn btn-danger" data-delete-gallery="${g.id}">Eliminar</button>
+                        </div>
+                    `;
+                } else {
+                    return `
+                        <div class="user-item" style="display: flex; gap: 15px; align-items: center;">
+                            <img src="${g.image}" style="width: 100px; height: 75px; object-fit: cover; border-radius: 8px;" onerror="this.src='https://via.placeholder.com/100x75/667eea/ffffff?text=Imagen'">
+                            <div style="flex: 1;">
+                                <strong>${g.title}</strong>
+                                <div style="color: var(--gray); font-size: 14px;">${g.type === 'before' ? 'ANTES' : 'DESPUÉS'}</div>
+                            </div>
+                            <button class="btn btn-danger" data-delete-gallery="${g.id}">Eliminar</button>
+                        </div>
+                    `;
+                }
+            }).join('');
             
             list.querySelectorAll('[data-delete-gallery]').forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -1774,20 +1960,39 @@
 
         function saveGallery(e) {
             e.preventDefault();
-            const title = document.getElementById('galleryTitle').value;
-            const before = document.getElementById('galleryBefore').value;
-            const after = document.getElementById('galleryAfter').value;
+            const type = document.getElementById('galleryType').value;
             
-            gallery.push(
-                { id: Date.now(), title: title + ' - Antes', type: 'before', image: before },
-                { id: Date.now() + 1, title: title + ' - Después', type: 'after', image: after }
-            );
+            if (type === 'video') {
+                const title = document.getElementById('videoTitle').value;
+                const videoUrl = document.getElementById('videoUrl').value;
+                const description = document.getElementById('videoDescription').value;
+                
+                gallery.push({
+                    id: Date.now(),
+                    title: title,
+                    type: 'video',
+                    contentType: 'video',
+                    videoUrl: videoUrl,
+                    description: description
+                });
+            } else {
+                const title = document.getElementById('galleryTitle').value;
+                const before = document.getElementById('galleryBefore').value;
+                const after = document.getElementById('galleryAfter').value;
+                
+                gallery.push(
+                    { id: Date.now(), title: title + ' - Antes', type: 'before', contentType: 'image', image: before },
+                    { id: Date.now() + 1, title: title + ' - Después', type: 'after', contentType: 'image', image: after }
+                );
+            }
             
             renderGallery();
             renderAdminGallery();
             closeModal('galleryModal');
             document.getElementById('galleryForm').reset();
-            showSuccess('✅ Imágenes agregadas a la galería');
+            document.getElementById('imageFields').style.display = 'block';
+            document.getElementById('videoFields').style.display = 'none';
+            showSuccess('✅ Contenido agregado a la galería');
         }
 
         function deleteGallery(id) {
