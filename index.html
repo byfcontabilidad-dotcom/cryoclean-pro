@@ -1065,6 +1065,17 @@
             </div>
 
             <div id="servicesTab" class="tab-content active">
+                <div style="background: #dcfce7; padding: 15px; border-radius: 12px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <strong style="color: var(--success);">💾 Sistema de Guardado Activo</strong>
+                        <p style="font-size: 13px; color: var(--gray); margin-top: 5px;">
+                            Total de servicios guardados: <span id="serviceCount">0</span>
+                        </p>
+                    </div>
+                    <button class="btn btn-secondary" onclick="testStorage()" style="font-size: 13px; padding: 8px 16px;">
+                        🧪 Probar Guardado
+                    </button>
+                </div>
                 <button class="btn btn-primary" id="btnAddService" style="margin-bottom: 25px;">
                     + Agregar Servicio
                 </button>
@@ -1394,12 +1405,61 @@
 
         // Inicializar
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Inicializando CryoClean Pro...');
+            
+            // Cargar datos guardados
+            loadAllData();
+            
             renderServices();
             renderGallery();
             setupEvents();
             initScrollAnimations();
             checkExistingSession();
+            
+            console.log('✅ Aplicación iniciada');
+            console.log('📊 Servicios cargados:', services.length);
+            console.log('🖼️ Galería cargada:', gallery.length);
         });
+
+        // Cargar todos los datos al iniciar
+        function loadAllData() {
+            console.log('📥 Cargando datos guardados...');
+            
+            // Cargar servicios
+            const savedServices = loadData('services');
+            if (savedServices && savedServices.length > 0) {
+                services = savedServices;
+                console.log('✅ Servicios cargados desde almacenamiento:', services.length);
+            }
+            
+            // Cargar galería
+            const savedGallery = loadData('gallery');
+            if (savedGallery && savedGallery.length > 0) {
+                gallery = savedGallery;
+                console.log('✅ Galería cargada desde almacenamiento:', gallery.length);
+            }
+            
+            // Cargar configuración
+            const savedSettings = loadData('settings');
+            if (savedSettings) {
+                settings = savedSettings;
+                console.log('✅ Configuración cargada desde almacenamiento');
+            }
+            
+            // Cargar usuarios
+            const savedUsers = loadData('users');
+            if (savedUsers && savedUsers.length > 0) {
+                users = savedUsers;
+                console.log('✅ Usuarios cargados desde almacenamiento:', users.length);
+            }
+            
+            // Cargar citas
+            const savedAppointments = loadData('appointments');
+            if (savedAppointments && savedAppointments.length > 0) {
+                appointments = savedAppointments;
+                console.log('✅ Citas cargadas desde almacenamiento:', appointments.length);
+            }
+        }
 
         // Animaciones al scroll
         function initScrollAnimations() {
@@ -2041,6 +2101,7 @@
             renderAdminGallery();
             renderAdminUsers();
             renderAdminAppointments();
+            updateServiceCount();
         }
 
         function renderAdminServices() {
@@ -2221,6 +2282,11 @@
 
         function editService(id) {
             const service = services.find(s => s.id === id);
+            if (!service) {
+                alert('❌ Servicio no encontrado');
+                return;
+            }
+            
             document.getElementById('serviceModalTitle').textContent = 'Editar Servicio';
             document.getElementById('serviceId').value = service.id;
             document.getElementById('serviceName').value = service.name;
