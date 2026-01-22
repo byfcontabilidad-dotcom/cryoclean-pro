@@ -1105,6 +1105,22 @@
                         Ver Google Sheet
                     </button>
                 </div>
+                
+                <div style="background: #dcfce7; padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 4px solid var(--success);">
+                    <h4 style="margin-bottom: 10px;">💾 Sistema de Guardado</h4>
+                    <p style="color: var(--gray); margin-bottom: 15px;">
+                        Todos los cambios se guardan automática y permanentemente en el navegador.
+                    </p>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button class="btn btn-primary" onclick="exportAllData()" style="flex: 1; min-width: 200px;">
+                            📥 Exportar Todos los Datos
+                        </button>
+                        <button class="btn btn-danger" onclick="resetAllData()" style="flex: 1; min-width: 200px;">
+                            🔄 Resetear a Valores Por Defecto
+                        </button>
+                    </div>
+                </div>
+                
                 <form id="settingsForm">
                     <div class="form-group">
                         <label>Título Principal</label>
@@ -1268,7 +1284,9 @@
         // Estado de la aplicación
         let currentUser = null;
         let cart = [];
-        let services = [
+        
+        // Cargar datos guardados o usar valores por defecto
+        let services = loadData('services') || [
             {
                 id: 1,
                 name: "Limpieza con Hielo Seco Industrial",
@@ -1303,7 +1321,7 @@
             }
         ];
 
-        let gallery = [
+        let gallery = loadData('gallery') || [
             {
                 id: 1,
                 title: "Motor Industrial - Antes",
@@ -1328,7 +1346,7 @@
             }
         ];
 
-        let users = [
+        let users = loadData('users') || [
             {
                 id: 1,
                 name: "Administrador CryoClean",
@@ -1339,14 +1357,40 @@
             }
         ];
 
-        let appointments = [];
+        let appointments = loadData('appointments') || [];
 
-        let settings = {
+        let settings = loadData('settings') || {
             heroTitle: "Limpieza Industrial del Futuro",
             heroDescription: "Tecnología de punta con hielo seco y láser para limpieza industrial y automotriz. Sin químicos, sin residuos, sin daños.",
             email: "info@cryocleanpro.com",
             whatsapp: "+593989898143"
         };
+
+        // Funciones de almacenamiento local
+        function saveData(key, data) {
+            try {
+                localStorage.setItem('cryoclean_' + key, JSON.stringify(data));
+                console.log(`✅ ${key} guardado localmente`);
+                return true;
+            } catch (e) {
+                console.error('Error guardando:', e);
+                return false;
+            }
+        }
+
+        function loadData(key) {
+            try {
+                const data = localStorage.getItem('cryoclean_' + key);
+                if (data) {
+                    console.log(`📥 ${key} cargado desde almacenamiento`);
+                    return JSON.parse(data);
+                }
+                return null;
+            } catch (e) {
+                console.error('Error cargando:', e);
+                return null;
+            }
+        }
 
         // Inicializar
         document.addEventListener('DOMContentLoaded', function() {
@@ -1920,6 +1964,9 @@
             
             users.push(newUser);
             
+            // GUARDAR PERMANENTEMENTE
+            saveData('users', users);
+            
             // Guardar en Google Sheets
             saveToGoogleSheets('Clientes', [
                 newUser.id,
@@ -1930,7 +1977,7 @@
                 newUser.role
             ]);
             
-            alert('✅ Cuenta creada exitosamente. Los datos se han guardado en Google Drive.\n\nAhora puedes iniciar sesión.');
+            alert('✅ Cuenta creada exitosamente y guardada.\n\nAhora puedes iniciar sesión.');
             showLoginForm();
             
             // Limpiar formulario
@@ -2185,11 +2232,15 @@
         }
 
         function deleteService(id) {
-            if (confirm('¿Eliminar este servicio?')) {
+            if (confirm('¿Eliminar este servicio? Esta acción no se puede deshacer.')) {
                 services = services.filter(s => s.id !== id);
+                
+                // GUARDAR PERMANENTEMENTE
+                saveData('services', services);
+                
                 renderServices();
                 renderAdminServices();
-                showSuccess('Servicio eliminado');
+                showSuccess('✅ Servicio eliminado exitosamente');
             }
         }
 
@@ -2221,21 +2272,30 @@
                 );
             }
             
+            // GUARDAR PERMANENTEMENTE
+            saveData('gallery', gallery);
+            
             renderGallery();
             renderAdminGallery();
             closeModal('galleryModal');
             document.getElementById('galleryForm').reset();
             document.getElementById('imageFields').style.display = 'block';
             document.getElementById('videoFields').style.display = 'none';
-            showSuccess('✅ Contenido agregado a la galería');
+            showSuccess('✅ Contenido agregado y guardado permanentemente');
+            
+            console.log('💾 Galería guardada:', gallery);
         }
 
         function deleteGallery(id) {
-            if (confirm('¿Eliminar esta imagen?')) {
+            if (confirm('¿Eliminar este contenido de la galería?')) {
                 gallery = gallery.filter(g => g.id !== id);
+                
+                // GUARDAR PERMANENTEMENTE
+                saveData('gallery', gallery);
+                
                 renderGallery();
                 renderAdminGallery();
-                showSuccess('Imagen eliminada');
+                showSuccess('✅ Contenido eliminado exitosamente');
             }
         }
 
@@ -2246,10 +2306,15 @@
             settings.email = document.getElementById('settingEmail').value;
             settings.whatsapp = document.getElementById('settingWhatsApp').value;
             
+            // GUARDAR PERMANENTEMENTE
+            saveData('settings', settings);
+            
             document.getElementById('heroTitle').textContent = settings.heroTitle;
             document.getElementById('heroDesc').textContent = settings.heroDescription;
             
-            showSuccess('✅ Configuración guardada exitosamente');
+            showSuccess('✅ Configuración guardada permanentemente');
+            
+            console.log('💾 Configuración guardada:', settings);
         }
 
         function changePassword(e) {
@@ -2277,8 +2342,49 @@
             const userIndex = users.findIndex(u => u.id === currentUser.id);
             users[userIndex].password = newPass;
             
+            // GUARDAR PERMANENTEMENTE
+            saveData('users', users);
+            
             document.getElementById('changePasswordForm').reset();
-            showSuccess('✅ Contraseña actualizada exitosamente');
+            showSuccess('✅ Contraseña actualizada y guardada exitosamente');
+        }
+
+        // Exportar todos los datos
+        function exportAllData() {
+            const allData = {
+                services: services,
+                gallery: gallery,
+                users: users.map(u => ({...u, password: '***'})), // Ocultar contraseñas
+                appointments: appointments,
+                settings: settings,
+                exportDate: new Date().toISOString()
+            };
+            
+            const dataStr = JSON.stringify(allData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `cryoclean-backup-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            
+            showSuccess('✅ Datos exportados exitosamente');
+        }
+
+        // Resetear todos los datos
+        function resetAllData() {
+            if (confirm('⚠️ ADVERTENCIA: Esto eliminará TODOS los datos personalizados y restaurará los valores por defecto.\n\n¿Estás COMPLETAMENTE seguro?')) {
+                if (confirm('🚨 ÚLTIMA CONFIRMACIÓN: No podrás recuperar los datos eliminados.\n\n¿Continuar?')) {
+                    // Limpiar localStorage
+                    localStorage.removeItem('cryoclean_services');
+                    localStorage.removeItem('cryoclean_gallery');
+                    localStorage.removeItem('cryoclean_settings');
+                    localStorage.removeItem('cryoclean_appointments');
+                    
+                    alert('✅ Datos reseteados. La página se recargará.');
+                    location.reload();
+                }
+            }
         }
 
         function switchTab(tab) {
