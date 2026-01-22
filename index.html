@@ -862,6 +862,12 @@
                     <label>Contraseña</label>
                     <input type="password" id="loginPassword" required>
                 </div>
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: normal;">
+                        <input type="checkbox" id="rememberMe" style="width: auto; cursor: pointer;">
+                        <span>🔐 Recordar mi sesión en este dispositivo</span>
+                    </label>
+                </div>
                 <button class="btn btn-primary" id="btnLoginSubmit" style="width: 100%; margin-bottom: 15px;">
                     Iniciar Sesión
                 </button>
@@ -871,6 +877,17 @@
                 <button class="btn" id="btnForgotPassword" style="width: 100%; background: transparent; color: var(--primary); text-decoration: underline;">
                     ¿Olvidaste tu contraseña?
                 </button>
+                <div style="margin-top: 20px; padding: 15px; background: #f0f9ff; border-radius: 10px; border-left: 4px solid var(--secondary);">
+                    <p style="font-size: 13px; color: var(--gray); margin-bottom: 8px;">
+                        <strong>👤 Acceso Administrador:</strong>
+                    </p>
+                    <p style="font-size: 12px; color: var(--gray); margin: 3px 0;">
+                        📧 Email: <strong style="color: var(--dark);">admin@cryocleanpro.com</strong>
+                    </p>
+                    <p style="font-size: 12px; color: var(--gray);">
+                        🔑 Contraseña: <strong style="color: var(--dark);">Admin2026!</strong>
+                    </p>
+                </div>
             </div>
             <div id="registerForm" style="display: none;">
                 <div class="form-group">
@@ -1314,9 +1331,9 @@
         let users = [
             {
                 id: 1,
-                name: "Admin",
+                name: "Administrador CryoClean",
                 email: "admin@cryocleanpro.com",
-                password: "admin123",
+                password: "Admin2026!",
                 role: "admin",
                 phone: "+593989898143"
             }
@@ -1359,6 +1376,26 @@
 
         // Verificar si hay sesión activa
         function checkExistingSession() {
+            // Intentar cargar sesión recordada desde localStorage
+            const rememberedUser = localStorage.getItem('rememberedUser');
+            if (rememberedUser) {
+                const userData = JSON.parse(rememberedUser);
+                currentUser = userData;
+                
+                if (currentUser.role === 'customer') {
+                    document.getElementById('btnLogin').style.display = 'none';
+                    document.getElementById('btnLogoutUser').style.display = 'inline-block';
+                    document.getElementById('btnLogoutUser').textContent = `👤 ${currentUser.name.split(' ')[0]}`;
+                    
+                    // Mostrar notificación de bienvenida
+                    setTimeout(() => {
+                        showSuccess(`¡Bienvenido de nuevo, ${currentUser.name.split(' ')[0]}! 👋`);
+                    }, 500);
+                }
+                return;
+            }
+            
+            // Si no hay sesión recordada, verificar sesión temporal
             const savedUser = sessionStorage.getItem('currentUser');
             if (savedUser) {
                 currentUser = JSON.parse(savedUser);
@@ -1825,14 +1862,20 @@
         }
 
         function logoutUser() {
-            currentUser = null;
-            sessionStorage.removeItem('currentUser');
-            document.getElementById('btnLogin').style.display = 'inline-block';
-            document.getElementById('btnLogoutUser').style.display = 'none';
-            document.getElementById('btnLogin').textContent = 'Iniciar Sesión';
-            cart = [];
-            updateCartBadge();
-            showSuccess('👋 Sesión cerrada exitosamente');
+            if (confirm('¿Estás seguro que deseas cerrar sesión?')) {
+                currentUser = null;
+                
+                // Limpiar ambas sesiones
+                sessionStorage.removeItem('currentUser');
+                localStorage.removeItem('rememberedUser');
+                
+                document.getElementById('btnLogin').style.display = 'inline-block';
+                document.getElementById('btnLogoutUser').style.display = 'none';
+                document.getElementById('btnLogin').textContent = 'Iniciar Sesión';
+                cart = [];
+                updateCartBadge();
+                showSuccess('👋 Sesión cerrada exitosamente. ¡Hasta pronto!');
+            }
         }
 
         function registerUser() {
@@ -1897,18 +1940,26 @@
         function loginUser() {
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
             
             const user = users.find(u => u.email === email && u.password === password);
             
             if (!user) {
-                alert('❌ Email o contraseña incorrectos');
+                alert('❌ Email o contraseña incorrectos\n\nVerifica tus credenciales e intenta nuevamente.');
                 return;
             }
             
             currentUser = user;
             
-            // Guardar sesión
-            sessionStorage.setItem('currentUser', JSON.stringify(user));
+            // Guardar sesión según preferencia del usuario
+            if (rememberMe) {
+                // Guardar en localStorage (permanente)
+                localStorage.setItem('rememberedUser', JSON.stringify(user));
+                console.log('✅ Sesión guardada permanentemente');
+            } else {
+                // Guardar solo en sessionStorage (temporal)
+                sessionStorage.setItem('currentUser', JSON.stringify(user));
+            }
             
             closeModal('loginModal');
             
@@ -1917,6 +1968,7 @@
                 document.querySelector('header').style.display = 'none';
                 document.getElementById('adminPanel').style.display = 'block';
                 renderAdminContent();
+                showSuccess(`🔐 Acceso administrativo concedido. Bienvenido!`);
             } else {
                 document.getElementById('btnLogin').style.display = 'none';
                 document.getElementById('btnLogoutUser').style.display = 'inline-block';
