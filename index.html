@@ -3,7 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CryoClean Pro - Limpieza Industrial Ecológica</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>CryoClean Pro - Limpieza Industrial Ecológica con Hielo Seco y Láser | Ecuador</title>
+    <meta name="description" content="Servicio profesional de limpieza industrial con hielo seco y láser en Ecuador. Limpieza ecológica para industrias y sector automotriz. Sin químicos, sin daños. Disponible 24/7.">
+    <meta name="keywords" content="limpieza industrial, hielo seco, limpieza láser, Ecuador, limpieza ecológica, limpieza automotriz, dry ice blasting, CryoClean Pro">
+    <meta name="author" content="CryoClean Pro">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Spanish">
+    <meta name="geo.region" content="EC">
+    <meta name="geo.placename" content="Quito">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cryoclean-pro.onrender.com">
+    <meta property="og:title" content="CryoClean Pro - Limpieza Industrial Ecológica">
+    <meta property="og:description" content="Limpieza profesional con hielo seco y láser. Sin químicos, sin daños. Servicio 24/7 en Ecuador.">
+    <meta property="og:image" content="https://via.placeholder.com/1200x630/10b981/ffffff?text=CryoClean+Pro">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://cryoclean-pro.onrender.com">
+    <meta property="twitter:title" content="CryoClean Pro - Limpieza Industrial Ecológica">
+    <meta property="twitter:description" content="Limpieza profesional con hielo seco y láser. Sin químicos, sin daños.">
+    <meta property="twitter:image" content="https://via.placeholder.com/1200x630/10b981/ffffff?text=CryoClean+Pro">
+    
+    <!-- Schema.org markup for Google -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "CryoClean Pro",
+      "description": "Servicio profesional de limpieza industrial con hielo seco y láser",
+      "image": "https://via.placeholder.com/400x400/10b981/ffffff?text=CryoClean+Pro",
+      "telephone": "+593989898143",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Quito",
+        "addressRegion": "Pichincha",
+        "addressCountry": "EC"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "-0.1807",
+        "longitude": "-78.4678"
+      },
+      "openingHours": "Mo-Su 00:00-23:59",
+      "priceRange": "$"
+    }
+    </script>
+    
     <style>
         * {
             margin: 0;
@@ -29,6 +78,49 @@
             background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 50%, #dcfce7 100%);
             min-height: 100vh;
             color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Animaciones globales */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(16, 185, 129, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(16, 185, 129, 0.6); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease-out;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .container {
@@ -98,6 +190,7 @@
             position: sticky;
             top: 0;
             z-index: 1000;
+            animation: slideInLeft 0.5s ease-out;
         }
 
         nav {
@@ -128,12 +221,31 @@
             color: var(--dark);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
+            transition: all 0.3s;
             cursor: pointer;
+            position: relative;
+            padding: 5px 0;
         }
 
         .nav-links a:hover {
             color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: all 0.3s;
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover::before {
+            width: 100%;
         }
 
         .btn {
@@ -154,8 +266,9 @@
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.5);
+            animation: glow 1.5s ease-in-out infinite;
         }
 
         .btn-secondary {
@@ -229,13 +342,14 @@
             border-radius: 20px;
             padding: 40px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-            transition: all 0.4s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: 2px solid transparent;
+            cursor: pointer;
         }
 
         .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 50px rgba(16, 185, 129, 0.15);
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(16, 185, 129, 0.2);
             border-color: var(--primary);
         }
 
@@ -243,6 +357,11 @@
             font-size: 64px;
             margin-bottom: 25px;
             display: block;
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.2) rotate(5deg);
         }
 
         .service-price {
@@ -700,12 +819,12 @@
             </button>
         </section>
 
-        <section id="servicios" class="services-section">
+        <section id="servicios" class="services-section animate-on-scroll">
             <h2 class="section-title">Nuestros Servicios Especializados</h2>
             <div class="services-grid" id="servicesContainer"></div>
         </section>
 
-        <section id="galeria" class="gallery-section">
+        <section id="galeria" class="gallery-section animate-on-scroll">
             <h2 class="section-title">Transformaciones Reales</h2>
             <p style="text-align: center; color: var(--gray); margin-bottom: 30px;">
                 Antes y después de nuestros servicios de limpieza profesional
@@ -713,13 +832,14 @@
             <div class="gallery-grid" id="galleryContainer"></div>
         </section>
 
-        <section id="agendar" class="gallery-section">
+        <section id="agendar" class="gallery-section animate-on-scroll">
             <h2 class="section-title">Agenda Tu Servicio</h2>
-            <p style="text-align: center; color: var(--gray); margin-bottom: 30px;">
-                Disponibles 24/7 para atenderte
+            <p style="text-align: center; color: var(--gray); margin-bottom: 30px; font-size: 18px;">
+                Disponibles <strong style="color: var(--primary);">24/7</strong> para atenderte
             </p>
+            
             <div style="text-align: center;">
-                <button class="btn btn-primary" id="btnAgendarCita" style="font-size: 18px; padding: 16px 40px;">
+                <button class="btn btn-primary" id="btnAgendarCita" style="font-size: 20px; padding: 18px 50px;">
                     📅 Agendar Ahora
                 </button>
             </div>
@@ -872,18 +992,23 @@
                     <div id="apptServices" style="background: #f8fafc; padding: 15px; border-radius: 10px; margin-bottom: 15px;"></div>
                 </div>
                 <div class="form-group">
-                    <label>Método de Pago</label>
-                    <select id="paymentMethod" required>
-                        <option value="">Seleccione...</option>
-                        <option value="transferencia">💳 Transferencia Bancaria</option>
-                        <option value="tarjeta">💳 Tarjeta de Crédito/Débito</option>
+                    <label>Método de Pago Preferido</label>
+                    <select id="paymentMethod" required style="font-size: 16px; padding: 16px;">
+                        <option value="">Seleccione su método de pago...</option>
+                        <option value="transferencia">🏦 Transferencia Bancaria</option>
+                        <option value="tarjeta">💳 Tarjeta de Crédito o Débito (Visa, Mastercard, Amex)</option>
                         <option value="btc">₿ Bitcoin (BTC)</option>
-                        <option value="usdt">💵 USDT (Tether)</option>
+                        <option value="usdt">₮ USDT - Tether (TRC20)</option>
                     </select>
                 </div>
-                <div id="paymentInfo" style="background: #f0f9ff; padding: 15px; border-radius: 10px; margin: 15px 0; display: none; border-left: 4px solid var(--secondary);">
-                    <p style="color: var(--gray); font-size: 14px;">
-                        Los datos de pago serán enviados por WhatsApp una vez confirmada la cita.
+                <div id="paymentInfo" style="background: linear-gradient(135deg, #f0f9ff, #e0f2fe); padding: 20px; border-radius: 12px; margin: 20px 0; display: none; border-left: 4px solid var(--secondary);">
+                    <strong style="color: var(--secondary); font-size: 16px;">💡 Información Importante:</strong>
+                    <p style="color: var(--dark); font-size: 14px; margin-top: 10px; line-height: 1.6;">
+                        Los datos completos de pago serán enviados por WhatsApp una vez confirmada tu cita. 
+                        <br><br>
+                        ✅ Pago 100% seguro y encriptado
+                        <br>
+                        ✅ Confirmación instantánea
                     </p>
                 </div>
                 <div class="form-group">
@@ -1211,7 +1336,39 @@
             renderServices();
             renderGallery();
             setupEvents();
+            initScrollAnimations();
+            checkExistingSession();
         });
+
+        // Animaciones al scroll
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            document.querySelectorAll('.animate-on-scroll').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Verificar si hay sesión activa
+        function checkExistingSession() {
+            const savedUser = sessionStorage.getItem('currentUser');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                if (currentUser.role === 'customer') {
+                    document.getElementById('btnLogin').style.display = 'none';
+                    document.getElementById('btnLogoutUser').style.display = 'inline-block';
+                    document.getElementById('btnLogoutUser').textContent = `👤 ${currentUser.name.split(' ')[0]}`;
+                }
+            }
+        }
 
         // Setup eventos
         function setupEvents() {
@@ -1669,9 +1826,12 @@
 
         function logoutUser() {
             currentUser = null;
+            sessionStorage.removeItem('currentUser');
             document.getElementById('btnLogin').style.display = 'inline-block';
             document.getElementById('btnLogoutUser').style.display = 'none';
             document.getElementById('btnLogin').textContent = 'Iniciar Sesión';
+            cart = [];
+            updateCartBadge();
             showSuccess('👋 Sesión cerrada exitosamente');
         }
 
@@ -1683,12 +1843,25 @@
             const passwordConfirm = document.getElementById('regPasswordConfirm').value;
             
             if (password !== passwordConfirm) {
-                alert('Las contraseñas no coinciden');
+                alert('❌ Las contraseñas no coinciden');
                 return;
             }
             
+            if (password.length < 6) {
+                alert('❌ La contraseña debe tener al menos 6 caracteres');
+                return;
+            }
+            
+            // Verificar si el email ya existe
             if (users.find(u => u.email === email)) {
-                alert('Este email ya está registrado');
+                alert('❌ Este email ya está registrado. Por favor inicia sesión o recupera tu contraseña.');
+                showLoginForm();
+                return;
+            }
+            
+            // Verificar si el teléfono ya existe
+            if (users.find(u => u.phone === phone)) {
+                alert('❌ Este número de teléfono ya está registrado.');
                 return;
             }
             
@@ -1714,8 +1887,11 @@
                 newUser.role
             ]);
             
-            alert('✅ Cuenta creada exitosamente. Los datos se han guardado en Google Drive.');
+            alert('✅ Cuenta creada exitosamente. Los datos se han guardado en Google Drive.\n\nAhora puedes iniciar sesión.');
             showLoginForm();
+            
+            // Limpiar formulario
+            document.getElementById('registerForm').reset();
         }
 
         function loginUser() {
@@ -1730,6 +1906,10 @@
             }
             
             currentUser = user;
+            
+            // Guardar sesión
+            sessionStorage.setItem('currentUser', JSON.stringify(user));
+            
             closeModal('loginModal');
             
             if (user.role === 'admin') {
@@ -1741,8 +1921,11 @@
                 document.getElementById('btnLogin').style.display = 'none';
                 document.getElementById('btnLogoutUser').style.display = 'inline-block';
                 document.getElementById('btnLogoutUser').textContent = `👤 ${user.name.split(' ')[0]}`;
-                showSuccess(`¡Bienvenido ${user.name}!`);
+                showSuccess(`🎉 ¡Bienvenido ${user.name}!`);
             }
+            
+            // Limpiar formulario
+            document.getElementById('loginForm').reset();
         }
 
         function logout() {
