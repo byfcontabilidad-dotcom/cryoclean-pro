@@ -1263,119 +1263,112 @@
     </div>
 
     <script>
-        // Google Sheets Integration
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwHP047fkC_wqduq291djhD6nPlbQiqnG4E3TiQ0nqEoBI7_JaE_sUg8ZsqjtPt-X4H/exec';
+        // Google Sheets API - NUEVA URL
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzYT4KIxra758lJc8U8oDlgVwpCr0E7ktmjDcbEHz1eBLKLrWN2x3rLegrS2ptkMqtX/exec';
 
-        // Función para guardar en Google Sheets
+        // Función mejorada para guardar en Google Sheets
         async function saveToGoogleSheets(sheetName, data) {
             try {
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'no-cors',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
+                        action: 'save',
                         sheet: sheetName,
                         values: data
                     })
                 });
                 
-                console.log(`✅ Datos guardados en Google Sheets: ${sheetName}`);
-                return true;
+                const result = await response.json();
+                console.log(`✅ Datos guardados en ${sheetName}:`, result);
+                return result.success;
             } catch (error) {
-                console.error('Error guardando en Google Sheets:', error);
+                console.error('❌ Error guardando en Google Sheets:', error);
                 return false;
+            }
+        }
+
+        // Función para actualizar en Google Sheets
+        async function updateInGoogleSheets(sheetName, id, data) {
+            try {
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'update',
+                        sheet: sheetName,
+                        id: id,
+                        values: data
+                    })
+                });
+                
+                const result = await response.json();
+                console.log(`✅ Datos actualizados en ${sheetName}:`, result);
+                return result.success;
+            } catch (error) {
+                console.error('❌ Error actualizando en Google Sheets:', error);
+                return false;
+            }
+        }
+
+        // Función para eliminar de Google Sheets
+        async function deleteFromGoogleSheets(sheetName, id) {
+            try {
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'delete',
+                        sheet: sheetName,
+                        id: id
+                    })
+                });
+                
+                const result = await response.json();
+                console.log(`✅ Datos eliminados de ${sheetName}:`, result);
+                return result.success;
+            } catch (error) {
+                console.error('❌ Error eliminando de Google Sheets:', error);
+                return false;
+            }
+        }
+
+        // Función para cargar datos desde Google Sheets
+        async function loadFromGoogleSheets(sheetName) {
+            try {
+                const response = await fetch(`${GOOGLE_SCRIPT_URL}?sheet=${sheetName}`);
+                const result = await response.json();
+                
+                if (result.success) {
+                    console.log(`✅ Datos cargados desde ${sheetName}:`, result.data.length, 'registros');
+                    return result.data;
+                } else {
+                    console.error('❌ Error cargando:', result.message);
+                    return [];
+                }
+            } catch (error) {
+                console.error('❌ Error cargando de Google Sheets:', error);
+                return [];
             }
         }
 
         // EmailJS se puede configurar más adelante si lo necesitas
         // Por ahora, las notificaciones funcionan vía WhatsApp
 
-        // Estado de la aplicación
+        // Estado de la aplicación - SE CARGA DESDE GOOGLE SHEETS
         let currentUser = null;
         let cart = [];
-        
-        // Cargar datos guardados o usar valores por defecto
-        let services = loadData('services') || [
-            {
-                id: 1,
-                name: "Limpieza con Hielo Seco Industrial",
-                description: "Limpieza profunda para maquinaria industrial pesada sin dañar componentes sensibles.",
-                features: ["Sin químicos", "No abrasivo", "Sin tiempo de secado", "Reduce paros"],
-                price: 299.99,
-                icon: "❄️"
-            },
-            {
-                id: 2,
-                name: "Limpieza Láser Industrial",
-                description: "Tecnología láser de alta precisión para remover óxido, pintura y contaminantes.",
-                features: ["Precisión extrema", "Eco-amigable", "Sin consumibles", "Automatizable"],
-                price: 399.99,
-                icon: "⚡"
-            },
-            {
-                id: 3,
-                name: "Restauración Automotriz Premium",
-                description: "Limpieza especializada para vehículos clásicos y de lujo.",
-                features: ["No daña pintura", "Limpieza de motores", "Restaura brillo", "Detallado"],
-                price: 249.99,
-                icon: "🚗"
-            },
-            {
-                id: 4,
-                name: "Limpieza de Moldes y Herramientas",
-                description: "Eliminación eficiente de residuos sin desmontaje.",
-                features: ["In-situ", "Sin desmontaje", "Ahorra tiempo", "Aumenta vida útil"],
-                price: 349.99,
-                icon: "🔧"
-            }
-        ];
-
-        let gallery = loadData('gallery') || [
-            {
-                id: 1,
-                title: "Motor Industrial - Antes",
-                type: "before",
-                contentType: "image",
-                image: "https://via.placeholder.com/400x300/667eea/ffffff?text=ANTES"
-            },
-            {
-                id: 2,
-                title: "Motor Industrial - Después",
-                type: "after",
-                contentType: "image",
-                image: "https://via.placeholder.com/400x300/10b981/ffffff?text=DESPUÉS"
-            },
-            {
-                id: 3,
-                title: "Proceso de Limpieza",
-                type: "video",
-                contentType: "video",
-                videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-                description: "Video demostrativo"
-            }
-        ];
-
-        let users = loadData('users') || [
-            {
-                id: 1,
-                name: "Administrador CryoClean",
-                email: "admin@cryocleanpro.com",
-                password: "Admin2026!",
-                role: "admin",
-                phone: "+593989898143"
-            }
-        ];
-
-        let appointments = loadData('appointments') || [];
-
-        let settings = loadData('settings') || {
-            heroTitle: "Limpieza Industrial del Futuro",
-            heroDescription: "Tecnología de punta con hielo seco y láser para limpieza industrial y automotriz. Sin químicos, sin residuos, sin daños.",
-            email: "info@cryocleanpro.com",
-            whatsapp: "+593989898143"
-        };
+        let services = [];
+        let gallery = [];
+        let users = [];
+        let appointments = [];
+        let settings = {};
 
         // Funciones de almacenamiento local
         function saveData(key, data) {
@@ -1403,62 +1396,162 @@
             }
         }
 
-        // Inicializar
-        document.addEventListener('DOMContentLoaded', function() {
+        // Inicializar - CARGAR TODO DESDE GOOGLE SHEETS
+        document.addEventListener('DOMContentLoaded', async function() {
             console.log('🚀 Inicializando CryoClean Pro...');
             
-            // Cargar datos guardados
-            loadAllData();
+            // Mostrar loading
+            showLoading();
             
+            // Cargar TODOS los datos desde Google Sheets
+            await loadAllDataFromCloud();
+            
+            // Renderizar
             renderServices();
             renderGallery();
             setupEvents();
             initScrollAnimations();
             checkExistingSession();
             
+            hideLoading();
+            
             console.log('✅ Aplicación iniciada');
-            console.log('📊 Servicios cargados:', services.length);
-            console.log('🖼️ Galería cargada:', gallery.length);
+            console.log('📊 Servicios:', services.length);
+            console.log('🖼️ Galería:', gallery.length);
+            console.log('👥 Usuarios:', users.length);
         });
 
-        // Cargar todos los datos al iniciar
-        function loadAllData() {
-            console.log('📥 Cargando datos guardados...');
+        // Cargar todos los datos desde Google Sheets
+        async function loadAllDataFromCloud() {
+            console.log('☁️ Cargando datos desde Google Sheets...');
             
-            // Cargar servicios
-            const savedServices = loadData('services');
-            if (savedServices && savedServices.length > 0) {
-                services = savedServices;
-                console.log('✅ Servicios cargados desde almacenamiento:', services.length);
+            try {
+                // Cargar servicios
+                const servicesData = await loadFromGoogleSheets('Servicios');
+                if (servicesData && servicesData.length > 0) {
+                    services = servicesData.map(s => ({
+                        id: s.ID,
+                        name: s.Nombre,
+                        description: s.Descripcion,
+                        price: parseFloat(s.Precio),
+                        icon: s.Icono,
+                        features: s.Caracteristicas ? s.Caracteristicas.split(',').map(f => f.trim()) : []
+                    }));
+                    console.log('✅ Servicios cargados:', services.length);
+                } else {
+                    // Datos por defecto si está vacío
+                    services = getDefaultServices();
+                    console.log('ℹ️ Usando servicios por defecto');
+                }
+                
+                // Cargar galería
+                const galleryData = await loadFromGoogleSheets('Galeria');
+                if (galleryData && galleryData.length > 0) {
+                    gallery = galleryData.map(g => ({
+                        id: g.ID,
+                        title: g.Titulo,
+                        type: g.Tipo,
+                        contentType: g.Tipo === 'video' ? 'video' : 'image',
+                        image: g.URL,
+                        videoUrl: g.URL,
+                        description: g.Descripcion || ''
+                    }));
+                    console.log('✅ Galería cargada:', gallery.length);
+                } else {
+                    gallery = getDefaultGallery();
+                    console.log('ℹ️ Usando galería por defecto');
+                }
+                
+                // Cargar usuarios
+                const usersData = await loadFromGoogleSheets('Clientes');
+                if (usersData && usersData.length > 0) {
+                    users = usersData.map(u => ({
+                        id: u.ID,
+                        name: u.Nombre,
+                        email: u.Email,
+                        phone: u.Telefono,
+                        password: u.Password || 'default123',
+                        role: u.Rol,
+                        createdAt: u.FechaRegistro
+                    }));
+                    console.log('✅ Usuarios cargados:', users.length);
+                } else {
+                    users = getDefaultUsers();
+                    console.log('ℹ️ Usando usuarios por defecto');
+                }
+                
+                // Cargar configuración
+                const configData = await loadFromGoogleSheets('Configuracion');
+                if (configData && configData.length > 0) {
+                    settings = {};
+                    configData.forEach(item => {
+                        settings[item.Clave] = item.Valor;
+                    });
+                    console.log('✅ Configuración cargada');
+                } else {
+                    settings = getDefaultSettings();
+                    console.log('ℹ️ Usando configuración por defecto');
+                }
+                
+                // Cargar citas
+                const appointmentsData = await loadFromGoogleSheets('Citas');
+                if (appointmentsData && appointmentsData.length > 0) {
+                    appointments = appointmentsData;
+                    console.log('✅ Citas cargadas:', appointments.length);
+                }
+                
+            } catch (error) {
+                console.error('❌ Error cargando datos:', error);
+                // Usar datos por defecto en caso de error
+                services = getDefaultServices();
+                gallery = getDefaultGallery();
+                users = getDefaultUsers();
+                settings = getDefaultSettings();
             }
-            
-            // Cargar galería
-            const savedGallery = loadData('gallery');
-            if (savedGallery && savedGallery.length > 0) {
-                gallery = savedGallery;
-                console.log('✅ Galería cargada desde almacenamiento:', gallery.length);
-            }
-            
-            // Cargar configuración
-            const savedSettings = loadData('settings');
-            if (savedSettings) {
-                settings = savedSettings;
-                console.log('✅ Configuración cargada desde almacenamiento');
-            }
-            
-            // Cargar usuarios
-            const savedUsers = loadData('users');
-            if (savedUsers && savedUsers.length > 0) {
-                users = savedUsers;
-                console.log('✅ Usuarios cargados desde almacenamiento:', users.length);
-            }
-            
-            // Cargar citas
-            const savedAppointments = loadData('appointments');
-            if (savedAppointments && savedAppointments.length > 0) {
-                appointments = savedAppointments;
-                console.log('✅ Citas cargadas desde almacenamiento:', appointments.length);
-            }
+        }
+
+        // Funciones para datos por defecto
+        function getDefaultServices() {
+            return [
+                {id: 1, name: "Limpieza con Hielo Seco Industrial", description: "Limpieza profunda para maquinaria industrial.", features: ["Sin químicos", "No abrasivo"], price: 299.99, icon: "❄️"},
+                {id: 2, name: "Limpieza Láser Industrial", description: "Tecnología láser de alta precisión.", features: ["Precisión extrema", "Eco-amigable"], price: 399.99, icon: "⚡"},
+                {id: 3, name: "Restauración Automotriz Premium", description: "Limpieza especializada para vehículos.", features: ["No daña pintura", "Detallado"], price: 249.99, icon: "🚗"},
+                {id: 4, name: "Limpieza de Moldes", description: "Eliminación eficiente de residuos.", features: ["In-situ", "Sin desmontaje"], price: 349.99, icon: "🔧"}
+            ];
+        }
+
+        function getDefaultGallery() {
+            return [
+                {id: 1, title: "Motor Industrial - Antes", type: "before", contentType: "image", image: "https://via.placeholder.com/400x300/667eea/ffffff?text=ANTES"},
+                {id: 2, title: "Motor Industrial - Después", type: "after", contentType: "image", image: "https://via.placeholder.com/400x300/10b981/ffffff?text=DESPUÉS"}
+            ];
+        }
+
+        function getDefaultUsers() {
+            return [{id: 1, name: "Administrador CryoClean", email: "admin@cryocleanpro.com", password: "Admin2026!", role: "admin", phone: "+593989898143"}];
+        }
+
+        function getDefaultSettings() {
+            return {
+                heroTitle: "Limpieza Industrial del Futuro",
+                heroDescription: "Tecnología de punta con hielo seco y láser.",
+                email: "info@cryocleanpro.com",
+                whatsapp: "+593989898143"
+            };
+        }
+
+        // Loading indicator
+        function showLoading() {
+            const loading = document.createElement('div');
+            loading.id = 'loading';
+            loading.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,0.95);display:flex;align-items:center;justify-content:center;z-index:10000;flex-direction:column;';
+            loading.innerHTML = '<div style="font-size:48px;margin-bottom:20px;">❄️</div><div style="font-size:24px;color:#10b981;">Cargando datos...</div>';
+            document.body.appendChild(loading);
+        }
+
+        function hideLoading() {
+            const loading = document.getElementById('loading');
+            if (loading) loading.remove();
         }
 
         // Animaciones al scroll
