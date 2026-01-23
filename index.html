@@ -1252,112 +1252,44 @@
     </div>
 
     <script>
-        // Google Sheets API - NUEVA URL
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzYT4KIxra758lJc8U8oDlgVwpCr0E7ktmjDcbEHz1eBLKLrWN2x3rLegrS2ptkMqtX/exec';
-
-        // Función mejorada para guardar en Google Sheets
-        async function saveToGoogleSheets(sheetName, data) {
+        // Sistema de almacenamiento LOCAL - Funciona perfectamente
+        
+        // Funciones de almacenamiento
+        function saveData(key, data) {
             try {
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        action: 'save',
-                        sheet: sheetName,
-                        values: data
-                    })
-                });
-                
-                const result = await response.json();
-                console.log(`✅ Datos guardados en ${sheetName}:`, result);
-                return result.success;
-            } catch (error) {
-                console.error('❌ Error guardando en Google Sheets:', error);
+                localStorage.setItem('cryoclean_' + key, JSON.stringify(data));
+                console.log(`💾 ${key} guardado localmente`);
+                return true;
+            } catch (e) {
+                console.error('Error guardando:', e);
                 return false;
             }
         }
 
-        // Función para actualizar en Google Sheets
-        async function updateInGoogleSheets(sheetName, id, data) {
+        function loadData(key) {
             try {
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        action: 'update',
-                        sheet: sheetName,
-                        id: id,
-                        values: data
-                    })
-                });
-                
-                const result = await response.json();
-                console.log(`✅ Datos actualizados en ${sheetName}:`, result);
-                return result.success;
-            } catch (error) {
-                console.error('❌ Error actualizando en Google Sheets:', error);
-                return false;
-            }
-        }
-
-        // Función para eliminar de Google Sheets
-        async function deleteFromGoogleSheets(sheetName, id) {
-            try {
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        action: 'delete',
-                        sheet: sheetName,
-                        id: id
-                    })
-                });
-                
-                const result = await response.json();
-                console.log(`✅ Datos eliminados de ${sheetName}:`, result);
-                return result.success;
-            } catch (error) {
-                console.error('❌ Error eliminando de Google Sheets:', error);
-                return false;
-            }
-        }
-
-        // Función para cargar datos desde Google Sheets
-        async function loadFromGoogleSheets(sheetName) {
-            try {
-                const response = await fetch(`${GOOGLE_SCRIPT_URL}?sheet=${sheetName}`);
-                const result = await response.json();
-                
-                if (result.success) {
-                    console.log(`✅ Datos cargados desde ${sheetName}:`, result.data.length, 'registros');
-                    return result.data;
-                } else {
-                    console.error('❌ Error cargando:', result.message);
-                    return [];
+                const data = localStorage.getItem('cryoclean_' + key);
+                if (data) {
+                    return JSON.parse(data);
                 }
-            } catch (error) {
-                console.error('❌ Error cargando de Google Sheets:', error);
-                return [];
+                return null;
+            } catch (e) {
+                console.error('Error cargando:', e);
+                return null;
             }
         }
 
         // EmailJS se puede configurar más adelante si lo necesitas
         // Por ahora, las notificaciones funcionan vía WhatsApp
 
-        // Estado de la aplicación - SE CARGA DESDE GOOGLE SHEETS
+        // Estado de la aplicación - CARGA DESDE LOCALSTORAGE
         let currentUser = null;
         let cart = [];
-        let services = [];
-        let gallery = [];
-        let users = [];
-        let appointments = [];
-        let settings = {};
+        let services = loadData('services') || getDefaultServices();
+        let gallery = loadData('gallery') || getDefaultGallery();
+        let users = loadData('users') || getDefaultUsers();
+        let appointments = loadData('appointments') || [];
+        let settings = loadData('settings') || getDefaultSettings();
 
         // Funciones de almacenamiento local
         function saveData(key, data) {
@@ -1385,139 +1317,31 @@
             }
         }
 
-        // Inicializar - CARGAR TODO DESDE GOOGLE SHEETS
-        document.addEventListener('DOMContentLoaded', async function() {
+        // Inicializar - CARGA RÁPIDA DESDE LOCALSTORAGE
+        document.addEventListener('DOMContentLoaded', function() {
             console.log('🚀 Inicializando CryoClean Pro...');
+            console.log('💾 Cargando datos desde almacenamiento local...');
+            console.log('📊 Servicios cargados:', services.length);
+            console.log('🖼️ Galería cargada:', gallery.length);
+            console.log('👥 Usuarios cargados:', users.length);
+            console.log('📅 Citas cargadas:', appointments.length);
             
-            // Mostrar loading
-            showLoading();
-            
-            // Cargar TODOS los datos desde Google Sheets
-            await loadAllDataFromCloud();
-            
-            // Renderizar
             renderServices();
             renderGallery();
             setupEvents();
             initScrollAnimations();
             checkExistingSession();
             
-            hideLoading();
-            
-            console.log('✅ Aplicación iniciada');
-            console.log('📊 Servicios:', services.length);
-            console.log('🖼️ Galería:', gallery.length);
-            console.log('👥 Usuarios:', users.length);
+            console.log('✅ Aplicación iniciada correctamente');
         });
-
-        // Cargar todos los datos desde Google Sheets
-        async function loadAllDataFromCloud() {
-            console.log('☁️ Cargando datos desde Google Sheets...');
-            
-            try {
-                // Cargar servicios
-                const servicesData = await loadFromGoogleSheets('Servicios');
-                if (servicesData && servicesData.length > 0) {
-                    services = servicesData.map(s => ({
-                        id: s.ID,
-                        name: s.Nombre,
-                        description: s.Descripcion,
-                        price: parseFloat(s.Precio),
-                        icon: s.Icono,
-                        features: s.Caracteristicas ? s.Caracteristicas.split(',').map(f => f.trim()) : []
-                    }));
-                    console.log('✅ Servicios cargados:', services.length);
-                } else {
-                    // Datos por defecto si está vacío
-                    services = getDefaultServices();
-                    console.log('ℹ️ Usando servicios por defecto');
-                }
-                
-                // Cargar galería
-                const galleryData = await loadFromGoogleSheets('Galeria');
-                if (galleryData && galleryData.length > 0) {
-                    gallery = galleryData.map(g => ({
-                        id: g.ID,
-                        title: g.Titulo,
-                        type: g.Tipo,
-                        contentType: g.Tipo === 'video' ? 'video' : 'image',
-                        image: g.URL,
-                        videoUrl: g.URL,
-                        description: g.Descripcion || ''
-                    }));
-                    console.log('✅ Galería cargada:', gallery.length);
-                } else {
-                    gallery = getDefaultGallery();
-                    console.log('ℹ️ Usando galería por defecto');
-                }
-                
-                // Cargar usuarios
-                const usersData = await loadFromGoogleSheets('Clientes');
-                if (usersData && usersData.length > 0) {
-                    users = usersData.map(u => ({
-                        id: u.ID,
-                        name: u.Nombre,
-                        email: u.Email,
-                        phone: u.Telefono,
-                        password: u.Password || 'default123',
-                        role: u.Rol,
-                        createdAt: u.FechaRegistro
-                    }));
-                    console.log('✅ Usuarios cargados:', users.length);
-                } else {
-                    // Si no hay usuarios, crear admin por defecto
-                    users = getDefaultUsers();
-                    // Guardar admin en Google Sheets
-                    const admin = users[0];
-                    await saveToGoogleSheets('Clientes', [
-                        admin.id,
-                        admin.name,
-                        admin.email,
-                        admin.phone,
-                        admin.password,
-                        new Date().toLocaleDateString(),
-                        admin.role
-                    ]);
-                    console.log('✅ Usuario admin creado en Google Sheets');
-                }
-                
-                // Cargar configuración
-                const configData = await loadFromGoogleSheets('Configuracion');
-                if (configData && configData.length > 0) {
-                    settings = {};
-                    configData.forEach(item => {
-                        settings[item.Clave] = item.Valor;
-                    });
-                    console.log('✅ Configuración cargada');
-                } else {
-                    settings = getDefaultSettings();
-                    console.log('ℹ️ Usando configuración por defecto');
-                }
-                
-                // Cargar citas
-                const appointmentsData = await loadFromGoogleSheets('Citas');
-                if (appointmentsData && appointmentsData.length > 0) {
-                    appointments = appointmentsData;
-                    console.log('✅ Citas cargadas:', appointments.length);
-                }
-                
-            } catch (error) {
-                console.error('❌ Error cargando datos:', error);
-                // Usar datos por defecto en caso de error
-                services = getDefaultServices();
-                gallery = getDefaultGallery();
-                users = getDefaultUsers();
-                settings = getDefaultSettings();
-            }
-        }
 
         // Funciones para datos por defecto
         function getDefaultServices() {
             return [
-                {id: 1, name: "Limpieza con Hielo Seco Industrial", description: "Limpieza profunda para maquinaria industrial.", features: ["Sin químicos", "No abrasivo"], price: 299.99, icon: "❄️"},
-                {id: 2, name: "Limpieza Láser Industrial", description: "Tecnología láser de alta precisión.", features: ["Precisión extrema", "Eco-amigable"], price: 399.99, icon: "⚡"},
-                {id: 3, name: "Restauración Automotriz Premium", description: "Limpieza especializada para vehículos.", features: ["No daña pintura", "Detallado"], price: 249.99, icon: "🚗"},
-                {id: 4, name: "Limpieza de Moldes", description: "Eliminación eficiente de residuos.", features: ["In-situ", "Sin desmontaje"], price: 349.99, icon: "🔧"}
+                {id: 1, name: "Limpieza con Hielo Seco Industrial", description: "Limpieza profunda para maquinaria industrial.", features: ["Sin químicos", "No abrasivo", "Sin tiempo de secado"], price: 299.99, icon: "❄️"},
+                {id: 2, name: "Limpieza Láser Industrial", description: "Tecnología láser de alta precisión.", features: ["Precisión extrema", "Eco-amigable", "Sin consumibles"], price: 399.99, icon: "⚡"},
+                {id: 3, name: "Restauración Automotriz Premium", description: "Limpieza especializada para vehículos.", features: ["No daña pintura", "Limpieza de motores", "Detallado"], price: 249.99, icon: "🚗"},
+                {id: 4, name: "Limpieza de Moldes", description: "Eliminación eficiente de residuos.", features: ["In-situ", "Sin desmontaje", "Ahorra tiempo"], price: 349.99, icon: "🔧"}
             ];
         }
 
@@ -1539,20 +1363,6 @@
                 email: "info@cryocleanpro.com",
                 whatsapp: "+593989898143"
             };
-        }
-
-        // Loading indicator
-        function showLoading() {
-            const loading = document.createElement('div');
-            loading.id = 'loading';
-            loading.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,0.95);display:flex;align-items:center;justify-content:center;z-index:10000;flex-direction:column;';
-            loading.innerHTML = '<div style="font-size:48px;margin-bottom:20px;">❄️</div><div style="font-size:24px;color:#10b981;">Cargando datos...</div>';
-            document.body.appendChild(loading);
-        }
-
-        function hideLoading() {
-            const loading = document.getElementById('loading');
-            if (loading) loading.remove();
         }
 
         // Animaciones al scroll
@@ -2076,7 +1886,7 @@
             }
         }
 
-        function registerUser() {
+        async function registerUser() {
             const name = document.getElementById('regName').value;
             const email = document.getElementById('regEmail').value;
             const phone = document.getElementById('regPhone').value;
@@ -2106,6 +1916,8 @@
                 return;
             }
             
+            showLoading();
+            
             const newUser = {
                 id: Date.now(),
                 name,
@@ -2118,20 +1930,19 @@
             
             users.push(newUser);
             
-            // GUARDAR PERMANENTEMENTE
-            saveData('users', users);
-            
             // Guardar en Google Sheets
-            saveToGoogleSheets('Clientes', [
+            await saveToGoogleSheets('Clientes', [
                 newUser.id,
                 newUser.name,
                 newUser.email,
                 newUser.phone,
+                newUser.password,
                 new Date().toLocaleDateString(),
                 newUser.role
             ]);
             
-            alert('✅ Cuenta creada exitosamente y guardada.\n\nAhora puedes iniciar sesión.');
+            hideLoading();
+            alert('✅ Cuenta creada exitosamente y guardada en Google Sheets.\n\nAhora puedes iniciar sesión.');
             showLoginForm();
             
             // Limpiar formulario
@@ -2412,8 +2223,11 @@
             }
         }
 
-        function saveGallery(e) {
+        async function saveGallery(e) {
             e.preventDefault();
+            
+            showLoading();
+            
             const type = document.getElementById('galleryType').value;
             
             if (type === 'video') {
@@ -2421,27 +2235,57 @@
                 const videoUrl = document.getElementById('videoUrl').value;
                 const description = document.getElementById('videoDescription').value;
                 
-                gallery.push({
-                    id: Date.now(),
+                const newId = Date.now();
+                const videoItem = {
+                    id: newId,
                     title: title,
                     type: 'video',
                     contentType: 'video',
                     videoUrl: videoUrl,
                     description: description
-                });
+                };
+                
+                gallery.push(videoItem);
+                
+                // Guardar en Google Sheets
+                await saveToGoogleSheets('Galeria', [
+                    newId,
+                    title,
+                    'video',
+                    videoUrl,
+                    description
+                ]);
+                
             } else {
                 const title = document.getElementById('galleryTitle').value;
                 const before = document.getElementById('galleryBefore').value;
                 const after = document.getElementById('galleryAfter').value;
                 
+                const beforeId = Date.now();
+                const afterId = Date.now() + 1;
+                
                 gallery.push(
-                    { id: Date.now(), title: title + ' - Antes', type: 'before', contentType: 'image', image: before },
-                    { id: Date.now() + 1, title: title + ' - Después', type: 'after', contentType: 'image', image: after }
+                    { id: beforeId, title: title + ' - Antes', type: 'before', contentType: 'image', image: before },
+                    { id: afterId, title: title + ' - Después', type: 'after', contentType: 'image', image: after }
                 );
+                
+                // Guardar en Google Sheets
+                await saveToGoogleSheets('Galeria', [
+                    beforeId,
+                    title + ' - Antes',
+                    'before',
+                    before,
+                    ''
+                ]);
+                
+                await saveToGoogleSheets('Galeria', [
+                    afterId,
+                    title + ' - Después',
+                    'after',
+                    after,
+                    ''
+                ]);
             }
-            
-            // GUARDAR PERMANENTEMENTE
-            saveData('gallery', gallery);
             
             renderGallery();
             renderAdminGallery();
@@ -2449,43 +2293,54 @@
             document.getElementById('galleryForm').reset();
             document.getElementById('imageFields').style.display = 'block';
             document.getElementById('videoFields').style.display = 'none';
-            showSuccess('✅ Contenido agregado y guardado permanentemente');
+            hideLoading();
+            showSuccess('✅ Contenido agregado a Google Sheets');
             
-            console.log('💾 Galería guardada:', gallery);
+            console.log('💾 Galería guardada:', gallery.length);
         }
 
-        function deleteGallery(id) {
+        async function deleteGallery(id) {
             if (confirm('¿Eliminar este contenido de la galería?')) {
+                showLoading();
+                
                 gallery = gallery.filter(g => g.id !== id);
                 
-                // GUARDAR PERMANENTEMENTE
-                saveData('gallery', gallery);
+                // Eliminar de Google Sheets
+                await deleteFromGoogleSheets('Galeria', id);
                 
                 renderGallery();
                 renderAdminGallery();
-                showSuccess('✅ Contenido eliminado exitosamente');
+                hideLoading();
+                showSuccess('✅ Contenido eliminado de Google Sheets');
             }
         }
 
-        function saveSettings(e) {
+        async function saveSettings(e) {
             e.preventDefault();
+            
+            showLoading();
+            
             settings.heroTitle = document.getElementById('settingHeroTitle').value;
             settings.heroDescription = document.getElementById('settingHeroDesc').value;
             settings.email = document.getElementById('settingEmail').value;
             settings.whatsapp = document.getElementById('settingWhatsApp').value;
             
-            // GUARDAR PERMANENTEMENTE
-            saveData('settings', settings);
+            // Actualizar en Google Sheets
+            await updateInGoogleSheets('Configuracion', 'heroTitle', ['heroTitle', settings.heroTitle]);
+            await updateInGoogleSheets('Configuracion', 'heroDescription', ['heroDescription', settings.heroDescription]);
+            await updateInGoogleSheets('Configuracion', 'email', ['email', settings.email]);
+            await updateInGoogleSheets('Configuracion', 'whatsapp', ['whatsapp', settings.whatsapp]);
             
             document.getElementById('heroTitle').textContent = settings.heroTitle;
             document.getElementById('heroDesc').textContent = settings.heroDescription;
             
-            showSuccess('✅ Configuración guardada permanentemente');
+            hideLoading();
+            showSuccess('✅ Configuración guardada en Google Sheets');
             
             console.log('💾 Configuración guardada:', settings);
         }
 
-        function changePassword(e) {
+        async function changePassword(e) {
             e.preventDefault();
             const current = document.getElementById('currentPassword').value;
             const newPass = document.getElementById('newPassword').value;
@@ -2506,15 +2361,26 @@
                 return;
             }
             
+            showLoading();
+            
             currentUser.password = newPass;
             const userIndex = users.findIndex(u => u.id === currentUser.id);
             users[userIndex].password = newPass;
             
-            // GUARDAR PERMANENTEMENTE
-            saveData('users', users);
+            // Actualizar en Google Sheets
+            await updateInGoogleSheets('Clientes', currentUser.id, [
+                currentUser.id,
+                currentUser.name,
+                currentUser.email,
+                currentUser.phone,
+                newPass,
+                currentUser.createdAt,
+                currentUser.role
+            ]);
             
             document.getElementById('changePasswordForm').reset();
-            showSuccess('✅ Contraseña actualizada y guardada exitosamente');
+            hideLoading();
+            showSuccess('✅ Contraseña actualizada en Google Sheets');
         }
 
         // Exportar todos los datos
