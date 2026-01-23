@@ -877,17 +877,6 @@
                 <button class="btn" id="btnForgotPassword" style="width: 100%; background: transparent; color: var(--primary); text-decoration: underline;">
                     ¿Olvidaste tu contraseña?
                 </button>
-                <div style="margin-top: 20px; padding: 15px; background: #f0f9ff; border-radius: 10px; border-left: 4px solid var(--secondary);">
-                    <p style="font-size: 13px; color: var(--gray); margin-bottom: 8px;">
-                        <strong>👤 Acceso Administrador:</strong>
-                    </p>
-                    <p style="font-size: 12px; color: var(--gray); margin: 3px 0;">
-                        📧 Email: <strong style="color: var(--dark);">admin@cryocleanpro.com</strong>
-                    </p>
-                    <p style="font-size: 12px; color: var(--gray);">
-                        🔑 Contraseña: <strong style="color: var(--dark);">Admin2026!</strong>
-                    </p>
-                </div>
             </div>
             <div id="registerForm" style="display: none;">
                 <div class="form-group">
@@ -1476,8 +1465,20 @@
                     }));
                     console.log('✅ Usuarios cargados:', users.length);
                 } else {
+                    // Si no hay usuarios, crear admin por defecto
                     users = getDefaultUsers();
-                    console.log('ℹ️ Usando usuarios por defecto');
+                    // Guardar admin en Google Sheets
+                    const admin = users[0];
+                    await saveToGoogleSheets('Clientes', [
+                        admin.id,
+                        admin.name,
+                        admin.email,
+                        admin.phone,
+                        admin.password,
+                        new Date().toLocaleDateString(),
+                        admin.role
+                    ]);
+                    console.log('✅ Usuario admin creado en Google Sheets');
                 }
                 
                 // Cargar configuración
@@ -2390,16 +2391,24 @@
             openModal('serviceModal');
         }
 
-        function deleteService(id) {
-            if (confirm('¿Eliminar este servicio? Esta acción no se puede deshacer.')) {
+        async function deleteService(id) {
+            if (confirm('¿Eliminar este servicio? Se eliminará de Google Sheets.')) {
+                showLoading();
+                
                 services = services.filter(s => s.id !== id);
                 
-                // GUARDAR PERMANENTEMENTE
-                saveData('services', services);
+                // Eliminar de Google Sheets
+                const success = await deleteFromGoogleSheets('Servicios', id);
                 
                 renderServices();
                 renderAdminServices();
-                showSuccess('✅ Servicio eliminado exitosamente');
+                hideLoading();
+                
+                if (success) {
+                    showSuccess('✅ Servicio eliminado de Google Sheets');
+                } else {
+                    showSuccess('⚠️ Servicio eliminado localmente');
+                }
             }
         }
 
