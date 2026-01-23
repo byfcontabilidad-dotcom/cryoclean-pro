@@ -3,32 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>CryoClean Pro - Limpieza Industrial Ecológica con Hielo Seco y Láser | Ecuador</title>
-    <meta name="description" content="Servicio profesional de limpieza industrial con hielo seco y láser en Ecuador. Limpieza ecológica para industrias y sector automotriz. Sin químicos, sin daños. Disponible 24/7.">
-    <meta name="keywords" content="limpieza industrial, hielo seco, limpieza láser, Ecuador, limpieza ecológica, limpieza automotriz, dry ice blasting, CryoClean Pro">
+    <title>CryoClean Pro - Limpieza Industrial con Hielo Seco y Láser</title>
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --primary: #10b981;
-            --primary-dark: #059669;
-            --secondary: #3b82f6;
-            --dark: #1e293b;
-            --light: #f8fafc;
-            --gray: #64748b;
-            --success: #10b981;
-            --eco-green: #22c55e;
-            --ice-blue: #06b6d4;
-            --whatsapp: #25D366;
+            --primary: #10b981; --primary-dark: #059669; --secondary: #3b82f6;
+            --dark: #1e293b; --light: #f8fafc; --gray: #64748b;
+            --success: #10b981; --eco-green: #22c55e; --ice-blue: #06b6d4; --whatsapp: #25D366;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 50%, #dcfce7 100%);
-            min-height: 100vh;
-            color: var(--dark);
-            overflow-x: hidden;
+            color: var(--dark); overflow-x: hidden;
         }
 
         /* Animaciones */
@@ -36,117 +24,126 @@
         .animate-on-scroll { opacity: 0; transform: translateY(50px); transition: all 0.6s ease-out; }
         .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
 
-        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
-
-        /* Header & Nav */
-        header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 20px 0;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+        /* WhatsApp & Header */
+        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px; background: var(--whatsapp); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); z-index: 9999; cursor: pointer; }
+        header { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 20px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        nav { display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; padding: 0 20px; }
         .logo { display: flex; align-items: center; gap: 12px; font-size: 28px; font-weight: bold; color: var(--primary); }
 
-        /* Botones */
-        .btn { padding: 12px 28px; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; transition: 0.3s; }
-        .btn-primary { background: linear-gradient(135deg, var(--primary), var(--eco-green)); color: white; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(16, 185, 129, 0.5); }
+        /* Estilos de Secciones */
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        .hero { background: white; border-radius: 24px; padding: 80px 60px; text-align: center; margin: 40px 0; box-shadow: 0 20px 60px rgba(0,0,0,0.08); }
+        .hero h1 { font-size: 56px; background: linear-gradient(135deg, var(--primary), var(--ice-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 35px; margin-top: 40px; }
+        .service-card { background: white; border-radius: 20px; padding: 40px; text-align: center; transition: 0.4s; cursor: pointer; border: 2px solid transparent; }
+        .service-card:hover { transform: translateY(-15px); border-color: var(--primary); box-shadow: 0 25px 60px rgba(16,185,129,0.2); }
+        
+        /* Galería */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
+        .gallery-item { border-radius: 16px; overflow: hidden; position: relative; height: 300px; background: #333; }
+        .gallery-label { position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.7); color: white; padding: 5px 15px; border-radius: 8px; }
 
-        /* Hero */
-        .hero { background: white; border-radius: 24px; padding: 80px 60px; margin: 40px 0; text-align: center; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08); }
-        .hero h1 { font-size: 56px; margin-bottom: 20px; background: linear-gradient(135deg, var(--primary), var(--ice-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .eco-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(16, 185, 129, 0.1); padding: 10px 20px; border-radius: 50px; color: var(--primary); font-weight: 600; margin-bottom: 25px; }
-
-        /* Grids de Servicios */
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 35px; margin: 40px 0; }
-        .service-card { background: white; border-radius: 20px; padding: 40px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08); transition: 0.4s; text-align: center; }
-        .service-card:hover { transform: translateY(-15px); border: 2px solid var(--primary); }
-        .service-icon { font-size: 64px; margin-bottom: 25px; display: block; }
-
-        /* Modal */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 2000; align-items: center; justify-content: center; }
+        /* Modales */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; align-items: center; justify-content: center; }
         .modal.active { display: flex; }
-        .modal-content { background: white; border-radius: 24px; padding: 45px; max-width: 500px; width: 90%; position: relative; }
+        .modal-content { background: white; border-radius: 24px; padding: 40px; width: 90%; max-width: 550px; position: relative; max-height: 90vh; overflow-y: auto; }
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; margin-bottom: 8px; font-weight: 600; }
-        .form-group input, .form-group select { width: 100%; padding: 14px; border: 2px solid #e2e8f0; border-radius: 10px; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 10px; }
 
-        /* WhatsApp */
-        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px; background: var(--whatsapp); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); z-index: 9999; cursor: pointer; }
+        .btn { padding: 12px 28px; border-radius: 12px; border: none; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .btn-primary { background: linear-gradient(135deg, var(--primary), var(--eco-green)); color: white; }
     </style>
 </head>
 <body>
 
     <header>
         <nav>
-            <div class="logo"><span>❄️</span> CryoClean Pro</div>
-            <div class="nav-links">
-                <a href="#servicios" style="margin-right: 20px; text-decoration: none; color: var(--dark);">Servicios</a>
-                <button class="btn btn-primary" onclick="abrirModal()">📅 Agendar Cita</button>
+            <div class="logo">❄️ CryoClean Pro</div>
+            <div style="display: flex; gap: 15px;">
+                <button class="btn" style="background: none;" onclick="location.href='#servicios'">Servicios</button>
+                <button class="btn btn-primary" onclick="abrirModal('appointmentModal')">Agendar Cita</button>
             </div>
         </nav>
     </header>
 
-    <div class="container">
-        <section class="hero">
-            <div class="eco-badge">🌱 100% Ecológico & Sustentable</div>
+    <main class="container">
+        <section class="hero animate-on-scroll">
+            <div style="background: rgba(16,185,129,0.1); display: inline-block; padding: 10px 20px; border-radius: 50px; color: var(--primary); font-weight: bold; margin-bottom: 20px;">🌱 100% Ecológico & Sustentable</div>
             <h1>Limpieza Industrial del Futuro</h1>
-            <p>Tecnología con hielo seco y láser en Ecuador. Sin químicos, sin residuos.</p>
-            <button class="btn btn-primary" style="font-size: 18px; padding: 16px 40px;" onclick="abrirModal()">Descubre el Poder del Hielo Seco</button>
+            <p style="font-size: 20px; color: var(--gray); margin: 20px 0 40px;">Tecnología de punta con hielo seco y láser en Ecuador. Sin químicos, sin residuos, sin daños.</p>
+            <button class="btn btn-primary" style="font-size: 20px; padding: 15px 50px;" onclick="abrirModal('appointmentModal')">Agendar Ahora</button>
         </section>
 
         <section id="servicios" class="animate-on-scroll">
-            <h2 style="text-align: center; font-size: 42px; margin-bottom: 40px;">Nuestros Servicios</h2>
+            <h2 style="text-align: center; font-size: 40px; margin-bottom: 10px;">Nuestros Servicios Especializados</h2>
             <div class="services-grid">
                 <div class="service-card">
-                    <span class="service-icon">⚡</span>
+                    <div style="font-size: 50px;">⚡</div>
                     <h3>Limpieza Láser</h3>
-                    <p>Elimina óxido y pintura sin dañar la superficie.</p>
+                    <p>Eliminación de óxido y pintura sin contacto químico.</p>
                 </div>
                 <div class="service-card">
-                    <span class="service-icon">❄️</span>
-                    <h3>Hielo Seco</h3>
-                    <p>Ideal para motores y maquinaria eléctrica sin agua.</p>
+                    <div style="font-size: 50px;">❄️</div>
+                    <h3>Blasting de Hielo Seco</h3>
+                    <p>Limpieza criogénica para motores y tableros eléctricos.</p>
                 </div>
                 <div class="service-card">
-                    <span class="service-icon">🏭</span>
+                    <div style="font-size: 50px;">🛠️</div>
                     <h3>Mantenimiento Industrial</h3>
-                    <p>Soluciones personalizadas 24/7 en todo Ecuador.</p>
+                    <p>Servicio técnico especializado para plantas de producción.</p>
                 </div>
             </div>
         </section>
-    </div>
+
+        <section id="galeria" class="animate-on-scroll" style="margin-top: 80px;">
+            <h2 style="text-align: center; font-size: 40px;">Transformaciones Reales</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-label">Antes</div>
+                    <div style="width:100%; height:100%; background: linear-gradient(45deg, #444, #222); display: flex; align-items: center; justify-content: center; color: white;">Imagen de Pieza Oxidada</div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-label" style="background: var(--primary);">Después</div>
+                    <div style="width:100%; height:100%; background: linear-gradient(45deg, var(--primary), var(--eco-green)); display: flex; align-items: center; justify-content: center; color: white;">Imagen Pieza como Nueva</div>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <div id="appointmentModal" class="modal">
         <div class="modal-content">
-            <h2 style="margin-bottom: 20px;">Agendar tu Servicio</h2>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                <h2>📅 Agendar Cita</h2>
+                <button onclick="cerrarModal('appointmentModal')" style="background:none; border:none; font-size: 30px; cursor:pointer;">&times;</button>
+            </div>
             <form id="appointmentForm">
                 <div class="form-group">
                     <label>Nombre Completo</label>
-                    <input type="text" id="apptName" required placeholder="Ej: Brian Pérez">
+                    <input type="text" id="apptName" required placeholder="Tu nombre">
                 </div>
                 <div class="form-group">
-                    <label>Teléfono/WhatsApp</label>
-                    <input type="tel" id="apptPhone" required placeholder="Ej: 0989898143">
+                    <label>Teléfono / WhatsApp</label>
+                    <input type="tel" id="apptPhone" required placeholder="0987654321">
                 </div>
                 <div class="form-group">
-                    <label>Servicio deseado</label>
+                    <label>Servicio</label>
                     <select id="apptService">
-                        <option value="Hielo Seco">Limpieza con Hielo Seco</option>
                         <option value="Laser">Limpieza Láser</option>
+                        <option value="Hielo Seco">Hielo Seco</option>
                         <option value="Industrial">Mantenimiento Industrial</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Fecha sugerida</label>
+                    <label>Fecha</label>
                     <input type="date" id="apptDate" required>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Confirmar Cita</button>
-                <button type="button" onclick="cerrarModal()" style="width: 100%; background: none; border: none; margin-top: 15px; cursor: pointer; color: var(--gray);">Cerrar</button>
+                <div class="form-group">
+                    <label>Hora sugerida</label>
+                    <input type="time" id="apptTime" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 15px;">Confirmar y Enviar</button>
             </form>
         </div>
     </div>
@@ -159,7 +156,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // Tu configuración de Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyBsPssHAMzBzYrHvdMFqtR31n2E55ovr8A",
             authDomain: "cryocleanpro.firebaseapp.com",
@@ -172,40 +168,37 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Funciones del Modal
-        window.abrirModal = () => document.getElementById('appointmentModal').classList.add('active');
-        window.cerrarModal = () => document.getElementById('appointmentModal').classList.remove('active');
+        // Control de modales
+        window.abrirModal = (id) => document.getElementById(id).classList.add('active');
+        window.cerrarModal = (id) => document.getElementById(id).classList.remove('active');
 
-        // Guardar en Firebase
-        const form = document.getElementById('appointmentForm');
-        form.addEventListener('submit', async (e) => {
+        // Envío de formulario
+        document.getElementById('appointmentForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const data = {
                 nombre: document.getElementById('apptName').value,
                 telefono: document.getElementById('apptPhone').value,
                 servicio: document.getElementById('apptService').value,
                 fecha: document.getElementById('apptDate').value,
-                fechaRegistro: new Date().toLocaleString()
+                hora: document.getElementById('apptTime').value,
+                creado: new Date().toISOString()
             };
 
             try {
                 await addDoc(collection(db, "citas"), data);
-                alert("¡Gracias Brian! Los datos se guardaron en tu Firebase correctamente.");
-                form.reset();
-                cerrarModal();
-            } catch (error) {
-                console.error("Error:", error);
-                alert("No se pudo guardar la cita.");
+                alert("¡Cita agendada con éxito, Brian! Ya puedes verla en tu Firebase.");
+                cerrarModal('appointmentModal');
+                e.target.reset();
+            } catch (err) {
+                alert("Error al guardar: " + err.message);
             }
         });
 
-        // Efecto de scroll
+        // Observador de animaciones
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
-            });
-        });
-        document.querySelectorAll('.animate-on-scroll').forEach((el) => observer.observe(el));
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
