@@ -8,50 +8,6 @@
     <title>CryoClean Pro - Limpieza Industrial Ecológica con Hielo Seco y Láser | Ecuador</title>
     <meta name="description" content="Servicio profesional de limpieza industrial con hielo seco y láser en Ecuador. Limpieza ecológica para industrias y sector automotriz. Sin químicos, sin daños. Disponible 24/7.">
     <meta name="keywords" content="limpieza industrial, hielo seco, limpieza láser, Ecuador, limpieza ecológica, limpieza automotriz, dry ice blasting, CryoClean Pro">
-    <meta name="author" content="CryoClean Pro">
-    <meta name="robots" content="index, follow">
-    <meta name="language" content="Spanish">
-    <meta name="geo.region" content="EC">
-    <meta name="geo.placename" content="Quito">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://cryoclean-pro.onrender.com">
-    <meta property="og:title" content="CryoClean Pro - Limpieza Industrial Ecológica">
-    <meta property="og:description" content="Limpieza profesional con hielo seco y láser. Sin químicos, sin daños. Servicio 24/7 en Ecuador.">
-    <meta property="og:image" content="https://via.placeholder.com/1200x630/10b981/ffffff?text=CryoClean+Pro">
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://cryoclean-pro.onrender.com">
-    <meta property="twitter:title" content="CryoClean Pro - Limpieza Industrial Ecológica">
-    <meta property="twitter:description" content="Limpieza profesional con hielo seco y láser. Sin químicos, sin daños.">
-    <meta property="twitter:image" content="https://via.placeholder.com/1200x630/10b981/ffffff?text=CryoClean+Pro">
-    
-    <!-- Schema.org markup for Google -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "CryoClean Pro",
-      "description": "Servicio profesional de limpieza industrial con hielo seco y láser",
-      "image": "https://via.placeholder.com/400x400/10b981/ffffff?text=CryoClean+Pro",
-      "telephone": "+593989898143",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Quito",
-        "addressRegion": "Pichincha",
-        "addressCountry": "EC"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": "-0.1807",
-        "longitude": "-78.4678"
-      },
-      "openingHours": "Mo-Su 00:00-23:59",
-      "priceRange": "$"
-    }
-    </script>
     
     <style>
         * {
@@ -81,46 +37,19 @@
             overflow-x: hidden;
         }
 
-        /* Animaciones globales */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes slideInLeft {
-            from { opacity: 0; transform: translateX(-50px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        @keyframes slideInRight {
-            from { opacity: 0; transform: translateX(50px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); }
+            50% { box-shadow: 0 4px 30px rgba(37, 211, 102, 0.7); }
         }
 
         @keyframes glow {
             0%, 100% { box-shadow: 0 0 20px rgba(16, 185, 129, 0.3); }
             50% { box-shadow: 0 0 40px rgba(16, 185, 129, 0.6); }
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.6s ease-out;
-        }
-
-        .animate-on-scroll.visible {
-            opacity: 1;
-            transform: translateY(0);
         }
 
         .container {
@@ -159,12 +88,6 @@
             fill: white;
         }
 
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); }
-            50% { box-shadow: 0 4px 30px rgba(37, 211, 102, 0.7); }
-        }
-
-        /* Shopping Cart Badge */
         .cart-badge {
             position: absolute;
             top: -8px;
@@ -190,7 +113,6 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            animation: slideInLeft 0.5s ease-out;
         }
 
         nav {
@@ -232,22 +154,6 @@
             transform: translateY(-2px);
         }
 
-        .nav-links a::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: all 0.3s;
-            transform: translateX(-50%);
-        }
-
-        .nav-links a:hover::before {
-            width: 100%;
-        }
-
         .btn {
             padding: 12px 28px;
             border: none;
@@ -256,7 +162,6 @@
             cursor: pointer;
             transition: all 0.3s;
             font-size: 15px;
-            position: relative;
         }
 
         .btn-primary {
@@ -268,7 +173,6 @@
         .btn-primary:hover {
             transform: translateY(-3px) scale(1.05);
             box-shadow: 0 10px 30px rgba(16, 185, 129, 0.5);
-            animation: glow 1.5s ease-in-out infinite;
         }
 
         .btn-secondary {
@@ -489,7 +393,6 @@
             border-color: var(--primary);
         }
 
-        /* Cart */
         .cart-item {
             display: flex;
             justify-content: space-between;
@@ -506,39 +409,6 @@
             color: var(--primary);
             text-align: right;
             margin: 20px 0;
-        }
-
-        /* Calendar */
-        .calendar {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 10px;
-            margin: 20px 0;
-        }
-
-        .calendar-day {
-            padding: 15px;
-            text-align: center;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .calendar-day:hover {
-            border-color: var(--primary);
-            background: rgba(16, 185, 129, 0.1);
-        }
-
-        .calendar-day.selected {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        .calendar-day.disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
         }
 
         /* Admin Panel */
@@ -602,6 +472,29 @@
             color: var(--dark);
         }
 
+        .firebase-status {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 10px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            z-index: 1001;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .firebase-status.connected {
+            color: var(--success);
+        }
+
+        .firebase-status.disconnected {
+            color: #ef4444;
+        }
+
         @media (max-width: 768px) {
             .hero {
                 padding: 40px 20px;
@@ -611,10 +504,6 @@
                 font-size: 32px;
             }
 
-            .hero p {
-                font-size: 18px;
-            }
-
             .services-grid, .gallery-grid {
                 grid-template-columns: 1fr;
             }
@@ -622,167 +511,17 @@
             .nav-links {
                 flex-direction: column;
                 gap: 10px;
-                display: none;
-            }
-
-            .mobile-menu {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-                width: 100%;
-            }
-
-            nav {
-                flex-wrap: wrap;
-            }
-
-            .logo {
-                font-size: 22px;
-            }
-
-            .logo-icon {
-                font-size: 28px;
-            }
-
-            .whatsapp-float {
-                width: 55px;
-                height: 55px;
-                bottom: 20px;
-                right: 20px;
-            }
-
-            .whatsapp-float svg {
-                width: 28px;
-                height: 28px;
-            }
-
-            .modal-content {
-                padding: 30px 20px;
-                width: 95%;
-            }
-
-            .modal-header h2 {
-                font-size: 22px;
-            }
-
-            .section-title {
-                font-size: 32px;
-            }
-
-            .service-card {
-                padding: 25px;
-            }
-
-            .service-icon {
-                font-size: 48px;
-            }
-
-            .service-price {
-                font-size: 26px;
-            }
-
-            .btn {
-                padding: 12px 20px;
-                font-size: 14px;
-            }
-
-            .gallery-section, .benefits-section {
-                padding: 40px 20px;
-            }
-
-            .benefits-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .cart-item {
-                flex-direction: column;
-                gap: 10px;
-                text-align: left;
-            }
-
-            .cart-item > div:last-child {
-                width: 100%;
-                text-align: left;
-            }
-
-            .admin-panel {
-                padding: 25px 15px;
-            }
-
-            .tab-btn {
-                font-size: 13px;
-                padding: 10px 16px;
-            }
-
-            .user-item, .appointment-item {
-                padding: 15px;
-            }
-
-            .service-item {
-                flex-direction: column;
-                gap: 15px;
-                align-items: flex-start !important;
-            }
-
-            .service-item-actions {
-                width: 100%;
-                justify-content: flex-start;
-            }
-
-            .form-group input,
-            .form-group textarea,
-            .form-group select {
-                font-size: 16px; /* Evita zoom en iOS */
-            }
-        }
-
-        /* Mobile Menu */
-        .mobile-menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 28px;
-            cursor: pointer;
-            color: var(--dark);
-        }
-
-        @media (max-width: 768px) {
-            .mobile-menu-toggle {
-                display: block;
-            }
-
-            .nav-links.mobile-open {
-                display: flex;
-                position: fixed;
-                top: 70px;
-                left: 0;
-                right: 0;
-                background: white;
-                padding: 20px;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-                z-index: 999;
-                flex-direction: column;
-            }
-        }
-
-        /* Mejoras táctiles */
-        @media (hover: none) and (pointer: coarse) {
-            .btn {
-                min-height: 44px; /* Tamaño mínimo táctil recomendado */
-            }
-
-            .service-card {
-                cursor: pointer;
-            }
-
-            .close-btn {
-                min-width: 44px;
-                min-height: 44px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Firebase Status Indicator -->
+    <div id="firebaseStatus" class="firebase-status disconnected">
+        <span id="statusIcon">⚠️</span>
+        <span id="statusText">Conectando a Firebase...</span>
+    </div>
+
     <!-- WhatsApp Floating Button -->
     <div class="whatsapp-float" id="whatsappBtn">
         <svg viewBox="0 0 32 32"><path d="M16 0c-8.837 0-16 7.163-16 16 0 2.825 0.737 5.607 2.137 8.048l-2.137 7.952 7.933-2.127c2.42 1.37 5.173 2.127 8.067 2.127 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 29.467c-2.482 0-4.908-0.646-7.07-1.87l-0.507-0.292-5.247 1.408 1.417-5.267-0.316-0.522c-1.314-2.178-2.009-4.688-2.009-7.257 0-7.384 6.001-13.385 13.385-13.385s13.385 6.001 13.385 13.385c0 7.384-6.001 13.385-13.385 13.385zM21.944 18.651c-0.316-0.158-1.869-0.921-2.158-1.027-0.289-0.105-0.5-0.158-0.711 0.158s-0.816 1.027-1.001 1.238c-0.184 0.211-0.369 0.237-0.685 0.079s-1.336-0.491-2.544-1.565c-0.94-0.836-1.575-1.869-1.759-2.185s-0.020-0.487 0.139-0.645c0.142-0.142 0.316-0.369 0.474-0.553s0.211-0.316 0.316-0.527c0.105-0.211 0.053-0.395-0.026-0.553s-0.711-1.712-0.974-2.343c-0.257-0.615-0.518-0.532-0.711-0.541-0.184-0.009-0.395-0.011-0.606-0.011s-0.553 0.079-0.843 0.395c-0.289 0.316-1.106 1.080-1.106 2.632s1.132 3.053 1.29 3.264c0.158 0.211 2.227 3.4 5.394 4.766 0.753 0.325 1.341 0.519 1.799 0.664 0.757 0.241 1.446 0.207 1.991 0.126 0.607-0.091 1.869-0.763 2.132-1.5s0.263-1.369 0.184-1.5c-0.079-0.132-0.289-0.211-0.606-0.369z"/></svg>
@@ -794,7 +533,6 @@
                 <span style="font-size: 36px;">❄️</span>
                 <span>CryoClean Pro</span>
             </div>
-            <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
             <div class="nav-links" id="navLinks">
                 <a href="#servicios">Servicios</a>
                 <a href="#galeria">Galería</a>
@@ -819,12 +557,12 @@
             </button>
         </section>
 
-        <section id="servicios" class="services-section animate-on-scroll">
+        <section id="servicios" class="services-section">
             <h2 class="section-title">Nuestros Servicios Especializados</h2>
             <div class="services-grid" id="servicesContainer"></div>
         </section>
 
-        <section id="galeria" class="gallery-section animate-on-scroll">
+        <section id="galeria" class="gallery-section">
             <h2 class="section-title">Transformaciones Reales</h2>
             <p style="text-align: center; color: var(--gray); margin-bottom: 30px;">
                 Antes y después de nuestros servicios de limpieza profesional
@@ -832,12 +570,11 @@
             <div class="gallery-grid" id="galleryContainer"></div>
         </section>
 
-        <section id="agendar" class="gallery-section animate-on-scroll">
+        <section id="agendar" class="gallery-section">
             <h2 class="section-title">Agenda Tu Servicio</h2>
             <p style="text-align: center; color: var(--gray); margin-bottom: 30px; font-size: 18px;">
                 Disponibles <strong style="color: var(--primary);">24/7</strong> para atenderte
             </p>
-            
             <div style="text-align: center;">
                 <button class="btn btn-primary" id="btnAgendarCita" style="font-size: 20px; padding: 18px 50px;">
                     📅 Agendar Ahora
@@ -846,7 +583,7 @@
         </section>
     </div>
 
-    <!-- Modal Login/Registro -->
+    <!-- Modals (Login, Cart, Appointment, etc.) -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -862,20 +599,11 @@
                     <label>Contraseña</label>
                     <input type="password" id="loginPassword" required>
                 </div>
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: normal;">
-                        <input type="checkbox" id="rememberMe" style="width: auto; cursor: pointer;">
-                        <span>🔐 Recordar mi sesión en este dispositivo</span>
-                    </label>
-                </div>
                 <button class="btn btn-primary" id="btnLoginSubmit" style="width: 100%; margin-bottom: 15px;">
                     Iniciar Sesión
                 </button>
-                <button class="btn btn-secondary" id="btnShowRegister" style="width: 100%; margin-bottom: 10px;">
+                <button class="btn btn-secondary" id="btnShowRegister" style="width: 100%;">
                     Crear Cuenta Nueva
-                </button>
-                <button class="btn" id="btnForgotPassword" style="width: 100%; background: transparent; color: var(--primary); text-decoration: underline;">
-                    ¿Olvidaste tu contraseña?
                 </button>
             </div>
             <div id="registerForm" style="display: none;">
@@ -895,10 +623,6 @@
                     <label>Contraseña</label>
                     <input type="password" id="regPassword" required>
                 </div>
-                <div class="form-group">
-                    <label>Confirmar Contraseña</label>
-                    <input type="password" id="regPasswordConfirm" required>
-                </div>
                 <button class="btn btn-primary" id="btnRegisterSubmit" style="width: 100%; margin-bottom: 15px;">
                     Crear Cuenta
                 </button>
@@ -906,25 +630,9 @@
                     Ya tengo cuenta
                 </button>
             </div>
-            <div id="forgotPasswordForm" style="display: none;">
-                <p style="color: var(--gray); margin-bottom: 20px;">
-                    Ingresa tu email y recibirás instrucciones para recuperar tu contraseña vía WhatsApp
-                </p>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="forgotEmail" required>
-                </div>
-                <button class="btn btn-primary" id="btnResetPassword" style="width: 100%; margin-bottom: 15px;">
-                    Recuperar Contraseña
-                </button>
-                <button class="btn btn-secondary" id="btnBackToLogin" style="width: 100%;">
-                    Volver al Login
-                </button>
-            </div>
         </div>
     </div>
 
-    <!-- Modal Carrito -->
     <div id="cartModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -939,7 +647,6 @@
         </div>
     </div>
 
-    <!-- Modal Agendar Cita -->
     <div id="appointmentModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -967,59 +674,24 @@
                     <label>Hora</label>
                     <select id="apptTime" required>
                         <option value="">Seleccione...</option>
-                        <option value="00:00">00:00</option>
-                        <option value="01:00">01:00</option>
-                        <option value="02:00">02:00</option>
-                        <option value="03:00">03:00</option>
-                        <option value="04:00">04:00</option>
-                        <option value="05:00">05:00</option>
-                        <option value="06:00">06:00</option>
-                        <option value="07:00">07:00</option>
                         <option value="08:00">08:00</option>
                         <option value="09:00">09:00</option>
                         <option value="10:00">10:00</option>
                         <option value="11:00">11:00</option>
                         <option value="12:00">12:00</option>
-                        <option value="13:00">13:00</option>
                         <option value="14:00">14:00</option>
                         <option value="15:00">15:00</option>
                         <option value="16:00">16:00</option>
                         <option value="17:00">17:00</option>
-                        <option value="18:00">18:00</option>
-                        <option value="19:00">19:00</option>
-                        <option value="20:00">20:00</option>
-                        <option value="21:00">21:00</option>
-                        <option value="22:00">22:00</option>
-                        <option value="23:00">23:00</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Servicios Seleccionados</label>
-                    <div id="apptServices" style="background: #f8fafc; padding: 15px; border-radius: 10px; margin-bottom: 15px;"></div>
-                </div>
-                <div class="form-group">
-                    <label>Método de Pago Preferido</label>
-                    <select id="paymentMethod" required style="font-size: 16px; padding: 16px;">
-                        <option value="">Seleccione su método de pago...</option>
-                        <option value="transferencia">🏦 Transferencia Bancaria</option>
-                        <option value="tarjeta">💳 Tarjeta de Crédito o Débito (Visa, Mastercard, Amex)</option>
-                        <option value="btc">₿ Bitcoin (BTC)</option>
-                        <option value="usdt">₮ USDT - Tether (TRC20)</option>
-                    </select>
-                </div>
-                <div id="paymentInfo" style="background: linear-gradient(135deg, #f0f9ff, #e0f2fe); padding: 20px; border-radius: 12px; margin: 20px 0; display: none; border-left: 4px solid var(--secondary);">
-                    <strong style="color: var(--secondary); font-size: 16px;">💡 Información Importante:</strong>
-                    <p style="color: var(--dark); font-size: 14px; margin-top: 10px; line-height: 1.6;">
-                        Los datos completos de pago serán enviados por WhatsApp una vez confirmada tu cita. 
-                        <br><br>
-                        ✅ Pago 100% seguro y encriptado
-                        <br>
-                        ✅ Confirmación instantánea
-                    </p>
+                    <div id="apptServices" style="background: #f8fafc; padding: 15px; border-radius: 10px;"></div>
                 </div>
                 <div class="form-group">
                     <label>Notas Adicionales</label>
-                    <textarea id="apptNotes" rows="3" placeholder="Información adicional sobre su proyecto..."></textarea>
+                    <textarea id="apptNotes" rows="3"></textarea>
                 </div>
                 <button type="submit" class="btn btn-success" style="width: 100%; margin-bottom: 10px;">
                     ✅ Confirmar Cita
@@ -1031,1618 +703,58 @@
         </div>
     </div>
 
-    <!-- Panel Admin -->
+    <!-- Admin Panel -->
     <div id="adminPanel" class="container" style="display: none;">
         <div class="admin-panel">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; padding-bottom: 25px; border-bottom: 2px solid #e2e8f0;">
-                <h2>⚙️ Panel de Administración</h2>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+                <h2>⚙️ Panel de Administración Firebase</h2>
                 <button class="btn btn-danger" id="btnLogout">Cerrar Sesión</button>
             </div>
-
             <div id="successMessage" class="success-message"></div>
-
             <div style="margin-bottom: 30px;">
                 <button class="tab-btn active" data-tab="services">Servicios</button>
                 <button class="tab-btn" data-tab="gallery">Galería</button>
                 <button class="tab-btn" data-tab="users">Usuarios</button>
                 <button class="tab-btn" data-tab="appointments">Citas</button>
                 <button class="tab-btn" data-tab="settings">Configuración</button>
-                <button class="tab-btn" data-tab="profile">Mi Perfil</button>
-                <button class="btn btn-success" id="btnViewGoogleSheet" style="float: right;">
-                    📊 Ver Google Sheet
-                </button>
             </div>
-
             <div id="servicesTab" class="tab-content active">
-                <div style="background: #dcfce7; padding: 15px; border-radius: 12px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
-                    <div>
-                        <strong style="color: var(--success);">💾 Sistema de Guardado Activo</strong>
-                        <p style="font-size: 13px; color: var(--gray); margin-top: 5px;">
-                            Total de servicios guardados: <span id="serviceCount">0</span>
-                        </p>
-                    </div>
-                    <button class="btn btn-secondary" onclick="testStorage()" style="font-size: 13px; padding: 8px 16px;">
-                        🧪 Probar Guardado
-                    </button>
-                </div>
-                <button class="btn btn-primary" id="btnAddService" style="margin-bottom: 25px;">
-                    + Agregar Servicio
-                </button>
+                <button class="btn btn-primary" id="btnAddService">+ Agregar Servicio</button>
                 <div id="servicesList"></div>
             </div>
-
             <div id="galleryTab" class="tab-content">
-                <button class="btn btn-primary" id="btnAddGallery" style="margin-bottom: 25px;">
-                    + Agregar Imagen/Video
-                </button>
-                <p style="color: var(--gray); margin-bottom: 20px;">
-                    💡 <strong>Para imágenes:</strong> Sube a <a href="https://imgur.com" target="_blank" style="color: var(--primary);">Imgur</a> y pega la URL<br>
-                    🎥 <strong>Para videos:</strong> Sube a <a href="https://youtube.com" target="_blank" style="color: var(--primary);">YouTube</a> o <a href="https://vimeo.com" target="_blank" style="color: var(--primary);">Vimeo</a> y pega el link
-                </p>
+                <button class="btn btn-primary" id="btnAddGallery">+ Agregar a Galería</button>
                 <div id="galleryList"></div>
             </div>
-
             <div id="usersTab" class="tab-content">
-                <h3 style="margin-bottom: 20px;">Usuarios Registrados</h3>
+                <h3>Usuarios Registrados</h3>
                 <div id="usersList"></div>
             </div>
-
             <div id="appointmentsTab" class="tab-content">
-                <div style="background: #dcfce7; padding: 15px; border-radius: 12px; margin-bottom: 20px;">
-                    <strong>💾 Respaldo Automático:</strong> Todas las citas se guardan en Google Drive
-                </div>
-                <h3 style="margin-bottom: 20px;">Citas Agendadas</h3>
+                <h3>Citas Agendadas</h3>
                 <div id="appointmentsList"></div>
             </div>
-
             <div id="settingsTab" class="tab-content">
-                <div style="background: #dbeafe; padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 4px solid var(--secondary);">
-                    <h4 style="margin-bottom: 10px;">☁️ Integración con Google Drive</h4>
-                    <p style="color: var(--gray); margin-bottom: 10px;">
-                        Todos los datos de clientes, citas y servicios se guardan automáticamente en tu Google Sheet.
-                    </p>
-                    <button class="btn btn-secondary" onclick="window.open('${GOOGLE_SCRIPT_URL.replace('/exec', '/edit')}', '_blank')">
-                        Ver Google Sheet
-                    </button>
-                </div>
-                
-                <div style="background: #dcfce7; padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 4px solid var(--success);">
-                    <h4 style="margin-bottom: 10px;">💾 Sistema de Guardado</h4>
-                    <p style="color: var(--gray); margin-bottom: 15px;">
-                        Todos los cambios se guardan automática y permanentemente en el navegador.
-                    </p>
-                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                        <button class="btn btn-primary" onclick="exportAllData()" style="flex: 1; min-width: 200px;">
-                            📥 Exportar Todos los Datos
-                        </button>
-                        <button class="btn btn-danger" onclick="resetAllData()" style="flex: 1; min-width: 200px;">
-                            🔄 Resetear a Valores Por Defecto
-                        </button>
-                    </div>
-                </div>
-                
                 <form id="settingsForm">
                     <div class="form-group">
                         <label>Título Principal</label>
-                        <input type="text" id="settingHeroTitle" value="Limpieza Industrial del Futuro">
-                    </div>
-                    <div class="form-group">
-                        <label>Descripción Principal</label>
-                        <textarea id="settingHeroDesc" rows="3">Tecnología de punta con hielo seco y láser para limpieza industrial y automotriz. Sin químicos, sin residuos, sin daños.</textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Email de Notificaciones</label>
-                        <input type="email" id="settingEmail" value="info@cryocleanpro.com" placeholder="Tu email aquí">
-                    </div>
-                    <div class="form-group">
-                        <label>Número de WhatsApp</label>
-                        <input type="tel" id="settingWhatsApp" value="+593989898143">
-                    </div>
-                    <button type="submit" class="btn btn-success">Guardar Cambios</button>
-                </form>
-            </div>
-
-            <div id="profileTab" class="tab-content">
-                <h3 style="margin-bottom: 20px;">Cambiar Contraseña</h3>
-                <form id="changePasswordForm">
-                    <div class="form-group">
-                        <label>Contraseña Actual</label>
-                        <input type="password" id="currentPassword" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Nueva Contraseña</label>
-                        <input type="password" id="newPassword" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Confirmar Nueva Contraseña</label>
-                        <input type="password" id="confirmPassword" required>
-                    </div>
-                    <button type="submit" class="btn btn-success">Actualizar Contraseña</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Servicio -->
-    <div id="serviceModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="serviceModalTitle">Agregar Servicio</h2>
-                <button class="close-btn" data-modal="serviceModal">&times;</button>
-            </div>
-            <form id="serviceForm">
-                <input type="hidden" id="serviceId">
-                <div class="form-group">
-                    <label>Nombre del Servicio</label>
-                    <input type="text" id="serviceName" required>
-                </div>
-                <div class="form-group">
-                    <label>Descripción</label>
-                    <textarea id="serviceDescription" rows="3" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Características (separadas por coma)</label>
-                    <textarea id="serviceFeatures" rows="3" placeholder="Ej: Sin químicos, Eco-amigable, Rápido"></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Precio ($)</label>
-                    <input type="number" id="servicePrice" step="0.01" required>
-                </div>
-                <div class="form-group">
-                    <label>Icono (Emoji)</label>
-                    <input type="text" id="serviceIcon" placeholder="❄️" maxlength="2">
-                </div>
-                <button type="submit" class="btn btn-success" style="width: 100%;">
-                    Guardar Servicio
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Modal Galería -->
-    <div id="galleryModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Agregar Contenido</h2>
-                <button class="close-btn" data-modal="galleryModal">&times;</button>
-            </div>
-            <form id="galleryForm">
-                <div class="form-group">
-                    <label>Tipo de Contenido</label>
-                    <select id="galleryType" required>
-                        <option value="image">📷 Imagen Antes/Después</option>
-                        <option value="video">🎥 Video</option>
-                    </select>
-                </div>
-                <div id="imageFields">
-                    <div class="form-group">
-                        <label>Título</label>
-                        <input type="text" id="galleryTitle" placeholder="Ej: Limpieza de Motor Industrial" required>
-                    </div>
-                    <div class="form-group">
-                        <label>URL Imagen "Antes"</label>
-                        <input type="url" id="galleryBefore" placeholder="https://i.imgur.com/ejemplo.jpg">
-                        <small style="color: var(--gray);">Sube tu imagen a Imgur y pega la URL directa</small>
-                    </div>
-                    <div class="form-group">
-                        <label>URL Imagen "Después"</label>
-                        <input type="url" id="galleryAfter" placeholder="https://i.imgur.com/ejemplo.jpg">
-                    </div>
-                </div>
-                <div id="videoFields" style="display: none;">
-                    <div class="form-group">
-                        <label>Título del Video</label>
-                        <input type="text" id="videoTitle" placeholder="Ej: Proceso de Limpieza Láser">
-                    </div>
-                    <div class="form-group">
-                        <label>URL del Video</label>
-                        <input type="url" id="videoUrl" placeholder="https://youtube.com/watch?v=...">
-                        <small style="color: var(--gray);">YouTube, Vimeo o enlace directo al video</small>
+                        <input type="text" id="settingHeroTitle">
                     </div>
                     <div class="form-group">
                         <label>Descripción</label>
-                        <textarea id="videoDescription" rows="3" placeholder="Descripción breve del video..."></textarea>
+                        <textarea id="settingHeroDesc" rows="3"></textarea>
                     </div>
-                </div>
-                <button type="submit" class="btn btn-success" style="width: 100%;">
-                    Agregar a Galería
-                </button>
-            </form>
+                    <div class="form-group">
+                        <label>WhatsApp</label>
+                        <input type="tel" id="settingWhatsApp">
+                    </div>
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                </form>
+            </div>
         </div>
     </div>
 
-    <script>
-        // Google Sheets API - NUEVA URL
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzYT4KIxra758lJc8U8oDlgVwpCr0E7ktmjDcbEHz1eBLKLrWN2x3rLegrS2ptkMqtX/exec';
-
-        // Función mejorada para guardar en Google Sheets
-        async function saveToGoogleSheets(sheetName, data) {
-            try {
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        action: 'save',
-                        sheet: sheetName,
-                        values: data
-                    })
-                });
-                
-                const result = await response.json();
-                console.log(`✅ Datos guardados en ${sheetName}:`, result);
-                return result.success;
-            } catch (error) {
-                console.error('❌ Error guardando en Google Sheets:', error);
-                return false;
-            }
-        }
-
-        // Función para actualizar en Google Sheets
-        async function updateInGoogleSheets(sheetName, id, data) {
-            try {
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        action: 'update',
-                        sheet: sheetName,
-                        id: id,
-                        values: data
-                    })
-                });
-                
-                const result = await response.json();
-                console.log(`✅ Datos actualizados en ${sheetName}:`, result);
-                return result.success;
-            } catch (error) {
-                console.error('❌ Error actualizando en Google Sheets:', error);
-                return false;
-            }
-        }
-
-        // Función para eliminar de Google Sheets
-        async function deleteFromGoogleSheets(sheetName, id) {
-            try {
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        action: 'delete',
-                        sheet: sheetName,
-                        id: id
-                    })
-                });
-                
-                const result = await response.json();
-                console.log(`✅ Datos eliminados de ${sheetName}:`, result);
-                return result.success;
-            } catch (error) {
-                console.error('❌ Error eliminando de Google Sheets:', error);
-                return false;
-            }
-        }
-
-        // Función para cargar datos desde Google Sheets
-        async function loadFromGoogleSheets(sheetName) {
-            try {
-                const response = await fetch(`${GOOGLE_SCRIPT_URL}?sheet=${sheetName}`);
-                const result = await response.json();
-                
-                if (result.success) {
-                    console.log(`✅ Datos cargados desde ${sheetName}:`, result.data.length, 'registros');
-                    return result.data;
-                } else {
-                    console.error('❌ Error cargando:', result.message);
-                    return [];
-                }
-            } catch (error) {
-                console.error('❌ Error cargando de Google Sheets:', error);
-                return [];
-            }
-        }
-
-        // EmailJS se puede configurar más adelante si lo necesitas
-        // Por ahora, las notificaciones funcionan vía WhatsApp
-
-        // Estado de la aplicación - SE CARGA DESDE GOOGLE SHEETS
-        let currentUser = null;
-        let cart = [];
-        let services = [];
-        let gallery = [];
-        let users = [];
-        let appointments = [];
-        let settings = {};
-
-        // Funciones de almacenamiento local
-        function saveData(key, data) {
-            try {
-                localStorage.setItem('cryoclean_' + key, JSON.stringify(data));
-                console.log(`✅ ${key} guardado localmente`);
-                return true;
-            } catch (e) {
-                console.error('Error guardando:', e);
-                return false;
-            }
-        }
-
-        function loadData(key) {
-            try {
-                const data = localStorage.getItem('cryoclean_' + key);
-                if (data) {
-                    console.log(`📥 ${key} cargado desde almacenamiento`);
-                    return JSON.parse(data);
-                }
-                return null;
-            } catch (e) {
-                console.error('Error cargando:', e);
-                return null;
-            }
-        }
-
-        // Inicializar - CARGAR TODO DESDE GOOGLE SHEETS
-        document.addEventListener('DOMContentLoaded', async function() {
-            console.log('🚀 Inicializando CryoClean Pro...');
-            
-            // Mostrar loading
-            showLoading();
-            
-            // Cargar TODOS los datos desde Google Sheets
-            await loadAllDataFromCloud();
-            
-            // Renderizar
-            renderServices();
-            renderGallery();
-            setupEvents();
-            initScrollAnimations();
-            checkExistingSession();
-            
-            hideLoading();
-            
-            console.log('✅ Aplicación iniciada');
-            console.log('📊 Servicios:', services.length);
-            console.log('🖼️ Galería:', gallery.length);
-            console.log('👥 Usuarios:', users.length);
-        });
-
-        // Cargar todos los datos desde Google Sheets
-        async function loadAllDataFromCloud() {
-            console.log('☁️ Cargando datos desde Google Sheets...');
-            
-            try {
-                // Cargar servicios
-                const servicesData = await loadFromGoogleSheets('Servicios');
-                if (servicesData && servicesData.length > 0) {
-                    services = servicesData.map(s => ({
-                        id: s.ID,
-                        name: s.Nombre,
-                        description: s.Descripcion,
-                        price: parseFloat(s.Precio),
-                        icon: s.Icono,
-                        features: s.Caracteristicas ? s.Caracteristicas.split(',').map(f => f.trim()) : []
-                    }));
-                    console.log('✅ Servicios cargados:', services.length);
-                } else {
-                    // Datos por defecto si está vacío
-                    services = getDefaultServices();
-                    console.log('ℹ️ Usando servicios por defecto');
-                }
-                
-                // Cargar galería
-                const galleryData = await loadFromGoogleSheets('Galeria');
-                if (galleryData && galleryData.length > 0) {
-                    gallery = galleryData.map(g => ({
-                        id: g.ID,
-                        title: g.Titulo,
-                        type: g.Tipo,
-                        contentType: g.Tipo === 'video' ? 'video' : 'image',
-                        image: g.URL,
-                        videoUrl: g.URL,
-                        description: g.Descripcion || ''
-                    }));
-                    console.log('✅ Galería cargada:', gallery.length);
-                } else {
-                    gallery = getDefaultGallery();
-                    console.log('ℹ️ Usando galería por defecto');
-                }
-                
-                // Cargar usuarios
-                const usersData = await loadFromGoogleSheets('Clientes');
-                if (usersData && usersData.length > 0) {
-                    users = usersData.map(u => ({
-                        id: u.ID,
-                        name: u.Nombre,
-                        email: u.Email,
-                        phone: u.Telefono,
-                        password: u.Password || 'default123',
-                        role: u.Rol,
-                        createdAt: u.FechaRegistro
-                    }));
-                    console.log('✅ Usuarios cargados:', users.length);
-                } else {
-                    // Si no hay usuarios, crear admin por defecto
-                    users = getDefaultUsers();
-                    // Guardar admin en Google Sheets
-                    const admin = users[0];
-                    await saveToGoogleSheets('Clientes', [
-                        admin.id,
-                        admin.name,
-                        admin.email,
-                        admin.phone,
-                        admin.password,
-                        new Date().toLocaleDateString(),
-                        admin.role
-                    ]);
-                    console.log('✅ Usuario admin creado en Google Sheets');
-                }
-                
-                // Cargar configuración
-                const configData = await loadFromGoogleSheets('Configuracion');
-                if (configData && configData.length > 0) {
-                    settings = {};
-                    configData.forEach(item => {
-                        settings[item.Clave] = item.Valor;
-                    });
-                    console.log('✅ Configuración cargada');
-                } else {
-                    settings = getDefaultSettings();
-                    console.log('ℹ️ Usando configuración por defecto');
-                }
-                
-                // Cargar citas
-                const appointmentsData = await loadFromGoogleSheets('Citas');
-                if (appointmentsData && appointmentsData.length > 0) {
-                    appointments = appointmentsData;
-                    console.log('✅ Citas cargadas:', appointments.length);
-                }
-                
-            } catch (error) {
-                console.error('❌ Error cargando datos:', error);
-                // Usar datos por defecto en caso de error
-                services = getDefaultServices();
-                gallery = getDefaultGallery();
-                users = getDefaultUsers();
-                settings = getDefaultSettings();
-            }
-        }
-
-        // Funciones para datos por defecto
-        function getDefaultServices() {
-            return [
-                {id: 1, name: "Limpieza con Hielo Seco Industrial", description: "Limpieza profunda para maquinaria industrial.", features: ["Sin químicos", "No abrasivo"], price: 299.99, icon: "❄️"},
-                {id: 2, name: "Limpieza Láser Industrial", description: "Tecnología láser de alta precisión.", features: ["Precisión extrema", "Eco-amigable"], price: 399.99, icon: "⚡"},
-                {id: 3, name: "Restauración Automotriz Premium", description: "Limpieza especializada para vehículos.", features: ["No daña pintura", "Detallado"], price: 249.99, icon: "🚗"},
-                {id: 4, name: "Limpieza de Moldes", description: "Eliminación eficiente de residuos.", features: ["In-situ", "Sin desmontaje"], price: 349.99, icon: "🔧"}
-            ];
-        }
-
-        function getDefaultGallery() {
-            return [
-                {id: 1, title: "Motor Industrial - Antes", type: "before", contentType: "image", image: "https://via.placeholder.com/400x300/667eea/ffffff?text=ANTES"},
-                {id: 2, title: "Motor Industrial - Después", type: "after", contentType: "image", image: "https://via.placeholder.com/400x300/10b981/ffffff?text=DESPUÉS"}
-            ];
-        }
-
-        function getDefaultUsers() {
-            return [{id: 1, name: "Administrador CryoClean", email: "admin@cryocleanpro.com", password: "Admin2026!", role: "admin", phone: "+593989898143"}];
-        }
-
-        function getDefaultSettings() {
-            return {
-                heroTitle: "Limpieza Industrial del Futuro",
-                heroDescription: "Tecnología de punta con hielo seco y láser.",
-                email: "info@cryocleanpro.com",
-                whatsapp: "+593989898143"
-            };
-        }
-
-        // Loading indicator
-        function showLoading() {
-            const loading = document.createElement('div');
-            loading.id = 'loading';
-            loading.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,0.95);display:flex;align-items:center;justify-content:center;z-index:10000;flex-direction:column;';
-            loading.innerHTML = '<div style="font-size:48px;margin-bottom:20px;">❄️</div><div style="font-size:24px;color:#10b981;">Cargando datos...</div>';
-            document.body.appendChild(loading);
-        }
-
-        function hideLoading() {
-            const loading = document.getElementById('loading');
-            if (loading) loading.remove();
-        }
-
-        // Animaciones al scroll
-        function initScrollAnimations() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, {
-                threshold: 0.1
-            });
-
-            document.querySelectorAll('.animate-on-scroll').forEach(el => {
-                observer.observe(el);
-            });
-        }
-
-        // Verificar si hay sesión activa
-        function checkExistingSession() {
-            // Intentar cargar sesión recordada desde localStorage
-            const rememberedUser = localStorage.getItem('rememberedUser');
-            if (rememberedUser) {
-                const userData = JSON.parse(rememberedUser);
-                currentUser = userData;
-                
-                if (currentUser.role === 'customer') {
-                    document.getElementById('btnLogin').style.display = 'none';
-                    document.getElementById('btnLogoutUser').style.display = 'inline-block';
-                    document.getElementById('btnLogoutUser').textContent = `👤 ${currentUser.name.split(' ')[0]}`;
-                    
-                    // Mostrar notificación de bienvenida
-                    setTimeout(() => {
-                        showSuccess(`¡Bienvenido de nuevo, ${currentUser.name.split(' ')[0]}! 👋`);
-                    }, 500);
-                }
-                return;
-            }
-            
-            // Si no hay sesión recordada, verificar sesión temporal
-            const savedUser = sessionStorage.getItem('currentUser');
-            if (savedUser) {
-                currentUser = JSON.parse(savedUser);
-                if (currentUser.role === 'customer') {
-                    document.getElementById('btnLogin').style.display = 'none';
-                    document.getElementById('btnLogoutUser').style.display = 'inline-block';
-                    document.getElementById('btnLogoutUser').textContent = `👤 ${currentUser.name.split(' ')[0]}`;
-                }
-            }
-        }
-
-        // Setup eventos
-        function setupEvents() {
-            // Mobile Menu Toggle
-            const mobileToggle = document.getElementById('mobileMenuToggle');
-            const navLinks = document.getElementById('navLinks');
-            if (mobileToggle) {
-                mobileToggle.addEventListener('click', function() {
-                    navLinks.classList.toggle('mobile-open');
-                    this.textContent = navLinks.classList.contains('mobile-open') ? '✕' : '☰';
-                });
-
-                // Cerrar menú al hacer click en un link
-                navLinks.querySelectorAll('a').forEach(link => {
-                    link.addEventListener('click', function() {
-                        navLinks.classList.remove('mobile-open');
-                        mobileToggle.textContent = '☰';
-                    });
-                });
-            }
-
-            // WhatsApp
-            document.getElementById('whatsappBtn').addEventListener('click', function() {
-                const msg = encodeURIComponent('Hola! Me interesa conocer más sobre sus servicios de limpieza industrial.');
-                window.open(`https://wa.me/${settings.whatsapp.replace(/[^0-9]/g, '')}?text=${msg}`, '_blank');
-            });
-
-            // Login/Register
-            document.getElementById('btnLogin').addEventListener('click', () => openModal('loginModal'));
-            document.getElementById('btnLogoutUser').addEventListener('click', logoutUser);
-            document.getElementById('btnShowRegister').addEventListener('click', showRegisterForm);
-            document.getElementById('btnShowLogin').addEventListener('click', showLoginForm);
-            document.getElementById('btnForgotPassword').addEventListener('click', showForgotPasswordForm);
-            document.getElementById('btnBackToLogin').addEventListener('click', showLoginForm);
-            document.getElementById('btnResetPassword').addEventListener('click', resetPassword);
-            document.getElementById('btnLoginSubmit').addEventListener('click', loginUser);
-            document.getElementById('btnRegisterSubmit').addEventListener('click', registerUser);
-
-            // Cart
-            document.getElementById('btnCart').addEventListener('click', () => openModal('cartModal'));
-            document.getElementById('btnProceedBooking').addEventListener('click', proceedToBooking);
-
-            // Appointment
-            document.getElementById('btnAgendarCita').addEventListener('click', () => openModal('appointmentModal'));
-            document.getElementById('btnVerServicios').addEventListener('click', () => {
-                document.getElementById('servicios').scrollIntoView({ behavior: 'smooth' });
-            });
-            
-            // Mostrar info de pago cuando se selecciona método
-            document.getElementById('paymentMethod').addEventListener('change', function() {
-                const paymentInfo = document.getElementById('paymentInfo');
-                if (this.value) {
-                    paymentInfo.style.display = 'block';
-                } else {
-                    paymentInfo.style.display = 'none';
-                }
-            });
-            
-            document.getElementById('appointmentForm').addEventListener('submit', submitAppointment);
-            document.getElementById('btnWhatsAppConfirm').addEventListener('click', confirmViaWhatsApp);
-
-            // Admin
-            document.getElementById('btnLogout').addEventListener('click', logout);
-            document.getElementById('btnViewGoogleSheet').addEventListener('click', function() {
-                // Extraer el ID del Google Sheet de la URL del script
-                const sheetId = 'TU_GOOGLE_SHEET_ID'; // El admin debe poner su ID aquí
-                window.open(`https://docs.google.com/spreadsheets/d/${sheetId}/edit`, '_blank');
-            });
-            document.getElementById('btnAddService').addEventListener('click', () => {
-                document.getElementById('serviceModalTitle').textContent = 'Agregar Servicio';
-                document.getElementById('serviceForm').reset();
-                openModal('serviceModal');
-            });
-            document.getElementById('btnAddGallery').addEventListener('click', () => openModal('galleryModal'));
-            document.getElementById('galleryType').addEventListener('change', function() {
-                const imageFields = document.getElementById('imageFields');
-                const videoFields = document.getElementById('videoFields');
-                if (this.value === 'video') {
-                    imageFields.style.display = 'none';
-                    videoFields.style.display = 'block';
-                    document.getElementById('galleryBefore').removeAttribute('required');
-                    document.getElementById('galleryAfter').removeAttribute('required');
-                    document.getElementById('videoUrl').setAttribute('required', 'required');
-                } else {
-                    imageFields.style.display = 'block';
-                    videoFields.style.display = 'none';
-                    document.getElementById('galleryBefore').setAttribute('required', 'required');
-                    document.getElementById('galleryAfter').setAttribute('required', 'required');
-                    document.getElementById('videoUrl').removeAttribute('required');
-                }
-            });
-            document.getElementById('serviceForm').addEventListener('submit', saveService);
-            document.getElementById('galleryForm').addEventListener('submit', saveGallery);
-            document.getElementById('settingsForm').addEventListener('submit', saveSettings);
-            document.getElementById('changePasswordForm').addEventListener('submit', changePassword);
-
-            // Tabs
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const tab = this.getAttribute('data-tab');
-                    switchTab(tab);
-                });
-            });
-
-            // Close modals
-            document.querySelectorAll('.close-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const modal = this.getAttribute('data-modal');
-                    closeModal(modal);
-                });
-            });
-
-            document.querySelectorAll('.modal').forEach(modal => {
-                modal.addEventListener('click', function(e) {
-                    if (e.target === this) {
-                        closeModal(this.id);
-                        // En móviles, asegurar que se cierre
-                        this.style.display = 'none';
-                        setTimeout(() => this.style.display = '', 10);
-                    }
-                });
-            });
-
-            // Mejorar scroll en móviles
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    const href = this.getAttribute('href');
-                    if (href !== '#') {
-                        e.preventDefault();
-                        const target = document.querySelector(href);
-                        if (target) {
-                            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        }
-                    }
-                });
-            });
-
-            // Prevenir zoom en inputs en iOS
-            const inputs = document.querySelectorAll('input, textarea, select');
-            inputs.forEach(input => {
-                input.addEventListener('focus', function() {
-                    // iOS específico
-                    if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
-                        this.style.fontSize = '16px';
-                    }
-                });
-            });
-        }
-
-        // Render Services
-        function renderServices() {
-            const container = document.getElementById('servicesContainer');
-            container.innerHTML = services.map(s => `
-                <div class="service-card">
-                    <span class="service-icon">${s.icon}</span>
-                    <h3 style="font-size: 24px; margin-bottom: 15px;">${s.name}</h3>
-                    <p style="color: var(--gray); margin-bottom: 15px;">${s.description}</p>
-                    <ul style="list-style: none; margin: 15px 0;">
-                        ${s.features.map(f => `<li style="padding: 5px 0;">✓ ${f}</li>`).join('')}
-                    </ul>
-                    <div class="service-price">${s.price.toFixed(2)}</div>
-                    <button class="btn btn-primary" data-add-cart="${s.id}" style="width: 100%;">
-                        Agregar al Carrito
-                    </button>
-                </div>
-            `).join('');
-
-            container.querySelectorAll('[data-add-cart]').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    addToCart(parseInt(this.getAttribute('data-add-cart')));
-                });
-            });
-        }
-
-        // Render Gallery
-        function renderGallery() {
-            const container = document.getElementById('galleryContainer');
-            container.innerHTML = gallery.map(g => {
-                if (g.contentType === 'video') {
-                    // Convertir URL de YouTube a embed si es necesario
-                    let embedUrl = g.videoUrl;
-                    if (g.videoUrl.includes('youtube.com/watch')) {
-                        const videoId = g.videoUrl.split('v=')[1]?.split('&')[0];
-                        embedUrl = `https://www.youtube.com/embed/${videoId}`;
-                    } else if (g.videoUrl.includes('youtu.be/')) {
-                        const videoId = g.videoUrl.split('youtu.be/')[1];
-                        embedUrl = `https://www.youtube.com/embed/${videoId}`;
-                    }
-                    
-                    return `
-                        <div class="gallery-item">
-                            <iframe 
-                                style="width: 100%; height: 300px; border: none; border-radius: 16px 16px 0 0;" 
-                                src="${embedUrl}" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen>
-                            </iframe>
-                            <div style="padding: 15px; background: white;">
-                                <strong>${g.title}</strong>
-                                ${g.description ? `<p style="color: var(--gray); font-size: 14px; margin-top: 5px;">${g.description}</p>` : ''}
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    return `
-                        <div class="gallery-item">
-                            <div class="before-after" style="background-image: url('${g.image}'); background-size: cover; background-position: center;">
-                                <div class="gallery-label">${g.type === 'before' ? 'ANTES' : 'DESPUÉS'}</div>
-                            </div>
-                            <div style="padding: 15px; background: white;">
-                                <strong>${g.title}</strong>
-                            </div>
-                        </div>
-                    `;
-                }
-            }).join('');
-        }
-
-        // Cart functions
-        function addToCart(serviceId) {
-            const service = services.find(s => s.id === serviceId);
-            const existing = cart.find(item => item.id === serviceId);
-            
-            if (existing) {
-                existing.quantity++;
-            } else {
-                cart.push({ ...service, quantity: 1 });
-            }
-            
-            updateCartBadge();
-            showSuccess('✅ Servicio agregado al carrito');
-        }
-
-        function updateCartBadge() {
-            const badge = document.getElementById('cartBadge');
-            const total = cart.reduce((sum, item) => sum + item.quantity, 0);
-            
-            if (total > 0) {
-                badge.textContent = total;
-                badge.style.display = 'flex';
-            } else {
-                badge.style.display = 'none';
-            }
-            
-            renderCart();
-        }
-
-        function renderCart() {
-            const container = document.getElementById('cartItems');
-            const totalEl = document.getElementById('cartTotal');
-            
-            if (cart.length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: var(--gray); padding: 40px;">Tu carrito está vacío</p>';
-                totalEl.textContent = 'Total: $0.00';
-                return;
-            }
-            
-            container.innerHTML = cart.map(item => `
-                <div class="cart-item">
-                    <div>
-                        <strong>${item.icon} ${item.name}</strong>
-                        <div style="color: var(--gray); font-size: 14px;">Cantidad: ${item.quantity}</div>
-                    </div>
-                    <div style="text-align: right;">
-                        <div style="font-size: 20px; font-weight: bold; color: var(--primary);">
-                            ${(item.price * item.quantity).toFixed(2)}
-                        </div>
-                        <button class="btn btn-danger" data-remove-cart="${item.id}" style="padding: 6px 12px; font-size: 12px; margin-top: 5px;">
-                            Eliminar
-                        </button>
-                    </div>
-                </div>
-            `).join('');
-            
-            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            totalEl.textContent = `Total: ${total.toFixed(2)}`;
-            
-            container.querySelectorAll('[data-remove-cart]').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    removeFromCart(parseInt(this.getAttribute('data-remove-cart')));
-                });
-            });
-        }
-
-        function removeFromCart(serviceId) {
-            cart = cart.filter(item => item.id !== serviceId);
-            updateCartBadge();
-        }
-
-        function proceedToBooking() {
-            if (cart.length === 0) {
-                alert('Tu carrito está vacío');
-                return;
-            }
-            closeModal('cartModal');
-            openModal('appointmentModal');
-            
-            const servicesEl = document.getElementById('apptServices');
-            servicesEl.innerHTML = cart.map(item => `
-                <div style="margin-bottom: 8px;">
-                    ${item.icon} ${item.name} (x${item.quantity}) - ${(item.price * item.quantity).toFixed(2)}
-                </div>
-            `).join('');
-        }
-
-        // Appointment
-        function submitAppointment(e) {
-            e.preventDefault();
-            
-            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const servicesText = cart.map(item => `${item.name} (x${item.quantity})`).join(', ');
-            
-            const appointment = {
-                id: Date.now(),
-                name: document.getElementById('apptName').value,
-                email: document.getElementById('apptEmail').value,
-                phone: document.getElementById('apptPhone').value,
-                date: document.getElementById('apptDate').value,
-                time: document.getElementById('apptTime').value,
-                services: [...cart],
-                notes: document.getElementById('apptNotes').value,
-                status: 'pending',
-                total: total,
-                createdAt: new Date().toISOString()
-            };
-            
-            appointments.push(appointment);
-            
-            // Guardar en Google Sheets
-            saveToGoogleSheets('Citas', [
-                appointment.id,
-                appointment.name,
-                appointment.email,
-                appointment.phone,
-                appointment.date,
-                appointment.time,
-                servicesText,
-                `${total.toFixed(2)}`,
-                appointment.status,
-                appointment.notes || 'N/A',
-                new Date().toLocaleString()
-            ]);
-            
-            // Enviar email (simulado)
-            sendAppointmentEmail(appointment);
-            
-            alert('✅ ¡Cita agendada exitosamente!\n\nLos datos se han guardado en Google Drive.\nRecibirás una confirmación pronto.');
-            closeModal('appointmentModal');
-            cart = [];
-            updateCartBadge();
-            document.getElementById('appointmentForm').reset();
-        }
-
-        function confirmViaWhatsApp() {
-            const name = document.getElementById('apptName').value;
-            const date = document.getElementById('apptDate').value;
-            const time = document.getElementById('apptTime').value;
-            const services = cart.map(s => `${s.name} (x${s.quantity})`).join(', ');
-            const paymentMethod = document.getElementById('paymentMethod').options[document.getElementById('paymentMethod').selectedIndex]?.text || 'No especificado';
-            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            
-            const msg = encodeURIComponent(
-                `Hola! Quiero agendar una cita:\n\n` +
-                `👤 Nombre: ${name}\n` +
-                `📅 Fecha: ${date}\n` +
-                `🕐 Hora: ${time}\n` +
-                `🛠️ Servicios: ${services}\n` +
-                `💰 Total: ${total.toFixed(2)}\n` +
-                `💳 Método de Pago: ${paymentMethod}\n\n` +
-                `Por favor envíenme los datos de pago correspondientes.`
-            );
-            
-            window.open(`https://wa.me/${settings.whatsapp.replace(/[^0-9]/g, '')}?text=${msg}`, '_blank');
-        }
-
-        function sendAppointmentEmailWithPayment(appointment) {
-            // Notificación vía consola
-            console.log('📧 Notificación de cita:', appointment);
-            
-            // Preparar mensaje con datos de pago
-            const paymentInfo = getPaymentInfo(appointment.paymentMethod);
-            
-            const adminMsg = encodeURIComponent(
-                `🔔 NUEVA CITA AGENDADA\n\n` +
-                `👤 Cliente: ${appointment.name}\n` +
-                `📅 Fecha: ${appointment.date}\n` +
-                `🕐 Hora: ${appointment.time}\n` +
-                `📧 Email: ${appointment.email}\n` +
-                `📱 Teléfono: ${appointment.phone}\n` +
-                `🛠️ Servicios: ${appointment.services.map(s => s.name).join(', ')}\n` +
-                `💰 Total: ${appointment.total.toFixed(2)}\n` +
-                `💳 Método de Pago: ${appointment.paymentMethodText}\n` +
-                `${appointment.notes ? `📝 Notas: ${appointment.notes}\n` : ''}\n` +
-                `--- DATOS DE PAGO ---\n${paymentInfo}`
-            );
-            
-            console.log('Mensaje de pago preparado para enviar al cliente');
-            return true;
-        }
-
-        function getPaymentInfo(paymentMethod) {
-            const paymentData = {
-                transferencia: `🏦 TRANSFERENCIA BANCARIA\nBanco: Tu Banco\nCuenta: 1234-5678-9012\nTitular: CryoClean Pro\nRIF: J-XXXXXXXX-X`,
-                tarjeta: `💳 TARJETA DE CRÉDITO/DÉBITO\nEnviaremos enlace de pago seguro vía email`,
-                btc: `₿ BITCOIN (BTC)\nDirección: bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh\nRed: Bitcoin`,
-                usdt: `💵 USDT (Tether)\nDirección: 0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb\nRed: TRC20 (TRON)`
-            };
-            
-            return paymentData[paymentMethod] || 'Contactar para detalles de pago';
-        }
-
-        // Auth
-        function showRegisterForm() {
-            document.getElementById('loginForm').style.display = 'none';
-            document.getElementById('registerForm').style.display = 'block';
-            document.getElementById('forgotPasswordForm').style.display = 'none';
-            document.getElementById('loginTitle').textContent = 'Crear Cuenta';
-        }
-
-        function showLoginForm() {
-            document.getElementById('registerForm').style.display = 'none';
-            document.getElementById('loginForm').style.display = 'block';
-            document.getElementById('forgotPasswordForm').style.display = 'none';
-            document.getElementById('loginTitle').textContent = 'Iniciar Sesión';
-        }
-
-        function showForgotPasswordForm() {
-            document.getElementById('loginForm').style.display = 'none';
-            document.getElementById('registerForm').style.display = 'none';
-            document.getElementById('forgotPasswordForm').style.display = 'block';
-            document.getElementById('loginTitle').textContent = 'Recuperar Contraseña';
-        }
-
-        function resetPassword() {
-            const email = document.getElementById('forgotEmail').value;
-            const user = users.find(u => u.email === email);
-            
-            if (!user) {
-                alert('❌ No existe una cuenta con ese email');
-                return;
-            }
-            
-            // Enviar contraseña por WhatsApp
-            const msg = encodeURIComponent(
-                `🔐 RECUPERACIÓN DE CONTRASEÑA\n\n` +
-                `Email: ${user.email}\n` +
-                `Contraseña: ${user.password}\n\n` +
-                `Por seguridad, te recomendamos cambiar tu contraseña después de iniciar sesión.`
-            );
-            
-            alert('✅ Se enviará tu contraseña por WhatsApp');
-            window.open(`https://wa.me/${user.phone.replace(/[^0-9]/g, '')}?text=${msg}`, '_blank');
-            showLoginForm();
-        }
-
-        function logoutUser() {
-            if (confirm('¿Estás seguro que deseas cerrar sesión?')) {
-                currentUser = null;
-                
-                // Limpiar ambas sesiones
-                sessionStorage.removeItem('currentUser');
-                localStorage.removeItem('rememberedUser');
-                
-                document.getElementById('btnLogin').style.display = 'inline-block';
-                document.getElementById('btnLogoutUser').style.display = 'none';
-                document.getElementById('btnLogin').textContent = 'Iniciar Sesión';
-                cart = [];
-                updateCartBadge();
-                showSuccess('👋 Sesión cerrada exitosamente. ¡Hasta pronto!');
-            }
-        }
-
-        async function registerUser() {
-            const name = document.getElementById('regName').value;
-            const email = document.getElementById('regEmail').value;
-            const phone = document.getElementById('regPhone').value;
-            const password = document.getElementById('regPassword').value;
-            const passwordConfirm = document.getElementById('regPasswordConfirm').value;
-            
-            if (password !== passwordConfirm) {
-                alert('❌ Las contraseñas no coinciden');
-                return;
-            }
-            
-            if (password.length < 6) {
-                alert('❌ La contraseña debe tener al menos 6 caracteres');
-                return;
-            }
-            
-            // Verificar si el email ya existe
-            if (users.find(u => u.email === email)) {
-                alert('❌ Este email ya está registrado. Por favor inicia sesión o recupera tu contraseña.');
-                showLoginForm();
-                return;
-            }
-            
-            // Verificar si el teléfono ya existe
-            if (users.find(u => u.phone === phone)) {
-                alert('❌ Este número de teléfono ya está registrado.');
-                return;
-            }
-            
-            showLoading();
-            
-            const newUser = {
-                id: Date.now(),
-                name,
-                email,
-                phone,
-                password,
-                role: 'customer',
-                createdAt: new Date().toISOString()
-            };
-            
-            users.push(newUser);
-            
-            // Guardar en Google Sheets
-            await saveToGoogleSheets('Clientes', [
-                newUser.id,
-                newUser.name,
-                newUser.email,
-                newUser.phone,
-                newUser.password,
-                new Date().toLocaleDateString(),
-                newUser.role
-            ]);
-            
-            hideLoading();
-            alert('✅ Cuenta creada exitosamente y guardada en Google Sheets.\n\nAhora puedes iniciar sesión.');
-            showLoginForm();
-            
-            // Limpiar formulario
-            document.getElementById('registerForm').reset();
-        }
-
-        function loginUser() {
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            const rememberMe = document.getElementById('rememberMe').checked;
-            
-            const user = users.find(u => u.email === email && u.password === password);
-            
-            if (!user) {
-                alert('❌ Email o contraseña incorrectos\n\nVerifica tus credenciales e intenta nuevamente.');
-                return;
-            }
-            
-            currentUser = user;
-            
-            // Guardar sesión según preferencia del usuario
-            if (rememberMe) {
-                // Guardar en localStorage (permanente)
-                localStorage.setItem('rememberedUser', JSON.stringify(user));
-                console.log('✅ Sesión guardada permanentemente');
-            } else {
-                // Guardar solo en sessionStorage (temporal)
-                sessionStorage.setItem('currentUser', JSON.stringify(user));
-            }
-            
-            closeModal('loginModal');
-            
-            if (user.role === 'admin') {
-                document.getElementById('mainContent').style.display = 'none';
-                document.querySelector('header').style.display = 'none';
-                document.getElementById('adminPanel').style.display = 'block';
-                renderAdminContent();
-                showSuccess(`🔐 Acceso administrativo concedido. Bienvenido!`);
-            } else {
-                document.getElementById('btnLogin').style.display = 'none';
-                document.getElementById('btnLogoutUser').style.display = 'inline-block';
-                document.getElementById('btnLogoutUser').textContent = `👤 ${user.name.split(' ')[0]}`;
-                showSuccess(`🎉 ¡Bienvenido ${user.name}!`);
-            }
-            
-            // Limpiar formulario
-            document.getElementById('loginForm').reset();
-        }
-
-        function logout() {
-            currentUser = null;
-            document.getElementById('mainContent').style.display = 'block';
-            document.querySelector('header').style.display = 'block';
-            document.getElementById('adminPanel').style.display = 'none';
-            document.getElementById('btnLogin').textContent = 'Iniciar Sesión';
-        }
-
-        // Admin Functions
-        function renderAdminContent() {
-            renderAdminServices();
-            renderAdminGallery();
-            renderAdminUsers();
-            renderAdminAppointments();
-            updateServiceCount();
-        }
-
-        function renderAdminServices() {
-            const list = document.getElementById('servicesList');
-            list.innerHTML = services.map(s => `
-                <div class="user-item" style="display: flex; justify-content: space-between; align-items: center;">
-                    <div>
-                        <h3>${s.icon} ${s.name}</h3>
-                        <p style="color: var(--gray); margin: 5px 0;">${s.description}</p>
-                        <strong style="color: var(--primary);">${s.price.toFixed(2)}</strong>
-                    </div>
-                    <div style="display: flex; gap: 10px;">
-                        <button class="btn btn-secondary" data-edit-service="${s.id}">Editar</button>
-                        <button class="btn btn-danger" data-delete-service="${s.id}">Eliminar</button>
-                    </div>
-                </div>
-            `).join('');
-            
-            list.querySelectorAll('[data-edit-service]').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    editService(parseInt(this.getAttribute('data-edit-service')));
-                });
-            });
-            
-            list.querySelectorAll('[data-delete-service]').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    deleteService(parseInt(this.getAttribute('data-delete-service')));
-                });
-            });
-        }
-
-        function renderAdminGallery() {
-            const list = document.getElementById('galleryList');
-            list.innerHTML = gallery.map(g => {
-                if (g.contentType === 'video') {
-                    return `
-                        <div class="user-item" style="display: flex; gap: 15px; align-items: center;">
-                            <div style="width: 100px; height: 75px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 30px;">
-                                🎥
-                            </div>
-                            <div style="flex: 1;">
-                                <strong>${g.title}</strong>
-                                <div style="color: var(--gray); font-size: 14px;">VIDEO</div>
-                                ${g.description ? `<p style="color: var(--gray); font-size: 13px; margin-top: 3px;">${g.description}</p>` : ''}
-                            </div>
-                            <button class="btn btn-danger" data-delete-gallery="${g.id}">Eliminar</button>
-                        </div>
-                    `;
-                } else {
-                    return `
-                        <div class="user-item" style="display: flex; gap: 15px; align-items: center;">
-                            <img src="${g.image}" style="width: 100px; height: 75px; object-fit: cover; border-radius: 8px;" onerror="this.src='https://via.placeholder.com/100x75/667eea/ffffff?text=Imagen'">
-                            <div style="flex: 1;">
-                                <strong>${g.title}</strong>
-                                <div style="color: var(--gray); font-size: 14px;">${g.type === 'before' ? 'ANTES' : 'DESPUÉS'}</div>
-                            </div>
-                            <button class="btn btn-danger" data-delete-gallery="${g.id}">Eliminar</button>
-                        </div>
-                    `;
-                }
-            }).join('');
-            
-            list.querySelectorAll('[data-delete-gallery]').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    deleteGallery(parseInt(this.getAttribute('data-delete-gallery')));
-                });
-            });
-        }
-
-        function renderAdminUsers() {
-            const list = document.getElementById('usersList');
-            list.innerHTML = users.map(u => `
-                <div class="user-item">
-                    <div style="display: flex; justify-content: space-between;">
-                        <div>
-                            <h4>${u.name}</h4>
-                            <div style="color: var(--gray); margin: 5px 0;">📧 ${u.email}</div>
-                            <div style="color: var(--gray);">📱 ${u.phone || 'N/A'}</div>
-                            <span style="background: ${u.role === 'admin' ? 'var(--primary)' : 'var(--gray)'}; color: white; padding: 4px 12px; border-radius: 6px; font-size: 12px; margin-top: 8px; display: inline-block;">
-                                ${u.role === 'admin' ? 'Administrador' : 'Cliente'}
-                            </span>
-                        </div>
-                        ${u.role !== 'admin' ? `<button class="btn btn-danger" data-delete-user="${u.id}">Eliminar</button>` : ''}
-                    </div>
-                </div>
-            `).join('');
-            
-            list.querySelectorAll('[data-delete-user]').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    if (confirm('¿Eliminar este usuario?')) {
-                        users = users.filter(u => u.id !== parseInt(this.getAttribute('data-delete-user')));
-                        renderAdminUsers();
-                        showSuccess('Usuario eliminado');
-                    }
-                });
-            });
-        }
-
-        function renderAdminAppointments() {
-            const list = document.getElementById('appointmentsList');
-            if (appointments.length === 0) {
-                list.innerHTML = '<p style="text-align: center; color: var(--gray); padding: 40px;">No hay citas agendadas</p>';
-                return;
-            }
-            
-            list.innerHTML = appointments.map(a => `
-                <div class="appointment-item">
-                    <h4>${a.name}</h4>
-                    <div style="color: var(--gray); margin: 8px 0;">
-                        📅 ${a.date} a las ${a.time}
-                    </div>
-                    <div style="color: var(--gray); margin: 5px 0;">📧 ${a.email}</div>
-                    <div style="color: var(--gray); margin: 5px 0;">📱 ${a.phone}</div>
-                    <div style="margin: 10px 0;">
-                        <strong>Servicios:</strong>
-                        ${a.services.map(s => `<div>• ${s.name} (x${s.quantity})</div>`).join('')}
-                    </div>
-                    ${a.notes ? `<div style="background: #f8fafc; padding: 10px; border-radius: 8px; margin: 10px 0;"><strong>Notas:</strong> ${a.notes}</div>` : ''}
-                    <div style="display: flex; gap: 10px; margin-top: 15px;">
-                        <button class="btn btn-whatsapp" data-whatsapp-appt="${a.phone}">💬 Contactar</button>
-                        <button class="btn btn-danger" data-delete-appt="${a.id}">Eliminar</button>
-                    </div>
-                </div>
-            `).join('');
-            
-            list.querySelectorAll('[data-whatsapp-appt]').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const phone = this.getAttribute('data-whatsapp-appt');
-                    window.open(`https://wa.me/${phone.replace(/[^0-9]/g, '')}`, '_blank');
-                });
-            });
-            
-            list.querySelectorAll('[data-delete-appt]').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    if (confirm('¿Eliminar esta cita?')) {
-                        appointments = appointments.filter(a => a.id !== parseInt(this.getAttribute('data-delete-appt')));
-                        renderAdminAppointments();
-                        showSuccess('Cita eliminada');
-                    }
-                });
-            });
-        }
-
-        function saveService(e) {
-            e.preventDefault();
-            const id = document.getElementById('serviceId').value;
-            const serviceData = {
-                name: document.getElementById('serviceName').value,
-                description: document.getElementById('serviceDescription').value,
-                features: document.getElementById('serviceFeatures').value.split(',').map(f => f.trim()).filter(f => f),
-                price: parseFloat(document.getElementById('servicePrice').value),
-                icon: document.getElementById('serviceIcon').value || '🔧'
-            };
-            
-            if (id) {
-                const index = services.findIndex(s => s.id === parseInt(id));
-                services[index] = { ...services[index], ...serviceData };
-            } else {
-                const newService = { id: Date.now(), ...serviceData };
-                services.push(newService);
-                
-                // Guardar nuevo servicio en Google Sheets
-                saveToGoogleSheets('Servicios', [
-                    newService.id,
-                    newService.name,
-                    newService.description,
-                    `${newService.price.toFixed(2)}`,
-                    newService.icon,
-                    newService.features.join(', ')
-                ]);
-            }
-            
-            renderServices();
-            renderAdminServices();
-            closeModal('serviceModal');
-            showSuccess('✅ Servicio guardado en Google Drive');
-        }
-
-        function editService(id) {
-            const service = services.find(s => s.id === id);
-            if (!service) {
-                alert('❌ Servicio no encontrado');
-                return;
-            }
-            
-            document.getElementById('serviceModalTitle').textContent = 'Editar Servicio';
-            document.getElementById('serviceId').value = service.id;
-            document.getElementById('serviceName').value = service.name;
-            document.getElementById('serviceDescription').value = service.description;
-            document.getElementById('serviceFeatures').value = service.features.join(', ');
-            document.getElementById('servicePrice').value = service.price;
-            document.getElementById('serviceIcon').value = service.icon;
-            openModal('serviceModal');
-        }
-
-        async function deleteService(id) {
-            if (confirm('¿Eliminar este servicio? Se eliminará de Google Sheets.')) {
-                showLoading();
-                
-                services = services.filter(s => s.id !== id);
-                
-                // Eliminar de Google Sheets
-                const success = await deleteFromGoogleSheets('Servicios', id);
-                
-                renderServices();
-                renderAdminServices();
-                hideLoading();
-                
-                if (success) {
-                    showSuccess('✅ Servicio eliminado de Google Sheets');
-                } else {
-                    showSuccess('⚠️ Servicio eliminado localmente');
-                }
-            }
-        }
-
-        async function saveGallery(e) {
-            e.preventDefault();
-            
-            showLoading();
-            
-            const type = document.getElementById('galleryType').value;
-            
-            if (type === 'video') {
-                const title = document.getElementById('videoTitle').value;
-                const videoUrl = document.getElementById('videoUrl').value;
-                const description = document.getElementById('videoDescription').value;
-                
-                const newId = Date.now();
-                const videoItem = {
-                    id: newId,
-                    title: title,
-                    type: 'video',
-                    contentType: 'video',
-                    videoUrl: videoUrl,
-                    description: description
-                };
-                
-                gallery.push(videoItem);
-                
-                // Guardar en Google Sheets
-                await saveToGoogleSheets('Galeria', [
-                    newId,
-                    title,
-                    'video',
-                    videoUrl,
-                    description
-                ]);
-                
-            } else {
-                const title = document.getElementById('galleryTitle').value;
-                const before = document.getElementById('galleryBefore').value;
-                const after = document.getElementById('galleryAfter').value;
-                
-                const beforeId = Date.now();
-                const afterId = Date.now() + 1;
-                
-                gallery.push(
-                    { id: beforeId, title: title + ' - Antes', type: 'before', contentType: 'image', image: before },
-                    { id: afterId, title: title + ' - Después', type: 'after', contentType: 'image', image: after }
-                );
-                
-                // Guardar en Google Sheets
-                await saveToGoogleSheets('Galeria', [
-                    beforeId,
-                    title + ' - Antes',
-                    'before',
-                    before,
-                    ''
-                ]);
-                
-                await saveToGoogleSheets('Galeria', [
-                    afterId,
-                    title + ' - Después',
-                    'after',
-                    after,
-                    ''
-                ]);
-            }
-            
-            renderGallery();
-            renderAdminGallery();
-            closeModal('galleryModal');
-            document.getElementById('galleryForm').reset();
-            document.getElementById('imageFields').style.display = 'block';
-            document.getElementById('videoFields').style.display = 'none';
-            hideLoading();
-            showSuccess('✅ Contenido agregado a Google Sheets');
-            
-            console.log('💾 Galería guardada:', gallery.length);
-        }
-
-        async function deleteGallery(id) {
-            if (confirm('¿Eliminar este contenido de la galería?')) {
-                showLoading();
-                
-                gallery = gallery.filter(g => g.id !== id);
-                
-                // Eliminar de Google Sheets
-                await deleteFromGoogleSheets('Galeria', id);
-                
-                renderGallery();
-                renderAdminGallery();
-                hideLoading();
-                showSuccess('✅ Contenido eliminado de Google Sheets');
-            }
-        }
-
-        async function saveSettings(e) {
-            e.preventDefault();
-            
-            showLoading();
-            
-            settings.heroTitle = document.getElementById('settingHeroTitle').value;
-            settings.heroDescription = document.getElementById('settingHeroDesc').value;
-            settings.email = document.getElementById('settingEmail').value;
-            settings.whatsapp = document.getElementById('settingWhatsApp').value;
-            
-            // Actualizar en Google Sheets
-            await updateInGoogleSheets('Configuracion', 'heroTitle', ['heroTitle', settings.heroTitle]);
-            await updateInGoogleSheets('Configuracion', 'heroDescription', ['heroDescription', settings.heroDescription]);
-            await updateInGoogleSheets('Configuracion', 'email', ['email', settings.email]);
-            await updateInGoogleSheets('Configuracion', 'whatsapp', ['whatsapp', settings.whatsapp]);
-            
-            document.getElementById('heroTitle').textContent = settings.heroTitle;
-            document.getElementById('heroDesc').textContent = settings.heroDescription;
-            
-            hideLoading();
-            showSuccess('✅ Configuración guardada en Google Sheets');
-            
-            console.log('💾 Configuración guardada:', settings);
-        }
-
-        async function changePassword(e) {
-            e.preventDefault();
-            const current = document.getElementById('currentPassword').value;
-            const newPass = document.getElementById('newPassword').value;
-            const confirm = document.getElementById('confirmPassword').value;
-            
-            if (currentUser.password !== current) {
-                alert('❌ Contraseña actual incorrecta');
-                return;
-            }
-            
-            if (newPass !== confirm) {
-                alert('❌ Las contraseñas nuevas no coinciden');
-                return;
-            }
-            
-            if (newPass.length < 6) {
-                alert('❌ La contraseña debe tener al menos 6 caracteres');
-                return;
-            }
-            
-            showLoading();
-            
-            currentUser.password = newPass;
-            const userIndex = users.findIndex(u => u.id === currentUser.id);
-            users[userIndex].password = newPass;
-            
-            // Actualizar en Google Sheets
-            await updateInGoogleSheets('Clientes', currentUser.id, [
-                currentUser.id,
-                currentUser.name,
-                currentUser.email,
-                currentUser.phone,
-                newPass,
-                currentUser.createdAt,
-                currentUser.role
-            ]);
-            
-            document.getElementById('changePasswordForm').reset();
-            hideLoading();
-            showSuccess('✅ Contraseña actualizada en Google Sheets');
-        }
-
-        // Exportar todos los datos
-        function exportAllData() {
-            const allData = {
-                services: services,
-                gallery: gallery,
-                users: users.map(u => ({...u, password: '***'})), // Ocultar contraseñas
-                appointments: appointments,
-                settings: settings,
-                exportDate: new Date().toISOString()
-            };
-            
-            const dataStr = JSON.stringify(allData, null, 2);
-            const dataBlob = new Blob([dataStr], {type: 'application/json'});
-            const url = URL.createObjectURL(dataBlob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `cryoclean-backup-${new Date().toISOString().split('T')[0]}.json`;
-            link.click();
-            
-            showSuccess('✅ Datos exportados exitosamente');
-        }
-
-        // Resetear todos los datos
-        function resetAllData() {
-            if (confirm('⚠️ ADVERTENCIA: Esto eliminará TODOS los datos personalizados y restaurará los valores por defecto.\n\n¿Estás COMPLETAMENTE seguro?')) {
-                if (confirm('🚨 ÚLTIMA CONFIRMACIÓN: No podrás recuperar los datos eliminados.\n\n¿Continuar?')) {
-                    // Limpiar localStorage
-                    localStorage.removeItem('cryoclean_services');
-                    localStorage.removeItem('cryoclean_gallery');
-                    localStorage.removeItem('cryoclean_settings');
-                    localStorage.removeItem('cryoclean_appointments');
-                    
-                    alert('✅ Datos reseteados. La página se recargará.');
-                    location.reload();
-                }
-            }
-        }
-
-        function switchTab(tab) {
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            
-            document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
-            document.getElementById(tab + 'Tab').classList.add('active');
-        }
-
-        // Helper functions
-        function openModal(id) {
-            document.getElementById(id).classList.add('active');
-        }
-
-        function closeModal(id) {
-            document.getElementById(id).classList.remove('active');
-        }
-
-        function showSuccess(message) {
-            const msg = document.getElementById('successMessage');
-            if (msg) {
-                msg.textContent = message;
-                msg.classList.add('show');
-                setTimeout(() => msg.classList.remove('show'), 3000);
-            } else {
-                // Para mensajes fuera del panel admin
-                const div = document.createElement('div');
-                div.style.cssText = 'position: fixed; top: 20px; right: 20px; background: #d1fae5; color: #10b981; padding: 18px 24px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); z-index: 10000; animation: slideIn 0.3s;';
-                div.textContent = message;
-                document.body.appendChild(div);
-                setTimeout(() => div.remove(), 3000);
-            }
-        }
-    </script>
-</body>
-</html>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore
