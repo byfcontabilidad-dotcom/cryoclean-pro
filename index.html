@@ -3,11 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- SEO Meta Tags -->
     <title>CryoClean Pro - Limpieza Industrial Ecológica con Hielo Seco y Láser | Ecuador</title>
     <meta name="description" content="Servicio profesional de limpieza industrial con hielo seco y láser en Ecuador. Limpieza ecológica para industrias y sector automotriz. Sin químicos, sin daños. Disponible 24/7.">
-    <meta name="keywords" content="limpieza industrial, hielo seco, limpieza láser, Ecuador, limpieza ecológica, limpieza automotriz, dry ice blasting, CryoClean Pro">
     
     <style>
         * {
@@ -47,18 +44,12 @@
             50% { box-shadow: 0 4px 30px rgba(37, 211, 102, 0.7); }
         }
 
-        @keyframes glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(16, 185, 129, 0.3); }
-            50% { box-shadow: 0 0 40px rgba(16, 185, 129, 0.6); }
-        }
-
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
 
-        /* WhatsApp Floating Button */
         .whatsapp-float {
             position: fixed;
             bottom: 30px;
@@ -79,7 +70,6 @@
 
         .whatsapp-float:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
         }
 
         .whatsapp-float svg {
@@ -104,7 +94,6 @@
             font-weight: bold;
         }
 
-        /* Header */
         header {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -145,13 +134,10 @@
             font-weight: 500;
             transition: all 0.3s;
             cursor: pointer;
-            position: relative;
-            padding: 5px 0;
         }
 
         .nav-links a:hover {
             color: var(--primary);
-            transform: translateY(-2px);
         }
 
         .btn {
@@ -171,7 +157,7 @@
         }
 
         .btn-primary:hover {
-            transform: translateY(-3px) scale(1.05);
+            transform: translateY(-3px);
             box-shadow: 0 10px 30px rgba(16, 185, 129, 0.5);
         }
 
@@ -196,7 +182,6 @@
             color: white;
         }
 
-        /* Hero Section */
         .hero {
             background: white;
             border-radius: 24px;
@@ -233,7 +218,6 @@
             margin-bottom: 25px;
         }
 
-        /* Services Grid */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -246,13 +230,12 @@
             border-radius: 20px;
             padding: 40px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s;
             border: 2px solid transparent;
-            cursor: pointer;
         }
 
         .service-card:hover {
-            transform: translateY(-15px) scale(1.02);
+            transform: translateY(-15px);
             box-shadow: 0 25px 60px rgba(16, 185, 129, 0.2);
             border-color: var(--primary);
         }
@@ -261,11 +244,6 @@
             font-size: 64px;
             margin-bottom: 25px;
             display: block;
-            transition: transform 0.3s;
-        }
-
-        .service-card:hover .service-icon {
-            transform: scale(1.2) rotate(5deg);
         }
 
         .service-price {
@@ -275,7 +253,6 @@
             margin: 20px 0;
         }
 
-        /* Gallery Section */
         .gallery-section {
             background: white;
             border-radius: 24px;
@@ -298,32 +275,6 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
-        .before-after {
-            position: relative;
-            width: 100%;
-            height: 300px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .gallery-label {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -411,7 +362,6 @@
             margin: 20px 0;
         }
 
-        /* Admin Panel */
         .admin-panel {
             background: white;
             border-radius: 24px;
@@ -499,15 +449,12 @@
             .hero {
                 padding: 40px 20px;
             }
-
             .hero h1 {
                 font-size: 32px;
             }
-
             .services-grid, .gallery-grid {
                 grid-template-columns: 1fr;
             }
-
             .nav-links {
                 flex-direction: column;
                 gap: 10px;
@@ -516,15 +463,13 @@
     </style>
 </head>
 <body>
-    <!-- Firebase Status Indicator -->
     <div id="firebaseStatus" class="firebase-status disconnected">
         <span id="statusIcon">⚠️</span>
         <span id="statusText">Conectando a Firebase...</span>
     </div>
 
-    <!-- WhatsApp Floating Button -->
     <div class="whatsapp-float" id="whatsappBtn">
-        <svg viewBox="0 0 32 32"><path d="M16 0c-8.837 0-16 7.163-16 16 0 2.825 0.737 5.607 2.137 8.048l-2.137 7.952 7.933-2.127c2.42 1.37 5.173 2.127 8.067 2.127 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 29.467c-2.482 0-4.908-0.646-7.07-1.87l-0.507-0.292-5.247 1.408 1.417-5.267-0.316-0.522c-1.314-2.178-2.009-4.688-2.009-7.257 0-7.384 6.001-13.385 13.385-13.385s13.385 6.001 13.385 13.385c0 7.384-6.001 13.385-13.385 13.385zM21.944 18.651c-0.316-0.158-1.869-0.921-2.158-1.027-0.289-0.105-0.5-0.158-0.711 0.158s-0.816 1.027-1.001 1.238c-0.184 0.211-0.369 0.237-0.685 0.079s-1.336-0.491-2.544-1.565c-0.94-0.836-1.575-1.869-1.759-2.185s-0.020-0.487 0.139-0.645c0.142-0.142 0.316-0.369 0.474-0.553s0.211-0.316 0.316-0.527c0.105-0.211 0.053-0.395-0.026-0.553s-0.711-1.712-0.974-2.343c-0.257-0.615-0.518-0.532-0.711-0.541-0.184-0.009-0.395-0.011-0.606-0.011s-0.553 0.079-0.843 0.395c-0.289 0.316-1.106 1.080-1.106 2.632s1.132 3.053 1.29 3.264c0.158 0.211 2.227 3.4 5.394 4.766 0.753 0.325 1.341 0.519 1.799 0.664 0.757 0.241 1.446 0.207 1.991 0.126 0.607-0.091 1.869-0.763 2.132-1.5s0.263-1.369 0.184-1.5c-0.079-0.132-0.289-0.211-0.606-0.369z"/></svg>
+        <svg viewBox="0 0 32 32"><path d="M16 0c-8.837 0-16 7.163-16 16 0 2.825 0.737 5.607 2.137 8.048l-2.137 7.952 7.933-2.127c2.42 1.37 5.173 2.127 8.067 2.127 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 29.467c-2.482 0-4.908-0.646-7.07-1.87l-0.507-0.292-5.247 1.408 1.417-5.267-0.316-0.522c-1.314-2.178-2.009-4.688-2.009-7.257 0-7.384 6.001-13.385 13.385-13.385s13.385 6.001 13.385 13.385c0 7.384-6.001 13.385-13.385 13.385z"/></svg>
     </div>
 
     <header>
@@ -533,7 +478,7 @@
                 <span style="font-size: 36px;">❄️</span>
                 <span>CryoClean Pro</span>
             </div>
-            <div class="nav-links" id="navLinks">
+            <div class="nav-links">
                 <a href="#servicios">Servicios</a>
                 <a href="#galeria">Galería</a>
                 <a href="#agendar">Agendar</a>
@@ -551,7 +496,7 @@
         <section class="hero">
             <div class="eco-badge">🌱 100% Ecológico & Sustentable</div>
             <h1 id="heroTitle">Limpieza Industrial del Futuro</h1>
-            <p id="heroDesc">Tecnología de punta con hielo seco y láser para limpieza industrial y automotriz. Sin químicos, sin residuos, sin daños.</p>
+            <p id="heroDesc">Tecnología de punta con hielo seco y láser para limpieza industrial y automotriz.</p>
             <button class="btn btn-primary" id="btnVerServicios" style="font-size: 18px; padding: 16px 40px;">
                 Descubre Nuestros Servicios
             </button>
@@ -564,17 +509,12 @@
 
         <section id="galeria" class="gallery-section">
             <h2 class="section-title">Transformaciones Reales</h2>
-            <p style="text-align: center; color: var(--gray); margin-bottom: 30px;">
-                Antes y después de nuestros servicios de limpieza profesional
-            </p>
             <div class="gallery-grid" id="galleryContainer"></div>
         </section>
 
         <section id="agendar" class="gallery-section">
             <h2 class="section-title">Agenda Tu Servicio</h2>
-            <p style="text-align: center; color: var(--gray); margin-bottom: 30px; font-size: 18px;">
-                Disponibles <strong style="color: var(--primary);">24/7</strong> para atenderte
-            </p>
+            <p style="text-align: center; color: var(--gray); margin-bottom: 30px;">Disponibles 24/7</p>
             <div style="text-align: center;">
                 <button class="btn btn-primary" id="btnAgendarCita" style="font-size: 20px; padding: 18px 50px;">
                     📅 Agendar Ahora
@@ -583,11 +523,10 @@
         </section>
     </div>
 
-    <!-- Modals (Login, Cart, Appointment, etc.) -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 id="loginTitle">Iniciar Sesión</h2>
+                <h2>Iniciar Sesión</h2>
                 <button class="close-btn" data-modal="loginModal">&times;</button>
             </div>
             <div id="loginForm">
@@ -675,56 +614,46 @@
                     <select id="apptTime" required>
                         <option value="">Seleccione...</option>
                         <option value="08:00">08:00</option>
-                        <option value="09:00">09:00</option>
                         <option value="10:00">10:00</option>
-                        <option value="11:00">11:00</option>
                         <option value="12:00">12:00</option>
                         <option value="14:00">14:00</option>
-                        <option value="15:00">15:00</option>
                         <option value="16:00">16:00</option>
-                        <option value="17:00">17:00</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Servicios Seleccionados</label>
+                    <label>Servicios</label>
                     <div id="apptServices" style="background: #f8fafc; padding: 15px; border-radius: 10px;"></div>
                 </div>
                 <div class="form-group">
-                    <label>Notas Adicionales</label>
+                    <label>Notas</label>
                     <textarea id="apptNotes" rows="3"></textarea>
                 </div>
                 <button type="submit" class="btn btn-success" style="width: 100%; margin-bottom: 10px;">
                     ✅ Confirmar Cita
                 </button>
                 <button type="button" class="btn btn-whatsapp" id="btnWhatsAppConfirm" style="width: 100%;">
-                    💬 Confirmar por WhatsApp
+                    💬 WhatsApp
                 </button>
             </form>
         </div>
     </div>
 
-    <!-- Admin Panel -->
     <div id="adminPanel" class="container" style="display: none;">
         <div class="admin-panel">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
-                <h2>⚙️ Panel de Administración Firebase</h2>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 40px;">
+                <h2>⚙️ Panel Administrador</h2>
                 <button class="btn btn-danger" id="btnLogout">Cerrar Sesión</button>
             </div>
             <div id="successMessage" class="success-message"></div>
             <div style="margin-bottom: 30px;">
                 <button class="tab-btn active" data-tab="services">Servicios</button>
-                <button class="tab-btn" data-tab="gallery">Galería</button>
                 <button class="tab-btn" data-tab="users">Usuarios</button>
                 <button class="tab-btn" data-tab="appointments">Citas</button>
                 <button class="tab-btn" data-tab="settings">Configuración</button>
             </div>
             <div id="servicesTab" class="tab-content active">
-                <button class="btn btn-primary" id="btnAddService">+ Agregar Servicio</button>
+                <h3>Gestionar Servicios</h3>
                 <div id="servicesList"></div>
-            </div>
-            <div id="galleryTab" class="tab-content">
-                <button class="btn btn-primary" id="btnAddGallery">+ Agregar a Galería</button>
-                <div id="galleryList"></div>
             </div>
             <div id="usersTab" class="tab-content">
                 <h3>Usuarios Registrados</h3>
@@ -735,14 +664,11 @@
                 <div id="appointmentsList"></div>
             </div>
             <div id="settingsTab" class="tab-content">
+                <h3>Configuración</h3>
                 <form id="settingsForm">
                     <div class="form-group">
-                        <label>Título Principal</label>
-                        <input type="text" id="settingHeroTitle">
-                    </div>
-                    <div class="form-group">
-                        <label>Descripción</label>
-                        <textarea id="settingHeroDesc" rows="3"></textarea>
+                        <label>Título</label>
+                        <input type="text" id="settingTitle">
                     </div>
                     <div class="form-group">
                         <label>WhatsApp</label>
@@ -754,7 +680,497 @@
         </div>
     </div>
 
-    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+    <script>
+        // Tu configuración de Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyBsPssHAMzBzYrHvdMFqtR31n2E55ovr8A",
+            authDomain: "cryocleanpro.firebaseapp.com",
+            projectId: "cryocleanpro",
+            storageBucket: "cryocleanpro.firebasestorage.app",
+            messagingSenderId: "835260147208",
+            appId: "1:835260147208:web:6cfd00fc634ded777353bd",
+            measurementId: "G-08T6FNZV77"
+        };
+
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // Variables globales
+        let currentUser = null;
+        let cart = [];
+        let services = [];
+        let users = [];
+        let appointments = [];
+        let settings = {};
+
+        // Actualizar estado de Firebase
+        function updateFirebaseStatus(connected) {
+            const statusEl = document.getElementById('firebaseStatus');
+            const iconEl = document.getElementById('statusIcon');
+            const textEl = document.getElementById('statusText');
+            
+            if (connected) {
+                statusEl.className = 'firebase-status connected';
+                iconEl.textContent = '✅';
+                textEl.textContent = 'Conectado a Firebase';
+                setTimeout(() => {
+                    statusEl.style.display = 'none';
+                }, 3000);
+            } else {
+                statusEl.className = 'firebase-status disconnected';
+                iconEl.textContent = '⚠️';
+                textEl.textContent = 'Error de conexión';
+            }
+        }
+
+        // Cargar servicios desde Firestore
+        async function loadServices() {
+            try {
+                const snapshot = await db.collection('servicios').get();
+                services = [];
+                snapshot.forEach(doc => {
+                    services.push({ id: doc.id, ...doc.data() });
+                });
+                renderServices();
+                console.log('✅ Servicios cargados:', services.length);
+            } catch (error) {
+                console.error('Error cargando servicios:', error);
+                // Datos por defecto
+                services = [
+                    {id: '1', name: 'Limpieza con Hielo Seco', description: 'Limpieza profunda industrial', price: 299.99, icon: '❄️', features: ['Sin químicos', 'Eco-amigable']},
+                    {id: '2', name: 'Limpieza Láser', description: 'Tecnología láser de precisión', price: 399.99, icon: '⚡', features: ['Alta precisión', 'Sin residuos']}
+                ];
+                renderServices();
+            }
+        }
+
+        // Renderizar servicios
+        function renderServices() {
+            const container = document.getElementById('servicesContainer');
+            container.innerHTML = services.map(s => `
+                <div class="service-card">
+                    <span class="service-icon">${s.icon || '🔧'}</span>
+                    <h3 style="font-size: 24px; margin-bottom: 15px;">${s.name}</h3>
+                    <p style="color: var(--gray); margin-bottom: 15px;">${s.description}</p>
+                    ${s.features ? `<ul style="list-style: none; margin: 15px 0;">
+                        ${s.features.map(f => `<li>✓ ${f}</li>`).join('')}
+                    </ul>` : ''}
+                    <div class="service-price">$${s.price.toFixed(2)}</div>
+                    <button class="btn btn-primary" onclick="addToCart('${s.id}')" style="width: 100%;">
+                        Agregar al Carrito
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // Agregar al carrito
+        function addToCart(serviceId) {
+            const service = services.find(s => s.id === serviceId);
+            if (!service) return;
+            
+            const existing = cart.find(item => item.id === serviceId);
+            if (existing) {
+                existing.quantity++;
+            } else {
+                cart.push({ ...service, quantity: 1 });
+            }
+            updateCartBadge();
+            showSuccess('✅ Servicio agregado al carrito');
+        }
+
+        // Actualizar badge del carrito
+        function updateCartBadge() {
+            const badge = document.getElementById('cartBadge');
+            const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            if (total > 0) {
+                badge.textContent = total;
+                badge.style.display = 'flex';
+            } else {
+                badge.style.display = 'none';
+            }
+            renderCart();
+        }
+
+        // Renderizar carrito
+        function renderCart() {
+            const container = document.getElementById('cartItems');
+            const totalEl = document.getElementById('cartTotal');
+            
+            if (cart.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--gray); padding: 40px;">Carrito vacío</p>';
+                totalEl.textContent = 'Total: $0.00';
+                return;
+            }
+            
+            container.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div>
+                        <strong>${item.icon} ${item.name}</strong>
+                        <div style="color: var(--gray);">Cantidad: ${item.quantity}</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-size: 20px; color: var(--primary);">${(item.price * item.quantity).toFixed(2)}</div>
+                        <button class="btn btn-danger" onclick="removeFromCart('${item.id}')" style="padding: 6px 12px; font-size: 12px;">
+                            Eliminar
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            totalEl.textContent = `Total: ${total.toFixed(2)}`;
+        }
+
+        // Remover del carrito
+        function removeFromCart(serviceId) {
+            cart = cart.filter(item => item.id !== serviceId);
+            updateCartBadge();
+        }
+
+        // Login de usuario
+        async function loginUser() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            try {
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+                
+                // Obtener datos del usuario desde Firestore
+                const userDoc = await db.collection('usuarios').doc(user.uid).get();
+                
+                if (userDoc.exists) {
+                    currentUser = { uid: user.uid, ...userDoc.data() };
+                    closeModal('loginModal');
+                    
+                    if (currentUser.role === 'admin') {
+                        showAdminPanel();
+                        showSuccess('🔐 Bienvenido Administrador!');
+                    } else {
+                        document.getElementById('btnLogin').style.display = 'none';
+                        document.getElementById('btnLogoutUser').style.display = 'inline-block';
+                        document.getElementById('btnLogoutUser').textContent = `👤 ${currentUser.name.split(' ')[0]}`;
+                        showSuccess(`¡Bienvenido ${currentUser.name}!`);
+                    }
+                } else {
+                    throw new Error('Usuario no encontrado en base de datos');
+                }
+            } catch (error) {
+                console.error('Error login:', error);
+                alert('❌ Error: ' + error.message);
+            }
+        }
+
+        // Registro de usuario
+        async function registerUser() {
+            const name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value;
+            const phone = document.getElementById('regPhone').value;
+            const password = document.getElementById('regPassword').value;
+            
+            if (password.length < 6) {
+                alert('❌ La contraseña debe tener al menos 6 caracteres');
+                return;
+            }
+            
+            try {
+                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+                
+                // Guardar datos en Firestore
+                await db.collection('usuarios').doc(user.uid).set({
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    role: 'customer',
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                
+                alert('✅ Cuenta creada exitosamente!');
+                showLoginForm();
+            } catch (error) {
+                console.error('Error registro:', error);
+                alert('❌ Error: ' + error.message);
+            }
+        }
+
+        // Logout
+        async function logout() {
+            try {
+                await auth.signOut();
+                currentUser = null;
+                document.getElementById('mainContent').style.display = 'block';
+                document.querySelector('header').style.display = 'block';
+                document.getElementById('adminPanel').style.display = 'none';
+                document.getElementById('btnLogin').style.display = 'inline-block';
+                document.getElementById('btnLogoutUser').style.display = 'none';
+                showSuccess('👋 Sesión cerrada');
+            } catch (error) {
+                console.error('Error logout:', error);
+            }
+        }
+
+        // Guardar cita
+        async function submitAppointment(e) {
+            e.preventDefault();
+            
+            if (cart.length === 0) {
+                alert('❌ El carrito está vacío');
+                return;
+            }
+            
+            const appointment = {
+                name: document.getElementById('apptName').value,
+                email: document.getElementById('apptEmail').value,
+                phone: document.getElementById('apptPhone').value,
+                date: document.getElementById('apptDate').value,
+                time: document.getElementById('apptTime').value,
+                services: cart,
+                notes: document.getElementById('apptNotes').value || '',
+                status: 'pending',
+                total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                userId: currentUser ? currentUser.uid : null
+            };
+            
+            try {
+                await db.collection('citas').add(appointment);
+                alert('✅ Cita agendada exitosamente!');
+                closeModal('appointmentModal');
+                cart = [];
+                updateCartBadge();
+                document.getElementById('appointmentForm').reset();
+            } catch (error) {
+                console.error('Error guardando cita:', error);
+                alert('❌ Error al agendar: ' + error.message);
+            }
+        }
+
+        // Mostrar panel admin
+        function showAdminPanel() {
+            document.getElementById('mainContent').style.display = 'none';
+            document.querySelector('header').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'block';
+            loadAdminData();
+        }
+
+        // Cargar datos admin
+        async function loadAdminData() {
+            try {
+                // Cargar usuarios
+                const usersSnapshot = await db.collection('usuarios').get();
+                users = [];
+                usersSnapshot.forEach(doc => {
+                    users.push({ uid: doc.id, ...doc.data() });
+                });
+                renderAdminUsers();
+                
+                // Cargar citas
+                const apptSnapshot = await db.collection('citas').orderBy('createdAt', 'desc').get();
+                appointments = [];
+                apptSnapshot.forEach(doc => {
+                    appointments.push({ id: doc.id, ...doc.data() });
+                });
+                renderAdminAppointments();
+                
+                // Cargar servicios
+                renderAdminServices();
+            } catch (error) {
+                console.error('Error cargando datos admin:', error);
+            }
+        }
+
+        // Renderizar usuarios admin
+        function renderAdminUsers() {
+            const list = document.getElementById('usersList');
+            list.innerHTML = users.map(u => `
+                <div class="user-item">
+                    <h4>${u.name}</h4>
+                    <div style="color: var(--gray);">📧 ${u.email}</div>
+                    <div style="color: var(--gray);">📱 ${u.phone || 'N/A'}</div>
+                    <span style="background: ${u.role === 'admin' ? 'var(--primary)' : 'var(--gray)'}; color: white; padding: 4px 12px; border-radius: 6px; font-size: 12px; margin-top: 8px; display: inline-block;">
+                        ${u.role === 'admin' ? 'Admin' : 'Cliente'}
+                    </span>
+                </div>
+            `).join('');
+        }
+
+        // Renderizar citas admin
+        function renderAdminAppointments() {
+            const list = document.getElementById('appointmentsList');
+            if (appointments.length === 0) {
+                list.innerHTML = '<p style="text-align: center; color: var(--gray); padding: 40px;">No hay citas</p>';
+                return;
+            }
+            
+            list.innerHTML = appointments.map(a => `
+                <div class="appointment-item">
+                    <h4>${a.name}</h4>
+                    <div style="color: var(--gray);">📅 ${a.date} a las ${a.time}</div>
+                    <div style="color: var(--gray);">📧 ${a.email}</div>
+                    <div style="color: var(--gray);">📱 ${a.phone}</div>
+                    <div style="margin: 10px 0;">
+                        <strong>Servicios:</strong>
+                        ${a.services.map(s => `<div>• ${s.name} (x${s.quantity})</div>`).join('')}
+                    </div>
+                    <div style="color: var(--primary); font-weight: bold;">Total: ${a.total.toFixed(2)}</div>
+                    ${a.notes ? `<div style="background: #f8fafc; padding: 10px; border-radius: 8px; margin-top: 10px;"><strong>Notas:</strong> ${a.notes}</div>` : ''}
+                </div>
+            `).join('');
+        }
+
+        // Renderizar servicios admin
+        function renderAdminServices() {
+            const list = document.getElementById('servicesList');
+            list.innerHTML = services.map(s => `
+                <div class="user-item" style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h3>${s.icon} ${s.name}</h3>
+                        <p style="color: var(--gray);">${s.description}</p>
+                        <strong style="color: var(--primary);">${s.price.toFixed(2)}</strong>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Modal functions
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        function showLoginForm() {
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block';
+        }
+
+        function showRegisterForm() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+        }
+
+        function showSuccess(message) {
+            const msg = document.getElementById('successMessage');
+            if (msg) {
+                msg.textContent = message;
+                msg.classList.add('show');
+                setTimeout(() => msg.classList.remove('show'), 3000);
+            } else {
+                const div = document.createElement('div');
+                div.style.cssText = 'position: fixed; top: 20px; right: 20px; background: #d1fae5; color: #10b981; padding: 18px 24px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); z-index: 10000;';
+                div.textContent = message;
+                document.body.appendChild(div);
+                setTimeout(() => div.remove(), 3000);
+            }
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+            document.getElementById(tab + 'Tab').classList.add('active');
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('🚀 Iniciando CryoClean Pro...');
+            
+            try {
+                await loadServices();
+                updateFirebaseStatus(true);
+            } catch (error) {
+                console.error('Error inicial:', error);
+                updateFirebaseStatus(false);
+            }
+            
+            // WhatsApp
+            document.getElementById('whatsappBtn').addEventListener('click', () => {
+                window.open('https://wa.me/593989898143?text=Hola! Me interesa sus servicios', '_blank');
+            });
+            
+            // Buttons
+            document.getElementById('btnLogin').addEventListener('click', () => openModal('loginModal'));
+            document.getElementById('btnLogoutUser').addEventListener('click', logout);
+            document.getElementById('btnCart').addEventListener('click', () => openModal('cartModal'));
+            document.getElementById('btnAgendarCita').addEventListener('click', () => openModal('appointmentModal'));
+            document.getElementById('btnVerServicios').addEventListener('click', () => {
+                document.getElementById('servicios').scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Login/Register
+            document.getElementById('btnLoginSubmit').addEventListener('click', loginUser);
+            document.getElementById('btnRegisterSubmit').addEventListener('click', registerUser);
+            document.getElementById('btnShowRegister').addEventListener('click', showRegisterForm);
+            document.getElementById('btnShowLogin').addEventListener('click', showLoginForm);
+            
+            // Cart
+            document.getElementById('btnProceedBooking').addEventListener('click', () => {
+                if (cart.length === 0) {
+                    alert('Carrito vacío');
+                    return;
+                }
+                closeModal('cartModal');
+                openModal('appointmentModal');
+                const servicesEl = document.getElementById('apptServices');
+                servicesEl.innerHTML = cart.map(item => `
+                    <div>${item.icon} ${item.name} (x${item.quantity}) - ${(item.price * item.quantity).toFixed(2)}</div>
+                `).join('');
+            });
+            
+            // Appointment
+            document.getElementById('appointmentForm').addEventListener('submit', submitAppointment);
+            document.getElementById('btnWhatsAppConfirm').addEventListener('click', () => {
+                const name = document.getElementById('apptName').value;
+                const date = document.getElementById('apptDate').value;
+                const time = document.getElementById('apptTime').value;
+                const services = cart.map(s => `${s.name} (x${s.quantity})`).join(', ');
+                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                
+                const msg = encodeURIComponent(
+                    `Hola! Quiero agendar:\n\n` +
+                    `👤 ${name}\n` +
+                    `📅 ${date} ${time}\n` +
+                    `🛠️ ${services}\n` +
+                    `💰 ${total.toFixed(2)}`
+                );
+                window.open(`https://wa.me/593989898143?text=${msg}`, '_blank');
+            });
+            
+            // Admin
+            document.getElementById('btnLogout').addEventListener('click', logout);
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    switchTab(this.getAttribute('data-tab'));
+                });
+            });
+            
+            // Close modals
+            document.querySelectorAll('.close-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    closeModal(this.getAttribute('data-modal'));
+                });
+            });
+            
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeModal(this.id);
+                    }
+                });
+            });
+            
+            console.log('✅ Aplicación lista');
+        });
+    </script>
+</body>
+</html>
