@@ -1115,35 +1115,32 @@
                 return;
             }
             
-            container.innerHTML = gallery.map(g => {
+            let html = '';
+            for (let i = 0; i < gallery.length; i++) {
+                const g = gallery[i];
+                html += '<div class="gallery-item">';
+                
                 if (g.type === 'video') {
                     let embedUrl = g.videoUrl;
                     if (g.videoUrl.includes('youtube.com/watch')) {
-                        const videoId = g.videoUrl.split('v=')[1]?.split('&')[0];
-                        embedUrl = `https://www.youtube.com/embed/${videoId}`;
+                        const parts = g.videoUrl.split('v=');
+                        if (parts[1]) {
+                            const videoId = parts[1].split('&')[0];
+                            embedUrl = 'https://www.youtube.com/embed/' + videoId;
+                        }
                     } else if (g.videoUrl.includes('youtu.be/')) {
                         const videoId = g.videoUrl.split('youtu.be/')[1];
-                        embedUrl = `https://www.youtube.com/embed/${videoId}`;
+                        embedUrl = 'https://www.youtube.com/embed/' + videoId;
                     }
-                    return `
-                        <div class="gallery-item">
-                            <iframe src="${embedUrl}" allowfullscreen></iframe>
-                            <div style="padding: 15px;">
-                                <strong>${g.title}</strong>
-                            </div>
-                        </div>
-                    `;
+                    html += '<iframe src="' + embedUrl + '" allowfullscreen></iframe>';
                 } else {
-                    return `
-                        <div class="gallery-item">
-                            <img src="${g.imageUrl}" alt="${g.title}" onerror="this.src='https://via.placeholder.com/400x300/667eea/ffffff?text=Imagen'">
-                            <div style="padding: 15px;">
-                                <strong>${g.title}</strong>
-                            </div>
-                        </div>
-                    `;
+                    html += '<img src="' + g.imageUrl + '" alt="' + g.title + '" onerror="this.src=\'https://via.placeholder.com/400x300/667eea/ffffff?text=Imagen\'">';
                 }
-            }).join('');
+                
+                html += '<div style="padding: 15px;"><strong>' + g.title + '</strong></div>';
+                html += '</div>';
+            }
+            container.innerHTML = html;
         }
 
         // Agregar al carrito
@@ -1434,8 +1431,8 @@
             list.innerHTML = users.map(u => `
                 <div class="user-item">
                     <h4>${u.name}</h4>
-                    <div style="color: var(--gray);">📧 ${u.email}</div>
-                    <div style="color: var(--gray);">📱 ${u.phone || 'N/A'}</div>
+                    <div style="color: var(--gray);">Email: ${u.email}</div>
+                    <div style="color: var(--gray);">Telefono: ${u.phone || 'N/A'}</div>
                     <span style="background: ${u.role === 'admin' ? 'var(--primary)' : 'var(--gray)'}; color: white; padding: 4px 12px; border-radius: 6px; font-size: 12px; margin-top: 8px; display: inline-block;">
                         ${u.role === 'admin' ? 'Admin' : 'Cliente'}
                     </span>
@@ -1473,10 +1470,10 @@
                             ${statusLabels[a.status]}
                         </span>
                     </div>
-                    <div style="color: var(--gray);">📅 ${a.date} a las ${a.time}</div>
-                    <div style="color: var(--gray);">📧 ${a.email}</div>
-                    <div style="color: var(--gray);">📱 ${a.phone}</div>
-                    <div style="color: var(--gray);">💳 ${getPaymentMethodLabel(a.paymentMethod)}</div>
+                    <div style="color: var(--gray);">Fecha: ${a.date} a las ${a.time}</div>
+                    <div style="color: var(--gray);">Email: ${a.email}</div>
+                    <div style="color: var(--gray);">Telefono: ${a.phone}</div>
+                    <div style="color: var(--gray);">Pago: ${getPaymentMethodLabel(a.paymentMethod)}</div>
                     <div style="margin: 10px 0;">
                         <strong>Servicios:</strong>
                         ${a.services.map(s => `<div>• ${s.name} (x${s.quantity})</div>`).join('')}
@@ -1495,10 +1492,10 @@
 
         function getPaymentMethodLabel(method) {
             const labels = {
-                transferencia: '🏦 Transferencia',
-                tarjeta: '💳 Tarjeta',
-                btc: '₿ Bitcoin',
-                usdt: '₮ USDT'
+                transferencia: 'Transferencia',
+                tarjeta: 'Tarjeta',
+                btc: 'Bitcoin',
+                usdt: 'USDT'
             };
             return labels[method] || method;
         }
