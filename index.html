@@ -1544,3 +1544,376 @@
         // Eliminar cita
         async function deleteCita(citaId) {
             if (!confirm('¿Eliminar esta cita?')) return;
+            
+            try {
+                await db.collection('citas').doc(citaId).delete();
+                showSuccess('✅ Cita eliminada');
+                loadAdminData();
+            } catch (error) {
+                console.error('Error eliminando:', error);
+                alert('❌ Error: ' + error.message);
+            }
+        }
+
+        // Contactar WhatsApp
+        function contactWhatsApp(phone) {
+            window.open(`https://wa.me/${phone.replace(/[^0-9]/g, '')}`, '_blank');
+        }
+
+        // Renderizar servicios admin
+        function renderAdminServices() {
+            const list = document.getElementById('servicesList');
+            list.innerHTML = services.map(s => `
+                <div class="service-item" style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h3>${s.icon} ${s.name}</h3>
+                        <p style="color: var(--gray);">${s.description}</p>
+                        <strong style="color: var(--primary);">${Number(s.price).toFixed(2)}</strong>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn btn-secondary" onclick="editService('${s.id}')">✏️ Editar</button>
+                        <button class="btn btn-danger" onclick="deleteService('${s.id}')">🗑️ Eliminar</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Agregar/Editar servicio
+        async function saveService(e) {
+            e.preventDefault();
+            
+            const serviceId = document.getElementById('serviceEditId').value;
+            const serviceData = {
+                name: document.getElementById('serviceName').value,
+                description: document.getElementById('serviceDesc').value,
+                price: parseFloat(document.getElementById('servicePrice').value),
+                icon: document.getElementById('serviceIcon').value || '🔧',
+                features: document.getElementById('serviceFeatures').value.split(',').map(f => f.trim()).filter(f => f)
+            };
+            
+            try {
+                if (serviceId) {
+                    // Editar
+                    await db.collection('servicios').doc(serviceId).update(serviceData);
+                    showSuccess('✅ Servicio actualizado');
+                } else {
+                    // Crear
+                    await db.collection('servicios').add(serviceData);
+                    showSuccess('✅ Servicio creado');
+                }
+                
+                closeModal('serviceModal');
+                await loadServices();
+                renderAdminServices();
+            } catch (error) {
+                console.error('Error guardando servicio:', error);
+                alert('❌ Error: ' + error.message);
+            }
+        }
+
+        // Editar servicio
+        function editService(serviceId) {
+            const service = services.find(s => s.id === serviceId);
+            if (!service) return;
+            
+            document.getElementById('serviceModalTitle').textContent = 'Editar Servicio';
+            document.getElementById('serviceEditId').value = serviceId;
+            document.getElementById('serviceName').value = service.name;
+            document.getElementById('serviceDesc').value = service.description;
+            document.getElementById('servicePrice').value = service.price;
+            document.getElementById('serviceIcon').value = service.icon;
+            document.getElementById('serviceFeatures').value = service.features ? service.features.join(', ') : '';
+            openModal('serviceModal');
+        }
+
+        // Eliminar servicio
+        async function deleteService(serviceId) {
+            if (!confirm('¿Eliminar este servicio?')) return;
+            
+            try {
+                await db.collection('servicios').doc(serviceId).delete();
+                showSuccess('✅ Servicio eliminado');
+                await loadServices();
+                renderAdminServices();
+            } catch (error) {
+                console.error('Error eliminando:', error);
+                alert('❌ Error: ' + error.message);
+            }
+        }
+
+        // Renderizar galería admin
+        function renderAdminGallery() {
+            const list = document.getElementById('galleryAdminList');
+            
+            if (gallery.length === 0) {
+                list.innerHTML = '<p style="text-align: center; color: var(--gray); padding: 40px;">No hay contenido en la galería</p>';
+                return;
+            }
+            
+            list.innerHTML = gallery.map(g => `
+                <div class="gallery-admin-item" style="display: flex; gap: 15px; align-items: center;">
+                    ${g.type === 'video' ? 
+                        `<div style="width: 120px; height: 80px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 40px;">🎥</div>` :
+                        `<img src="${g.imageUrl}" style="width: 120px; height: 80px; object-fit: cover; border-radius: 8px;" onerror="this.src='https://via.placeholder.com/120x80/667eea/ffffff?text=Imagen'">`
+                    }
+                    <div style="flex: 1;">
+                        <strong>${g.title}</strong>
+                        <div style="color: var(--gray); font-size: 14px;">${g.type === 'video' ? 'VIDEO' : 'IMAGEN'}</div>
+                    </div>
+                    <button class="btn btn-danger" onclick="deleteGalleryItem('${g.id}')">🗑️ Eliminar</button>
+                </div>
+            `).join('');
+        }
+
+        // Agregar a galería
+        async function saveGallery(e) {
+            e.preventDefault();
+            
+            const type = document.getElementById('galleryType').value;
+            const title = document.getElementById('galleryTitle').value;
+            
+            const galleryData = {
+                title: title,
+                type: type,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            };
+            
+            if (type === 'video') {
+                galleryData.videoUrl = document.getElementById('galleryVideoUrl').value;
+            } else {
+                galleryData.imageUrl = document.getElementById('galleryImageUrl').value;
+            }
+            
+            try {
+                await db.collection('galeria').add(galleryData);
+                showSuccess('✅ Agregado a galería');
+                closeModal('galleryModal');
+                document.getElementById('galleryForm').reset();
+                await loadGallery();
+                renderAdminGallery();
+            } catch (error) {
+                console.error('Error guardando galería:', error);
+                alert('❌ Error: ' + error.message);
+            }
+        }
+
+        // Eliminar item galería
+        async function deleteGalleryItem(galleryId) {
+            if (!confirm('¿Eliminar este elemento?')) return;
+            
+            try {
+                await db.collection('galeria').doc(galleryId).delete();
+                showSuccess('✅ Elemento eliminado');
+                await loadGallery();
+                renderAdminGallery();
+            } catch (error) {
+                console.error('Error eliminando:', error);
+                alert('❌ Error: ' + error.message);
+            }
+        }
+
+        // Modal functions
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        function showLoginForm() {
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('forgotPasswordForm').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block';
+        }
+
+        function showRegisterForm() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('forgotPasswordForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+        }
+
+        function showForgotPasswordForm() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('forgotPasswordForm').style.display = 'block';
+        }
+
+        function showSuccess(message) {
+            const msg = document.getElementById('successMessage');
+            if (msg) {
+                msg.textContent = message;
+                msg.classList.add('show');
+                setTimeout(() => msg.classList.remove('show'), 3000);
+            } else {
+                const div = document.createElement('div');
+                div.style.cssText = 'position: fixed; top: 20px; right: 20px; background: #d1fae5; color: #10b981; padding: 18px 24px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); z-index: 10000;';
+                div.textContent = message;
+                document.body.appendChild(div);
+                setTimeout(() => div.remove(), 3000);
+            }
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+            document.getElementById(tab + 'Tab').classList.add('active');
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('🚀 Iniciando CryoClean Pro...');
+            
+            try {
+                await loadServices();
+                await loadGallery();
+                updateFirebaseStatus(true);
+            } catch (error) {
+                console.error('Error inicial:', error);
+                updateFirebaseStatus(false);
+            }
+            
+            // WhatsApp
+            document.getElementById('whatsappBtn').addEventListener('click', () => {
+                window.open('https://wa.me/593989898143?text=Hola! Me interesa sus servicios', '_blank');
+            });
+            
+            // Buttons
+            document.getElementById('btnLogin').addEventListener('click', () => openModal('loginModal'));
+            document.getElementById('btnLogoutUser').addEventListener('click', logout);
+            document.getElementById('btnCart').addEventListener('click', () => openModal('cartModal'));
+            document.getElementById('btnAgendarCita').addEventListener('click', () => openModal('appointmentModal'));
+            document.getElementById('btnVerServicios').addEventListener('click', () => {
+                document.getElementById('servicios').scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Login/Register
+            document.getElementById('btnLoginSubmit').addEventListener('click', loginUser);
+            document.getElementById('btnRegisterSubmit').addEventListener('click', registerUser);
+            document.getElementById('btnShowRegister').addEventListener('click', showRegisterForm);
+            document.getElementById('btnShowLogin').addEventListener('click', showLoginForm);
+            document.getElementById('btnShowForgotPassword').addEventListener('click', showForgotPasswordForm);
+            document.getElementById('btnBackToLogin').addEventListener('click', showLoginForm);
+            document.getElementById('btnSendResetEmail').addEventListener('click', sendPasswordReset);
+            
+            // Cart
+            document.getElementById('btnProceedBooking').addEventListener('click', () => {
+                if (cart.length === 0) {
+                    alert('Carrito vacío');
+                    return;
+                }
+                closeModal('cartModal');
+                openModal('appointmentModal');
+                const servicesEl = document.getElementById('apptServices');
+                servicesEl.innerHTML = cart.map(item => `
+                    <div>${item.icon} ${item.name} (x${item.quantity}) - ${(item.price * item.quantity).toFixed(2)}</div>
+                `).join('');
+            });
+            
+            // Payment methods
+            document.querySelectorAll('.payment-method').forEach(method => {
+                method.addEventListener('click', function() {
+                    document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedPaymentMethod = this.getAttribute('data-payment');
+                    
+                    const paymentInfo = document.getElementById('paymentInfo');
+                    const paymentInfoText = document.getElementById('paymentInfoText');
+                    
+                    const paymentInfoTexts = {
+                        transferencia: 'Los datos de cuenta bancaria se enviarán por email una vez confirmada la cita.',
+                        tarjeta: 'Se enviará un enlace de pago seguro a tu email para procesar el pago con tarjeta.',
+                        btc: 'La dirección Bitcoin se enviará por email. Red: Bitcoin (BTC).',
+                        usdt: 'La dirección USDT se enviará por email. Red: TRC20 (TRON).'
+                    };
+                    
+                    paymentInfoText.textContent = paymentInfoTexts[selectedPaymentMethod];
+                    paymentInfo.style.display = 'block';
+                });
+            });
+            
+            // Appointment
+            document.getElementById('appointmentForm').addEventListener('submit', submitAppointment);
+            document.getElementById('btnWhatsAppConfirm').addEventListener('click', () => {
+                const name = document.getElementById('apptName').value;
+                const date = document.getElementById('apptDate').value;
+                const time = document.getElementById('apptTime').value;
+                const services = cart.map(s => `${s.name} (x${s.quantity})`).join(', ');
+                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                const payment = selectedPaymentMethod ? getPaymentMethodLabel(selectedPaymentMethod) : 'No especificado';
+                
+                const msg = encodeURIComponent(
+                    `Hola! Quiero agendar:\n\n` +
+                    `👤 ${name}\n` +
+                    `📅 ${date} ${time}\n` +
+                    `🛠️ ${services}\n` +
+                    `💳 ${payment}\n` +
+                    `💰 ${total.toFixed(2)}`
+                );
+                window.open(`https://wa.me/593989898143?text=${msg}`, '_blank');
+            });
+            
+            // Admin
+            document.getElementById('btnLogout').addEventListener('click', logout);
+            document.getElementById('btnAddService').addEventListener('click', () => {
+                document.getElementById('serviceModalTitle').textContent = 'Agregar Servicio';
+                document.getElementById('serviceForm').reset();
+                document.getElementById('serviceEditId').value = '';
+                openModal('serviceModal');
+            });
+            document.getElementById('btnAddGallery').addEventListener('click', () => openModal('galleryModal'));
+            document.getElementById('serviceForm').addEventListener('submit', saveService);
+            document.getElementById('galleryForm').addEventListener('submit', saveGallery);
+            document.getElementById('editCitaForm').addEventListener('submit', saveEditCita);
+            
+            // Gallery type toggle
+            document.getElementById('galleryType').addEventListener('change', function() {
+                const imageGroup = document.getElementById('imageUrlGroup');
+                const videoGroup = document.getElementById('videoUrlGroup');
+                
+                if (this.value === 'video') {
+                    imageGroup.style.display = 'none';
+                    videoGroup.style.display = 'block';
+                    document.getElementById('galleryImageUrl').removeAttribute('required');
+                    document.getElementById('galleryVideoUrl').setAttribute('required', 'required');
+                } else {
+                    imageGroup.style.display = 'block';
+                    videoGroup.style.display = 'none';
+                    document.getElementById('galleryImageUrl').setAttribute('required', 'required');
+                    document.getElementById('galleryVideoUrl').removeAttribute('required');
+                }
+            });
+            
+            // Tabs
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    switchTab(this.getAttribute('data-tab'));
+                });
+            });
+            
+            // Close modals
+            document.querySelectorAll('.close-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    closeModal(this.getAttribute('data-modal'));
+                });
+            });
+            
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeModal(this.id);
+                    }
+                });
+            });
+            
+            // Min date para citas (hoy)
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('apptDate').setAttribute('min', today);
+            document.getElementById('editCitaDate').setAttribute('min', today);
+            
+            console.log('✅ Aplicación lista');
+        });
+    </script>
+</body>
+</html>
