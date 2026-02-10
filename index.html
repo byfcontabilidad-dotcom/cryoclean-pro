@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CryoClean Pro - Limpieza Industrial Ecológica | Ecuador</title>
-    <meta name="description" content="Servicio profesional de limpieza industrial con hielo seco y láser en Ecuador.">
     
     <style>
         * {
@@ -15,14 +14,10 @@
 
         :root {
             --primary: #10b981;
-            --primary-dark: #059669;
             --secondary: #3b82f6;
             --dark: #1e293b;
-            --light: #f8fafc;
             --gray: #64748b;
             --success: #10b981;
-            --eco-green: #22c55e;
-            --ice-blue: #06b6d4;
             --whatsapp: #25D366;
             --bitcoin: #f7931a;
         }
@@ -32,21 +27,6 @@
             background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 50%, #dcfce7 100%);
             min-height: 100vh;
             color: var(--dark);
-            overflow-x: hidden;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); }
-            50% { box-shadow: 0 4px 30px rgba(37, 211, 102, 0.7); }
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
         }
 
         .container {
@@ -66,15 +46,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
             cursor: pointer;
             z-index: 9999;
-            transition: all 0.3s;
-            animation: pulse 2s infinite;
-        }
-
-        .whatsapp-float:hover {
-            transform: scale(1.1);
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
         }
 
         .whatsapp-float svg {
@@ -141,10 +115,6 @@
             cursor: pointer;
         }
 
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
         .btn {
             padding: 12px 28px;
             border: none;
@@ -156,14 +126,9 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--eco-green));
+            background: linear-gradient(135deg, var(--primary), #22c55e);
             color: white;
             box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.5);
         }
 
         .btn-secondary {
@@ -182,22 +147,9 @@
             color: white;
         }
 
-        .btn-warning {
-            background: #f59e0b;
-            color: white;
-        }
-
         .btn-whatsapp {
             background: var(--whatsapp);
             color: white;
-        }
-
-        .btn-bitcoin {
-            background: var(--bitcoin);
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .hero {
@@ -212,28 +164,15 @@
         .hero h1 {
             font-size: 56px;
             margin-bottom: 20px;
-            background: linear-gradient(135deg, var(--primary), var(--ice-blue));
+            background: linear-gradient(135deg, var(--primary), #06b6d4);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
         .hero p {
             font-size: 22px;
             color: var(--gray);
             margin-bottom: 35px;
-        }
-
-        .eco-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(16, 185, 129, 0.1);
-            padding: 10px 20px;
-            border-radius: 50px;
-            color: var(--primary);
-            font-weight: 600;
-            margin-bottom: 25px;
         }
 
         .services-grid {
@@ -249,13 +188,11 @@
             padding: 40px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
             transition: all 0.4s;
-            border: 2px solid transparent;
         }
 
         .service-card:hover {
             transform: translateY(-15px);
             box-shadow: 0 25px 60px rgba(16, 185, 129, 0.2);
-            border-color: var(--primary);
         }
 
         .service-icon {
@@ -287,7 +224,6 @@
         }
 
         .gallery-item {
-            position: relative;
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -368,13 +304,6 @@
             font-size: 15px;
         }
 
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-
         .cart-item {
             display: flex;
             justify-content: space-between;
@@ -413,7 +342,7 @@
         }
 
         .tab-btn.active {
-            background: linear-gradient(135deg, var(--primary), var(--eco-green));
+            background: linear-gradient(135deg, var(--primary), #22c55e);
             color: white;
         }
 
@@ -425,20 +354,7 @@
             display: block;
         }
 
-        .success-message {
-            background: #d1fae5;
-            color: var(--success);
-            padding: 18px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            display: none;
-        }
-
-        .success-message.show {
-            display: block;
-        }
-
-        .user-item, .appointment-item, .service-item, .gallery-admin-item {
+        .user-item, .appointment-item, .service-item {
             padding: 20px;
             background: #f8fafc;
             border-radius: 12px;
@@ -450,30 +366,6 @@
             font-size: 42px;
             text-align: center;
             margin-bottom: 40px;
-            color: var(--dark);
-        }
-
-        .firebase-status {
-            position: fixed;
-            top: 80px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 10px 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            z-index: 1001;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .firebase-status.connected {
-            color: var(--success);
-        }
-
-        .firebase-status.disconnected {
-            color: #ef4444;
         }
 
         .payment-method {
@@ -502,15 +394,12 @@
             border-color: var(--bitcoin);
         }
 
-        .payment-method.bitcoin:hover,
         .payment-method.bitcoin.selected {
-            border-color: var(--bitcoin);
             background: rgba(247, 147, 26, 0.1);
         }
 
         .payment-icon {
             font-size: 48px;
-            flex-shrink: 0;
         }
 
         .bitcoin-logo {
@@ -526,32 +415,29 @@
             font-weight: bold;
         }
 
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        .alert {
-            padding: 15px 20px;
+        .firebase-status {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: white;
+            padding: 10px 20px;
             border-radius: 12px;
-            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            z-index: 1001;
+            font-size: 14px;
         }
 
-        .alert-info {
-            background: #dbeafe;
-            color: var(--secondary);
-            border-left: 4px solid var(--secondary);
+        .success-message {
+            background: #d1fae5;
+            color: var(--success);
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            display: none;
         }
 
-        .alert-warning {
-            background: #fef3c7;
-            color: #f59e0b;
-            border-left: 4px solid #f59e0b;
+        .success-message.show {
+            display: block;
         }
 
         @media (max-width: 768px) {
@@ -564,25 +450,16 @@
             .services-grid, .gallery-grid {
                 grid-template-columns: 1fr;
             }
-            .nav-links {
-                flex-direction: column;
-                gap: 10px;
-            }
-            .payment-method {
-                flex-direction: column;
-                text-align: center;
-            }
         }
     </style>
 </head>
 <body>
-    <div id="firebaseStatus" class="firebase-status disconnected">
-        <span id="statusIcon">⚠️</span>
-        <span id="statusText">Conectando a Firebase...</span>
+    <div id="firebaseStatus" class="firebase-status">
+        <span id="statusText">Conectando...</span>
     </div>
 
     <div class="whatsapp-float" id="whatsappBtn">
-        <svg viewBox="0 0 32 32"><path d="M16 0c-8.837 0-16 7.163-16 16 0 2.825 0.737 5.607 2.137 8.048l-2.137 7.952 7.933-2.127c2.42 1.37 5.173 2.127 8.067 2.127 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 29.467c-2.482 0-4.908-0.646-7.07-1.87l-0.507-0.292-5.247 1.408 1.417-5.267-0.316-0.522c-1.314-2.178-2.009-4.688-2.009-7.257 0-7.384 6.001-13.385 13.385-13.385s13.385 6.001 13.385 13.385c0 7.384-6.001 13.385-13.385 13.385z"/></svg>
+        <svg viewBox="0 0 32 32"><path d="M16 0c-8.837 0-16 7.163-16 16 0 2.825 0.737 5.607 2.137 8.048l-2.137 7.952 7.933-2.127c2.42 1.37 5.173 2.127 8.067 2.127 8.837 0 16-7.163 16-16s-7.163-16-16-16z"/></svg>
     </div>
 
     <header>
@@ -594,141 +471,75 @@
             <div class="nav-links">
                 <a href="#servicios">Servicios</a>
                 <a href="#galeria">Galería</a>
-                <a href="#agendar">Agendar</a>
                 <button class="btn btn-primary" id="btnCart" style="position: relative;">
-                    🛒 Carrito
+                    Carrito
                     <span class="cart-badge" id="cartBadge" style="display: none;">0</span>
                 </button>
                 <button class="btn btn-secondary" id="btnLogin">Iniciar Sesión</button>
-                <button class="btn btn-danger" id="btnLogoutUser" style="display: none;">Cerrar Sesión</button>
+                <button class="btn btn-danger" id="btnLogoutUser" style="display: none;">Salir</button>
             </div>
         </nav>
     </header>
 
     <div id="mainContent" class="container">
         <section class="hero">
-            <div class="eco-badge">🌱 100% Ecológico & Sustentable</div>
-            <h1 id="heroTitle">Limpieza Industrial del Futuro</h1>
-            <p id="heroDesc">Tecnología de punta con hielo seco y láser para limpieza industrial y automotriz.</p>
+            <h1>Limpieza Industrial del Futuro</h1>
+            <p>Tecnología de punta con hielo seco y láser</p>
             <button class="btn btn-primary" id="btnVerServicios" style="font-size: 18px; padding: 16px 40px;">
-                Descubre Nuestros Servicios
+                Ver Servicios
             </button>
         </section>
 
-        <section id="servicios" class="services-section">
-            <h2 class="section-title">Nuestros Servicios Especializados</h2>
+        <section id="servicios">
+            <h2 class="section-title">Nuestros Servicios</h2>
             <div class="services-grid" id="servicesContainer"></div>
         </section>
 
         <section id="galeria" class="gallery-section">
-            <h2 class="section-title">Transformaciones Reales</h2>
+            <h2 class="section-title">Galería</h2>
             <div class="gallery-grid" id="galleryContainer"></div>
-        </section>
-
-        <section id="agendar" class="gallery-section">
-            <h2 class="section-title">Agenda Tu Servicio</h2>
-            <p style="text-align: center; color: var(--gray); margin-bottom: 30px;">Disponibles 24/7</p>
-            <div style="text-align: center;">
-                <button class="btn btn-primary" id="btnAgendarCita" style="font-size: 20px; padding: 18px 50px;">
-                    📅 Agendar Ahora
-                </button>
-            </div>
         </section>
     </div>
 
-    <!-- Modal Login -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
                 <h2>Iniciar Sesión</h2>
                 <button class="close-btn" data-modal="loginModal">&times;</button>
             </div>
-            <div id="loginForm">
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="loginEmail" required>
-                </div>
-                <div class="form-group">
-                    <label>Contraseña</label>
-                    <input type="password" id="loginPassword" required>
-                </div>
-                <button class="btn btn-primary" id="btnLoginSubmit" style="width: 100%; margin-bottom: 15px;">
-                    Iniciar Sesión
-                </button>
-                <button class="btn btn-secondary" id="btnShowRegister" style="width: 100%; margin-bottom: 10px;">
-                    Crear Cuenta Nueva
-                </button>
-                <button class="btn" id="btnShowForgotPassword" style="width: 100%; background: transparent; color: var(--primary);">
-                    ¿Olvidaste tu contraseña?
-                </button>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="loginEmail">
             </div>
-            <div id="registerForm" style="display: none;">
-                <div class="form-group">
-                    <label>Nombre Completo</label>
-                    <input type="text" id="regName" required>
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="regEmail" required>
-                </div>
-                <div class="form-group">
-                    <label>Teléfono</label>
-                    <input type="tel" id="regPhone" required>
-                </div>
-                <div class="form-group">
-                    <label>Contraseña</label>
-                    <input type="password" id="regPassword" required>
-                </div>
-                <button class="btn btn-primary" id="btnRegisterSubmit" style="width: 100%; margin-bottom: 15px;">
-                    Crear Cuenta
-                </button>
-                <button class="btn btn-secondary" id="btnShowLogin" style="width: 100%;">
-                    Ya tengo cuenta
-                </button>
+            <div class="form-group">
+                <label>Contraseña</label>
+                <input type="password" id="loginPassword">
             </div>
-            <div id="forgotPasswordForm" style="display: none;">
-                <p style="color: var(--gray); margin-bottom: 20px;">
-                    Ingresa tu email y te enviaremos un enlace para restablecer tu contraseña.
-                </p>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="forgotEmail" required>
-                </div>
-                <button class="btn btn-primary" id="btnSendResetEmail" style="width: 100%; margin-bottom: 15px;">
-                    Enviar Enlace de Recuperación
-                </button>
-                <button class="btn btn-secondary" id="btnBackToLogin" style="width: 100%;">
-                    Volver al Login
-                </button>
-            </div>
+            <button class="btn btn-primary" id="btnLoginSubmit" style="width: 100%;">Entrar</button>
         </div>
     </div>
 
-    <!-- Modal Carrito -->
     <div id="cartModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>🛒 Mi Carrito</h2>
+                <h2>Carrito</h2>
                 <button class="close-btn" data-modal="cartModal">&times;</button>
             </div>
             <div id="cartItems"></div>
             <div class="cart-total" id="cartTotal">Total: $0.00</div>
-            <button class="btn btn-primary" id="btnProceedBooking" style="width: 100%;">
-                Proceder a Agendar
-            </button>
+            <button class="btn btn-primary" id="btnProceedBooking" style="width: 100%;">Agendar</button>
         </div>
     </div>
 
-    <!-- Modal Agendar Cita -->
     <div id="appointmentModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>📅 Agendar Cita</h2>
+                <h2>Agendar Cita</h2>
                 <button class="close-btn" data-modal="appointmentModal">&times;</button>
             </div>
             <form id="appointmentForm">
                 <div class="form-group">
-                    <label>Nombre Completo</label>
+                    <label>Nombre</label>
                     <input type="text" id="apptName" required>
                 </div>
                 <div class="form-group">
@@ -736,7 +547,7 @@
                     <input type="email" id="apptEmail" required>
                 </div>
                 <div class="form-group">
-                    <label>Teléfono/WhatsApp</label>
+                    <label>Teléfono</label>
                     <input type="tel" id="apptPhone" required>
                 </div>
                 <div class="form-group">
@@ -748,149 +559,84 @@
                     <select id="apptTime" required>
                         <option value="">Seleccione...</option>
                         <option value="08:00">08:00</option>
-                        <option value="09:00">09:00</option>
                         <option value="10:00">10:00</option>
-                        <option value="11:00">11:00</option>
                         <option value="12:00">12:00</option>
                         <option value="14:00">14:00</option>
-                        <option value="15:00">15:00</option>
                         <option value="16:00">16:00</option>
-                        <option value="17:00">17:00</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Servicios Seleccionados</label>
+                    <label>Servicios</label>
                     <div id="apptServices" style="background: #f8fafc; padding: 15px; border-radius: 10px;"></div>
                 </div>
                 
                 <div class="form-group">
-                    <label style="font-size: 18px; margin-bottom: 20px;">💳 Selecciona tu Método de Pago</label>
+                    <label>Método de Pago</label>
                     
                     <div class="payment-method" data-payment="transferencia">
                         <span class="payment-icon">🏦</span>
                         <div>
-                            <strong style="font-size: 16px;">Transferencia Bancaria</strong>
-                            <p style="color: var(--gray); font-size: 14px; margin-top: 5px;">Pago directo a cuenta bancaria</p>
+                            <strong>Transferencia Bancaria</strong>
                         </div>
                     </div>
 
                     <div class="payment-method" data-payment="tarjeta">
                         <span class="payment-icon">💳</span>
                         <div>
-                            <strong style="font-size: 16px;">Tarjeta de Crédito/Débito</strong>
-                            <p style="color: var(--gray); font-size: 14px; margin-top: 5px;">Visa, Mastercard, American Express</p>
+                            <strong>Tarjeta de Crédito/Débito</strong>
                         </div>
                     </div>
 
                     <div class="payment-method bitcoin" data-payment="btc">
                         <div class="bitcoin-logo">₿</div>
                         <div>
-                            <strong style="font-size: 18px; color: var(--bitcoin);">Bitcoin (BTC)</strong>
-                            <p style="color: var(--gray); font-size: 14px; margin-top: 5px;">Pago con criptomoneda Bitcoin</p>
+                            <strong style="color: var(--bitcoin);">Bitcoin (BTC)</strong>
                         </div>
                     </div>
 
                     <div class="payment-method" data-payment="usdt">
                         <span class="payment-icon">₮</span>
                         <div>
-                            <strong style="font-size: 16px;">USDT - Tether</strong>
-                            <p style="color: var(--gray); font-size: 14px; margin-top: 5px;">Stablecoin anclado al dólar (TRC20)</p>
+                            <strong>USDT - Tether</strong>
                         </div>
                     </div>
                 </div>
 
-                <div id="paymentInfo" class="alert alert-info" style="display: none;">
-                    <strong>ℹ️ Información de Pago:</strong>
-                    <p style="margin-top: 10px;" id="paymentInfoText"></p>
-                </div>
-
-                <div class="form-group">
-                    <label>Notas Adicionales</label>
-                    <textarea id="apptNotes" rows="3"></textarea>
-                </div>
-                <button type="submit" class="btn btn-success" style="width: 100%; margin-bottom: 10px;">
-                    ✅ Confirmar Cita
-                </button>
-                <button type="button" class="btn btn-whatsapp" id="btnWhatsAppConfirm" style="width: 100%;">
-                    💬 Confirmar por WhatsApp
-                </button>
+                <button type="submit" class="btn btn-success" style="width: 100%;">Confirmar Cita</button>
             </form>
         </div>
     </div>
 
-    <!-- Modal Mis Citas (Usuario) -->
-    <div id="myCitasModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>📅 Mis Citas</h2>
-                <button class="close-btn" data-modal="myCitasModal">&times;</button>
-            </div>
-            <div id="myCitasList"></div>
-        </div>
-    </div>
-
-    <!-- Panel Admin -->
     <div id="adminPanel" class="container" style="display: none;">
         <div class="admin-panel">
             <div style="display: flex; justify-content: space-between; margin-bottom: 40px;">
-                <h2>⚙️ Panel Administrador</h2>
-                <button class="btn btn-danger" id="btnLogout">Cerrar Sesión</button>
+                <h2>Panel Admin</h2>
+                <button class="btn btn-danger" id="btnLogout">Salir</button>
             </div>
             <div id="successMessage" class="success-message"></div>
-            <div style="margin-bottom: 30px;">
+            <div>
                 <button class="tab-btn active" data-tab="services">Servicios</button>
                 <button class="tab-btn" data-tab="gallery">Galería</button>
-                <button class="tab-btn" data-tab="users">Usuarios</button>
                 <button class="tab-btn" data-tab="appointments">Citas</button>
-                <button class="tab-btn" data-tab="settings">Configuración</button>
             </div>
 
-            <!-- Tab Servicios -->
             <div id="servicesTab" class="tab-content active">
-                <button class="btn btn-primary" id="btnAddService" style="margin-bottom: 20px;">+ Agregar Servicio</button>
+                <button class="btn btn-primary" id="btnAddService">Agregar Servicio</button>
                 <div id="servicesList"></div>
             </div>
 
-            <!-- Tab Galería -->
             <div id="galleryTab" class="tab-content">
-                <button class="btn btn-primary" id="btnAddGallery" style="margin-bottom: 20px;">+ Agregar Imagen/Video</button>
+                <button class="btn btn-primary" id="btnAddGallery">Agregar Contenido</button>
                 <div id="galleryAdminList"></div>
             </div>
 
-            <!-- Tab Usuarios -->
-            <div id="usersTab" class="tab-content">
-                <h3>Usuarios Registrados</h3>
-                <div id="usersList"></div>
-            </div>
-
-            <!-- Tab Citas -->
             <div id="appointmentsTab" class="tab-content">
-                <h3>Citas Agendadas</h3>
+                <h3>Citas</h3>
                 <div id="appointmentsList"></div>
-            </div>
-
-            <!-- Tab Configuración -->
-            <div id="settingsTab" class="tab-content">
-                <form id="settingsForm">
-                    <div class="form-group">
-                        <label>Título Principal</label>
-                        <input type="text" id="settingTitle" placeholder="Limpieza Industrial del Futuro">
-                    </div>
-                    <div class="form-group">
-                        <label>Descripción</label>
-                        <textarea id="settingDesc" rows="3" placeholder="Descripción del negocio"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>WhatsApp</label>
-                        <input type="tel" id="settingWhatsApp" placeholder="+593989898143">
-                    </div>
-                    <button type="submit" class="btn btn-success">Guardar Configuración</button>
-                </form>
             </div>
         </div>
     </div>
 
-    <!-- Modal Agregar/Editar Servicio -->
     <div id="serviceModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -900,7 +646,7 @@
             <form id="serviceForm">
                 <input type="hidden" id="serviceEditId">
                 <div class="form-group">
-                    <label>Nombre del Servicio</label>
+                    <label>Nombre</label>
                     <input type="text" id="serviceName" required>
                 </div>
                 <div class="form-group">
@@ -908,23 +654,18 @@
                     <textarea id="serviceDesc" rows="3" required></textarea>
                 </div>
                 <div class="form-group">
-                    <label>Precio ($)</label>
+                    <label>Precio</label>
                     <input type="number" id="servicePrice" step="0.01" required>
                 </div>
                 <div class="form-group">
                     <label>Icono (Emoji)</label>
-                    <input type="text" id="serviceIcon" placeholder="❄️" maxlength="2">
+                    <input type="text" id="serviceIcon" maxlength="2">
                 </div>
-                <div class="form-group">
-                    <label>Características (separadas por coma)</label>
-                    <textarea id="serviceFeatures" rows="2" placeholder="Sin químicos, Eco-amigable"></textarea>
-                </div>
-                <button type="submit" class="btn btn-success" style="width: 100%;">Guardar Servicio</button>
+                <button type="submit" class="btn btn-success" style="width: 100%;">Guardar</button>
             </form>
         </div>
     </div>
 
-    <!-- Modal Agregar Galería -->
     <div id="galleryModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -933,10 +674,10 @@
             </div>
             <form id="galleryForm">
                 <div class="form-group">
-                    <label>Tipo de Contenido</label>
+                    <label>Tipo</label>
                     <select id="galleryType" required>
-                        <option value="image">📷 Imagen</option>
-                        <option value="video">🎥 Video (YouTube)</option>
+                        <option value="image">Imagen</option>
+                        <option value="video">Video YouTube</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -944,57 +685,14 @@
                     <input type="text" id="galleryTitle" required>
                 </div>
                 <div class="form-group" id="imageUrlGroup">
-                    <label>URL de la Imagen</label>
-                    <input type="url" id="galleryImageUrl" placeholder="https://i.imgur.com/ejemplo.jpg">
-                    <small style="color: var(--gray);">Sube a Imgur y pega la URL directa</small>
+                    <label>URL Imagen</label>
+                    <input type="url" id="galleryImageUrl">
                 </div>
                 <div class="form-group" id="videoUrlGroup" style="display: none;">
-                    <label>URL del Video de YouTube</label>
-                    <input type="url" id="galleryVideoUrl" placeholder="https://youtube.com/watch?v=...">
-                    <small style="color: var(--gray);">Pega el enlace del video de YouTube</small>
+                    <label>URL Video</label>
+                    <input type="url" id="galleryVideoUrl">
                 </div>
-                <button type="submit" class="btn btn-success" style="width: 100%;">Agregar a Galería</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Modal Editar Cita (Admin) -->
-    <div id="editCitaModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Editar Cita</h2>
-                <button class="close-btn" data-modal="editCitaModal">&times;</button>
-            </div>
-            <form id="editCitaForm">
-                <input type="hidden" id="editCitaId">
-                <div class="form-group">
-                    <label>Fecha</label>
-                    <input type="date" id="editCitaDate" required>
-                </div>
-                <div class="form-group">
-                    <label>Hora</label>
-                    <select id="editCitaTime" required>
-                        <option value="08:00">08:00</option>
-                        <option value="09:00">09:00</option>
-                        <option value="10:00">10:00</option>
-                        <option value="11:00">11:00</option>
-                        <option value="12:00">12:00</option>
-                        <option value="14:00">14:00</option>
-                        <option value="15:00">15:00</option>
-                        <option value="16:00">16:00</option>
-                        <option value="17:00">17:00</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Estado</label>
-                    <select id="editCitaStatus" required>
-                        <option value="pending">⏳ Pendiente</option>
-                        <option value="confirmed">✅ Confirmada</option>
-                        <option value="completed">🎉 Completada</option>
-                        <option value="cancelled">❌ Cancelada</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-success" style="width: 100%;">Guardar Cambios</button>
+                <button type="submit" class="btn btn-success" style="width: 100%;">Agregar</button>
             </form>
         </div>
     </div>
@@ -1004,165 +702,123 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
     <script>
-        // Configuración Firebase
-        const firebaseConfig = {
+        var firebaseConfig = {
             apiKey: "AIzaSyBsPssHAMzBzYrHvdMFqtR31n2E55ovr8A",
             authDomain: "cryocleanpro.firebaseapp.com",
             projectId: "cryocleanpro",
             storageBucket: "cryocleanpro.firebasestorage.app",
             messagingSenderId: "835260147208",
-            appId: "1:835260147208:web:6cfd00fc634ded777353bd",
-            measurementId: "G-08T6FNZV77"
+            appId: "1:835260147208:web:6cfd00fc634ded777353bd"
         };
 
         firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.firestore();
+        var auth = firebase.auth();
+        var db = firebase.firestore();
 
-        // Variables globales
-        let currentUser = null;
-        let cart = [];
-        let services = [];
-        let gallery = [];
-        let users = [];
-        let appointments = [];
-        let settings = {};
-        let selectedPaymentMethod = null;
+        var currentUser = null;
+        var cart = [];
+        var services = [];
+        var gallery = [];
+        var appointments = [];
+        var selectedPaymentMethod = null;
 
-        // Actualizar estado Firebase
-        function updateFirebaseStatus(connected) {
-            const statusEl = document.getElementById('firebaseStatus');
-            const iconEl = document.getElementById('statusIcon');
-            const textEl = document.getElementById('statusText');
-            
-            if (connected) {
-                statusEl.className = 'firebase-status connected';
-                iconEl.textContent = '✅';
-                textEl.textContent = 'Conectado a Firebase';
-                setTimeout(() => statusEl.style.display = 'none', 3000);
-            } else {
-                statusEl.className = 'firebase-status disconnected';
-                iconEl.textContent = '⚠️';
-                textEl.textContent = 'Error de conexión';
-            }
+        function updateStatus(msg) {
+            document.getElementById('statusText').textContent = msg;
         }
 
-        // Cargar servicios
-        async function loadServices() {
-            try {
-                const snapshot = await db.collection('servicios').get();
+        function loadServices() {
+            db.collection('servicios').get().then(function(snapshot) {
                 services = [];
-                snapshot.forEach(doc => {
-                    services.push({ id: doc.id, ...doc.data() });
+                snapshot.forEach(function(doc) {
+                    services.push({id: doc.id, name: doc.data().name, description: doc.data().description, price: doc.data().price, icon: doc.data().icon || '🔧'});
                 });
                 renderServices();
-                console.log('✅ Servicios:', services.length);
-            } catch (error) {
-                console.error('Error servicios:', error);
-                services = [
-                    {id: '1', name: 'Limpieza con Hielo Seco', description: 'Limpieza profunda industrial', price: 299.99, icon: '❄️', features: ['Sin químicos', 'Eco-amigable']},
-                    {id: '2', name: 'Limpieza Láser', description: 'Tecnología láser', price: 399.99, icon: '⚡', features: ['Alta precisión', 'Sin residuos']}
-                ];
+                updateStatus('Conectado');
+            }).catch(function(error) {
+                console.error(error);
+                services = [{id: '1', name: 'Limpieza Hielo Seco', description: 'Limpieza industrial', price: 299.99, icon: '❄️'}];
                 renderServices();
-            }
+                updateStatus('Error conexión');
+            });
         }
 
-        // Cargar galería
-        async function loadGallery() {
-            try {
-                const snapshot = await db.collection('galeria').get();
+        function loadGallery() {
+            db.collection('galeria').get().then(function(snapshot) {
                 gallery = [];
-                snapshot.forEach(doc => {
-                    gallery.push({ id: doc.id, ...doc.data() });
+                snapshot.forEach(function(doc) {
+                    gallery.push({id: doc.id, title: doc.data().title, type: doc.data().type, imageUrl: doc.data().imageUrl, videoUrl: doc.data().videoUrl});
                 });
                 renderGallery();
-                console.log('✅ Galería:', gallery.length);
-            } catch (error) {
-                console.error('Error galería:', error);
+            }).catch(function(error) {
+                console.error(error);
                 gallery = [];
                 renderGallery();
-            }
+            });
         }
 
-        // Renderizar servicios
         function renderServices() {
-            const container = document.getElementById('servicesContainer');
+            var container = document.getElementById('servicesContainer');
             if (!container) return;
-            
-            container.innerHTML = services.map(s => `
-                <div class="service-card">
-                    <span class="service-icon">${s.icon || '🔧'}</span>
-                    <h3 style="font-size: 24px; margin-bottom: 15px;">${s.name}</h3>
-                    <p style="color: var(--gray); margin-bottom: 15px;">${s.description}</p>
-                    ${s.features && s.features.length ? `<ul style="list-style: none; margin: 15px 0;">
-                        ${s.features.map(f => `<li>✓ ${f}</li>`).join('')}
-                    </ul>` : ''}
-                    <div class="service-price">${Number(s.price).toFixed(2)}</div>
-                    <button class="btn btn-primary" onclick="addToCart('${s.id}')" style="width: 100%;">
-                        Agregar al Carrito
-                    </button>
-                </div>
-            `).join('');
+            var html = '';
+            for (var i = 0; i < services.length; i++) {
+                var s = services[i];
+                html += '<div class="service-card">';
+                html += '<span class="service-icon">' + s.icon + '</span>';
+                html += '<h3>' + s.name + '</h3>';
+                html += '<p style="color: var(--gray);">' + s.description + '</p>';
+                html += '<div class="service-price">$' + Number(s.price).toFixed(2) + '</div>';
+                html += '<button class="btn btn-primary" onclick="addToCart(\'' + s.id + '\')" style="width: 100%;">Agregar</button>';
+                html += '</div>';
+            }
+            container.innerHTML = html;
         }
 
-        // Renderizar galería
         function renderGallery() {
-            const container = document.getElementById('galleryContainer');
+            var container = document.getElementById('galleryContainer');
             if (!container) return;
-            
             if (gallery.length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: var(--gray); padding: 40px;">No hay contenido en la galería</p>';
+                container.innerHTML = '<p style="text-align: center; padding: 40px;">No hay contenido</p>';
                 return;
             }
-            
-            let html = '';
-            for (let i = 0; i < gallery.length; i++) {
-                const g = gallery[i];
+            var html = '';
+            for (var i = 0; i < gallery.length; i++) {
+                var g = gallery[i];
                 html += '<div class="gallery-item">';
-                
                 if (g.type === 'video') {
-                    let embedUrl = g.videoUrl;
+                    var embedUrl = g.videoUrl;
                     if (g.videoUrl.includes('youtube.com/watch')) {
-                        const parts = g.videoUrl.split('v=');
-                        if (parts[1]) {
-                            const videoId = parts[1].split('&')[0];
-                            embedUrl = 'https://www.youtube.com/embed/' + videoId;
-                        }
-                    } else if (g.videoUrl.includes('youtu.be/')) {
-                        const videoId = g.videoUrl.split('youtu.be/')[1];
+                        var videoId = g.videoUrl.split('v=')[1].split('&')[0];
                         embedUrl = 'https://www.youtube.com/embed/' + videoId;
                     }
-                    html += '<iframe src="' + embedUrl + '" allowfullscreen></iframe>';
+                    html += '<iframe src="' + embedUrl + '"></iframe>';
                 } else {
-                    html += '<img src="' + g.imageUrl + '" alt="' + g.title + '" onerror="this.src=\'https://via.placeholder.com/400x300/667eea/ffffff?text=Imagen\'">';
+                    html += '<img src="' + g.imageUrl + '" alt="' + g.title + '">';
                 }
-                
                 html += '<div style="padding: 15px;"><strong>' + g.title + '</strong></div>';
                 html += '</div>';
             }
             container.innerHTML = html;
         }
 
-        // Agregar al carrito
         function addToCart(serviceId) {
-            const service = services.find(s => s.id === serviceId);
+            var service = services.find(function(s) { return s.id === serviceId; });
             if (!service) return;
-            
-            const existing = cart.find(item => item.id === serviceId);
+            var existing = cart.find(function(item) { return item.id === serviceId; });
             if (existing) {
                 existing.quantity++;
             } else {
-                cart.push({ ...service, quantity: 1 });
+                cart.push({id: service.id, name: service.name, price: service.price, icon: service.icon, quantity: 1});
             }
             updateCartBadge();
-            showSuccess('✅ Agregado al carrito');
+            alert('Agregado al carrito');
         }
 
-        // Actualizar badge carrito
         function updateCartBadge() {
-            const badge = document.getElementById('cartBadge');
-            const total = cart.reduce((sum, item) => sum + item.quantity, 0);
-            
+            var badge = document.getElementById('cartBadge');
+            var total = 0;
+            for (var i = 0; i < cart.length; i++) {
+                total += cart[i].quantity;
+            }
             if (total > 0) {
                 badge.textContent = total;
                 badge.style.display = 'flex';
@@ -1172,138 +828,63 @@
             renderCart();
         }
 
-        // Renderizar carrito
         function renderCart() {
-            const container = document.getElementById('cartItems');
-            const totalEl = document.getElementById('cartTotal');
-            
+            var container = document.getElementById('cartItems');
+            var totalEl = document.getElementById('cartTotal');
             if (cart.length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: var(--gray); padding: 40px;">Carrito vacío</p>';
+                container.innerHTML = '<p style="text-align: center; padding: 40px;">Vacío</p>';
                 totalEl.textContent = 'Total: $0.00';
                 return;
             }
-            
-            container.innerHTML = cart.map(item => `
-                <div class="cart-item">
-                    <div>
-                        <strong>${item.icon} ${item.name}</strong>
-                        <div style="color: var(--gray);">Cantidad: ${item.quantity}</div>
-                    </div>
-                    <div style="text-align: right;">
-                        <div style="font-size: 20px; color: var(--primary);">${(item.price * item.quantity).toFixed(2)}</div>
-                        <button class="btn btn-danger" onclick="removeFromCart('${item.id}')" style="padding: 6px 12px; font-size: 12px;">
-                            Eliminar
-                        </button>
-                    </div>
-                </div>
-            `).join('');
-            
-            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            totalEl.textContent = `Total: ${total.toFixed(2)}`;
+            var html = '';
+            var total = 0;
+            for (var i = 0; i < cart.length; i++) {
+                var item = cart[i];
+                var itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                html += '<div class="cart-item">';
+                html += '<div><strong>' + item.icon + ' ' + item.name + '</strong><div>Cantidad: ' + item.quantity + '</div></div>';
+                html += '<div><div style="font-size: 20px; color: var(--primary);"> + itemTotal.toFixed(2) + '</div>';
+                html += '<button class="btn btn-danger" onclick="removeFromCart(\'' + item.id + '\')" style="padding: 6px 12px; font-size: 12px;">Eliminar</button></div>';
+                html += '</div>';
+            }
+            container.innerHTML = html;
+            totalEl.textContent = 'Total:  + total.toFixed(2);
         }
 
-        // Remover del carrito
         function removeFromCart(serviceId) {
-            cart = cart.filter(item => item.id !== serviceId);
+            cart = cart.filter(function(item) { return item.id !== serviceId; });
             updateCartBadge();
         }
 
-        // Login
-        async function loginUser() {
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
+        function loginUser() {
+            var email = document.getElementById('loginEmail').value;
+            var password = document.getElementById('loginPassword').value;
             
-            try {
-                const userCredential = await auth.signInWithEmailAndPassword(email, password);
-                const user = userCredential.user;
-                
-                const userDoc = await db.collection('usuarios').doc(user.uid).get();
-                
+            auth.signInWithEmailAndPassword(email, password).then(function(userCredential) {
+                var user = userCredential.user;
+                return db.collection('usuarios').doc(user.uid).get();
+            }).then(function(userDoc) {
                 if (userDoc.exists) {
-                    currentUser = { uid: user.uid, ...userDoc.data() };
+                    currentUser = {uid: userDoc.id, name: userDoc.data().name, email: userDoc.data().email, role: userDoc.data().role};
                     closeModal('loginModal');
-                    
                     if (currentUser.role === 'admin') {
                         showAdminPanel();
-                        showSuccess('🔐 Bienvenido Administrador!');
+                        alert('Bienvenido Admin');
                     } else {
                         document.getElementById('btnLogin').style.display = 'none';
                         document.getElementById('btnLogoutUser').style.display = 'inline-block';
-                        document.getElementById('btnLogoutUser').textContent = `👤 ${currentUser.name.split(' ')[0]}`;
-                        showSuccess(`¡Bienvenido ${currentUser.name}!`);
+                        alert('Bienvenido ' + currentUser.name);
                     }
-                } else {
-                    throw new Error('Usuario no encontrado');
                 }
-            } catch (error) {
-                console.error('Error login:', error);
-                alert('❌ Email o contraseña incorrectos');
-            }
+            }).catch(function(error) {
+                console.error(error);
+                alert('Error: Email o contraseña incorrectos');
+            });
         }
 
-        // Registro
-        async function registerUser() {
-            const name = document.getElementById('regName').value;
-            const email = document.getElementById('regEmail').value;
-            const phone = document.getElementById('regPhone').value;
-            const password = document.getElementById('regPassword').value;
-            
-            if (password.length < 6) {
-                alert('❌ La contraseña debe tener al menos 6 caracteres');
-                return;
-            }
-            
-            try {
-                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-                const user = userCredential.user;
-                
-                await db.collection('usuarios').doc(user.uid).set({
-                    name: name,
-                    email: email,
-                    phone: phone,
-                    role: 'customer',
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                });
-                
-                alert('✅ Cuenta creada exitosamente!');
-                showLoginForm();
-            } catch (error) {
-                console.error('Error registro:', error);
-                if (error.code === 'auth/email-already-in-use') {
-                    alert('❌ Este email ya está registrado');
-                } else {
-                    alert('❌ Error: ' + error.message);
-                }
-            }
-        }
-
-        // Recuperar contraseña
-        async function sendPasswordReset() {
-            const email = document.getElementById('forgotEmail').value;
-            
-            if (!email) {
-                alert('❌ Ingresa tu email');
-                return;
-            }
-            
-            try {
-                await auth.sendPasswordResetEmail(email);
-                alert('✅ Se ha enviado un email con instrucciones para restablecer tu contraseña');
-                showLoginForm();
-            } catch (error) {
-                console.error('Error reset:', error);
-                if (error.code === 'auth/user-not-found') {
-                    alert('❌ No existe una cuenta con ese email');
-                } else {
-                    alert('❌ Error: ' + error.message);
-                }
-            }
-        }
-
-        // Logout
-        async function logout() {
-            try {
-                await auth.signOut();
+        function logout() {
+            auth.signOut().then(function() {
                 currentUser = null;
                 document.getElementById('mainContent').style.display = 'block';
                 document.querySelector('header').style.display = 'block';
@@ -1312,83 +893,50 @@
                 document.getElementById('btnLogoutUser').style.display = 'none';
                 cart = [];
                 updateCartBadge();
-                showSuccess('👋 Sesión cerrada');
-            } catch (error) {
-                console.error('Error logout:', error);
-            }
+                alert('Sesión cerrada');
+            });
         }
 
-        // Verificar cita existente
-        async function checkExistingAppointment(email, date) {
-            try {
-                const snapshot = await db.collection('citas')
-                    .where('email', '==', email)
-                    .where('date', '==', date)
-                    .where('status', 'in', ['pending', 'confirmed'])
-                    .get();
-                
-                return !snapshot.empty;
-            } catch (error) {
-                console.error('Error checking:', error);
-                return false;
-            }
-        }
-
-        // Guardar cita
-        async function submitAppointment(e) {
+        function submitAppointment(e) {
             e.preventDefault();
-            
             if (cart.length === 0) {
-                alert('❌ El carrito está vacío');
+                alert('Carrito vacío');
                 return;
             }
-            
             if (!selectedPaymentMethod) {
-                alert('❌ Selecciona un método de pago');
+                alert('Selecciona método de pago');
                 return;
             }
             
-            const email = document.getElementById('apptEmail').value;
-            const date = document.getElementById('apptDate').value;
-            
-            // Verificar cita duplicada
-            const exists = await checkExistingAppointment(email, date);
-            if (exists) {
-                alert('❌ Ya tienes una cita agendada para esta fecha. Si deseas cambiarla, contacta al administrador.');
-                return;
-            }
-            
-            const appointment = {
+            var appointment = {
                 name: document.getElementById('apptName').value,
-                email: email,
+                email: document.getElementById('apptEmail').value,
                 phone: document.getElementById('apptPhone').value,
-                date: date,
+                date: document.getElementById('apptDate').value,
                 time: document.getElementById('apptTime').value,
                 services: cart,
                 paymentMethod: selectedPaymentMethod,
-                notes: document.getElementById('apptNotes').value || '',
                 status: 'pending',
-                total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
-                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                userId: currentUser ? currentUser.uid : null
+                total: cart.reduce(function(sum, item) { return sum + (item.price * item.quantity); }, 0),
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
             };
             
-            try {
-                await db.collection('citas').add(appointment);
-                alert('✅ Cita agendada exitosamente!');
+            db.collection('citas').add(appointment).then(function() {
+                alert('Cita agendada exitosamente');
                 closeModal('appointmentModal');
                 cart = [];
                 selectedPaymentMethod = null;
                 updateCartBadge();
                 document.getElementById('appointmentForm').reset();
-                document.querySelectorAll('.payment-method').forEach(el => el.classList.remove('selected'));
-            } catch (error) {
-                console.error('Error guardando cita:', error);
-                alert('❌ Error al agendar: ' + error.message);
-            }
+                document.querySelectorAll('.payment-method').forEach(function(el) {
+                    el.classList.remove('selected');
+                });
+            }).catch(function(error) {
+                console.error(error);
+                alert('Error: ' + error.message);
+            });
         }
 
-        // Mostrar panel admin
         function showAdminPanel() {
             document.getElementById('mainContent').style.display = 'none';
             document.querySelector('header').style.display = 'none';
@@ -1396,281 +944,140 @@
             loadAdminData();
         }
 
-        // Cargar datos admin
-        async function loadAdminData() {
-            try {
-                // Usuarios
-                const usersSnapshot = await db.collection('usuarios').get();
-                users = [];
-                usersSnapshot.forEach(doc => {
-                    users.push({ uid: doc.id, ...doc.data() });
-                });
-                renderAdminUsers();
-                
-                // Citas
-                const apptSnapshot = await db.collection('citas').orderBy('createdAt', 'desc').get();
+        function loadAdminData() {
+            db.collection('citas').orderBy('createdAt', 'desc').get().then(function(snapshot) {
                 appointments = [];
-                apptSnapshot.forEach(doc => {
-                    appointments.push({ id: doc.id, ...doc.data() });
+                snapshot.forEach(function(doc) {
+                    appointments.push({id: doc.id, name: doc.data().name, email: doc.data().email, phone: doc.data().phone, date: doc.data().date, time: doc.data().time, services: doc.data().services, total: doc.data().total, paymentMethod: doc.data().paymentMethod, status: doc.data().status});
                 });
                 renderAdminAppointments();
-                
-                // Servicios admin
-                renderAdminServices();
-                
-                // Galería admin
-                renderAdminGallery();
-            } catch (error) {
-                console.error('Error cargando admin:', error);
-            }
+            });
+            renderAdminServices();
+            renderAdminGallery();
         }
 
-        // Renderizar usuarios admin
-        function renderAdminUsers() {
-            const list = document.getElementById('usersList');
-            list.innerHTML = users.map(u => `
-                <div class="user-item">
-                    <h4>${u.name}</h4>
-                    <div style="color: var(--gray);">Email: ${u.email}</div>
-                    <div style="color: var(--gray);">Telefono: ${u.phone || 'N/A'}</div>
-                    <span style="background: ${u.role === 'admin' ? 'var(--primary)' : 'var(--gray)'}; color: white; padding: 4px 12px; border-radius: 6px; font-size: 12px; margin-top: 8px; display: inline-block;">
-                        ${u.role === 'admin' ? 'Admin' : 'Cliente'}
-                    </span>
-                </div>
-            `).join('');
-        }
-
-        // Renderizar citas admin
         function renderAdminAppointments() {
-            const list = document.getElementById('appointmentsList');
+            var list = document.getElementById('appointmentsList');
             if (appointments.length === 0) {
-                list.innerHTML = '<p style="text-align: center; color: var(--gray); padding: 40px;">No hay citas</p>';
+                list.innerHTML = '<p style="text-align: center; padding: 40px;">No hay citas</p>';
                 return;
             }
-            
-            list.innerHTML = appointments.map(a => {
-                const statusColors = {
-                    pending: '#f59e0b',
-                    confirmed: '#10b981',
-                    completed: '#3b82f6',
-                    cancelled: '#ef4444'
-                };
-                const statusLabels = {
-                    pending: '⏳ Pendiente',
-                    confirmed: '✅ Confirmada',
-                    completed: '🎉 Completada',
-                    cancelled: '❌ Cancelada'
-                };
-                
-                return `
-                <div class="appointment-item">
-                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
-                        <h4>${a.name}</h4>
-                        <span style="background: ${statusColors[a.status]}; color: white; padding: 6px 12px; border-radius: 8px; font-size: 13px;">
-                            ${statusLabels[a.status]}
-                        </span>
-                    </div>
-                    <div style="color: var(--gray);">Fecha: ${a.date} a las ${a.time}</div>
-                    <div style="color: var(--gray);">Email: ${a.email}</div>
-                    <div style="color: var(--gray);">Telefono: ${a.phone}</div>
-                    <div style="color: var(--gray);">Pago: ${getPaymentMethodLabel(a.paymentMethod)}</div>
-                    <div style="margin: 10px 0;">
-                        <strong>Servicios:</strong>
-                        ${a.services.map(s => `<div>• ${s.name} (x${s.quantity})</div>`).join('')}
-                    </div>
-                    <div style="color: var(--primary); font-weight: bold;">Total: ${a.total.toFixed(2)}</div>
-                    ${a.notes ? `<div style="background: #f8fafc; padding: 10px; border-radius: 8px; margin-top: 10px;"><strong>Notas:</strong> ${a.notes}</div>` : ''}
-                    <div style="display: flex; gap: 10px; margin-top: 15px;">
-                        <button class="btn btn-secondary" onclick="editCita('${a.id}')">✏️ Editar</button>
-                        <button class="btn btn-danger" onclick="deleteCita('${a.id}')">🗑️ Eliminar</button>
-                        <button class="btn btn-whatsapp" onclick="contactWhatsApp('${a.phone}')">💬 WhatsApp</button>
-                    </div>
-                </div>
-            `};
-            }).join('');
-        }
-
-        function getPaymentMethodLabel(method) {
-            const labels = {
-                transferencia: 'Transferencia',
-                tarjeta: 'Tarjeta',
-                btc: 'Bitcoin',
-                usdt: 'USDT'
-            };
-            return labels[method] || method;
-        }
-
-        // Editar cita (solo admin)
-        async function editCita(citaId) {
-            const cita = appointments.find(a => a.id === citaId);
-            if (!cita) return;
-            
-            document.getElementById('editCitaId').value = citaId;
-            document.getElementById('editCitaDate').value = cita.date;
-            document.getElementById('editCitaTime').value = cita.time;
-            document.getElementById('editCitaStatus').value = cita.status;
-            openModal('editCitaModal');
-        }
-
-        // Guardar edición cita
-        async function saveEditCita(e) {
-            e.preventDefault();
-            
-            const citaId = document.getElementById('editCitaId').value;
-            const newDate = document.getElementById('editCitaDate').value;
-            const newTime = document.getElementById('editCitaTime').value;
-            const newStatus = document.getElementById('editCitaStatus').value;
-            
-            try {
-                await db.collection('citas').doc(citaId).update({
-                    date: newDate,
-                    time: newTime,
-                    status: newStatus,
-                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-                });
-                
-                showSuccess('✅ Cita actualizada');
-                closeModal('editCitaModal');
-                loadAdminData();
-            } catch (error) {
-                console.error('Error actualizando:', error);
-                alert('❌ Error: ' + error.message);
+            var html = '';
+            for (var i = 0; i < appointments.length; i++) {
+                var a = appointments[i];
+                html += '<div class="appointment-item">';
+                html += '<h4>' + a.name + '</h4>';
+                html += '<div style="color: var(--gray);">Fecha: ' + a.date + ' ' + a.time + '</div>';
+                html += '<div style="color: var(--gray);">Email: ' + a.email + '</div>';
+                html += '<div style="color: var(--gray);">Tel: ' + a.phone + '</div>';
+                html += '<div style="color: var(--gray);">Pago: ' + (a.paymentMethod || 'N/A') + '</div>';
+                html += '<div style="color: var(--primary); font-weight: bold;">Total:  + a.total.toFixed(2) + '</div>';
+                html += '<div style="display: flex; gap: 10px; margin-top: 15px;">';
+                html += '<button class="btn btn-danger" onclick="deleteCita(\'' + a.id + '\')">Eliminar</button>';
+                html += '</div>';
+                html += '</div>';
             }
+            list.innerHTML = html;
         }
 
-        // Eliminar cita
-        async function deleteCita(citaId) {
+        function deleteCita(citaId) {
             if (!confirm('¿Eliminar esta cita?')) return;
-            
-            try {
-                await db.collection('citas').doc(citaId).delete();
-                showSuccess('✅ Cita eliminada');
+            db.collection('citas').doc(citaId).delete().then(function() {
+                alert('Cita eliminada');
                 loadAdminData();
-            } catch (error) {
-                console.error('Error eliminando:', error);
-                alert('❌ Error: ' + error.message);
-            }
+            }).catch(function(error) {
+                alert('Error: ' + error.message);
+            });
         }
 
-        // Contactar WhatsApp
-        function contactWhatsApp(phone) {
-            window.open(`https://wa.me/${phone.replace(/[^0-9]/g, '')}`, '_blank');
-        }
-
-        // Renderizar servicios admin
         function renderAdminServices() {
-            const list = document.getElementById('servicesList');
-            list.innerHTML = services.map(s => `
-                <div class="service-item" style="display: flex; justify-content: space-between; align-items: center;">
-                    <div>
-                        <h3>${s.icon} ${s.name}</h3>
-                        <p style="color: var(--gray);">${s.description}</p>
-                        <strong style="color: var(--primary);">${Number(s.price).toFixed(2)}</strong>
-                    </div>
-                    <div style="display: flex; gap: 10px;">
-                        <button class="btn btn-secondary" onclick="editService('${s.id}')">✏️ Editar</button>
-                        <button class="btn btn-danger" onclick="deleteService('${s.id}')">🗑️ Eliminar</button>
-                    </div>
-                </div>
-            `).join('');
+            var list = document.getElementById('servicesList');
+            var html = '';
+            for (var i = 0; i < services.length; i++) {
+                var s = services[i];
+                html += '<div class="service-item" style="display: flex; justify-content: space-between; align-items: center;">';
+                html += '<div><h3>' + s.icon + ' ' + s.name + '</h3><p>' + s.description + '</p><strong style="color: var(--primary);"> + s.price.toFixed(2) + '</strong></div>';
+                html += '<div style="display: flex; gap: 10px;">';
+                html += '<button class="btn btn-secondary" onclick="editService(\'' + s.id + '\')">Editar</button>';
+                html += '<button class="btn btn-danger" onclick="deleteService(\'' + s.id + '\')">Eliminar</button>';
+                html += '</div>';
+                html += '</div>';
+            }
+            list.innerHTML = html;
         }
 
-        // Agregar/Editar servicio
-        async function saveService(e) {
+        function saveService(e) {
             e.preventDefault();
-            
-            const serviceId = document.getElementById('serviceEditId').value;
-            const serviceData = {
+            var serviceId = document.getElementById('serviceEditId').value;
+            var serviceData = {
                 name: document.getElementById('serviceName').value,
                 description: document.getElementById('serviceDesc').value,
                 price: parseFloat(document.getElementById('servicePrice').value),
-                icon: document.getElementById('serviceIcon').value || '🔧',
-                features: document.getElementById('serviceFeatures').value.split(',').map(f => f.trim()).filter(f => f)
+                icon: document.getElementById('serviceIcon').value || '🔧'
             };
             
-            try {
-                if (serviceId) {
-                    // Editar
-                    await db.collection('servicios').doc(serviceId).update(serviceData);
-                    showSuccess('✅ Servicio actualizado');
-                } else {
-                    // Crear
-                    await db.collection('servicios').add(serviceData);
-                    showSuccess('✅ Servicio creado');
-                }
-                
-                closeModal('serviceModal');
-                await loadServices();
-                renderAdminServices();
-            } catch (error) {
-                console.error('Error guardando servicio:', error);
-                alert('❌ Error: ' + error.message);
+            if (serviceId) {
+                db.collection('servicios').doc(serviceId).update(serviceData).then(function() {
+                    alert('Servicio actualizado');
+                    closeModal('serviceModal');
+                    loadServices();
+                    renderAdminServices();
+                });
+            } else {
+                db.collection('servicios').add(serviceData).then(function() {
+                    alert('Servicio creado');
+                    closeModal('serviceModal');
+                    loadServices();
+                    renderAdminServices();
+                });
             }
         }
 
-        // Editar servicio
         function editService(serviceId) {
-            const service = services.find(s => s.id === serviceId);
+            var service = services.find(function(s) { return s.id === serviceId; });
             if (!service) return;
-            
             document.getElementById('serviceModalTitle').textContent = 'Editar Servicio';
             document.getElementById('serviceEditId').value = serviceId;
             document.getElementById('serviceName').value = service.name;
             document.getElementById('serviceDesc').value = service.description;
             document.getElementById('servicePrice').value = service.price;
             document.getElementById('serviceIcon').value = service.icon;
-            document.getElementById('serviceFeatures').value = service.features ? service.features.join(', ') : '';
             openModal('serviceModal');
         }
 
-        // Eliminar servicio
-        async function deleteService(serviceId) {
-            if (!confirm('¿Eliminar este servicio?')) return;
-            
-            try {
-                await db.collection('servicios').doc(serviceId).delete();
-                showSuccess('✅ Servicio eliminado');
-                await loadServices();
+        function deleteService(serviceId) {
+            if (!confirm('¿Eliminar servicio?')) return;
+            db.collection('servicios').doc(serviceId).delete().then(function() {
+                alert('Servicio eliminado');
+                loadServices();
                 renderAdminServices();
-            } catch (error) {
-                console.error('Error eliminando:', error);
-                alert('❌ Error: ' + error.message);
-            }
+            });
         }
 
-        // Renderizar galería admin
         function renderAdminGallery() {
-            const list = document.getElementById('galleryAdminList');
-            
-            if (gallery.length === 0) {
-                list.innerHTML = '<p style="text-align: center; color: var(--gray); padding: 40px;">No hay contenido en la galería</p>';
-                return;
-            }
-            
-            list.innerHTML = gallery.map(g => `
-                <div class="gallery-admin-item" style="display: flex; gap: 15px; align-items: center;">
-                    ${g.type === 'video' ? 
-                        `<div style="width: 120px; height: 80px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 40px;">🎥</div>` :
-                        `<img src="${g.imageUrl}" style="width: 120px; height: 80px; object-fit: cover; border-radius: 8px;" onerror="this.src='https://via.placeholder.com/120x80/667eea/ffffff?text=Imagen'">`
-                    }
-                    <div style="flex: 1;">
-                        <strong>${g.title}</strong>
-                        <div style="color: var(--gray); font-size: 14px;">${g.type === 'video' ? 'VIDEO' : 'IMAGEN'}</div>
-                    </div>
-                    <button class="btn btn-danger" onclick="deleteGalleryItem('${g.id}')">🗑️ Eliminar</button>
-                </div>
-            `).join('');
+            db.collection('galeria').get().then(function(snapshot) {
+                var list = document.getElementById('galleryAdminList');
+                if (snapshot.empty) {
+                    list.innerHTML = '<p style="text-align: center; padding: 40px;">No hay contenido</p>';
+                    return;
+                }
+                var html = '';
+                snapshot.forEach(function(doc) {
+                    var g = doc.data();
+                    html += '<div class="service-item" style="display: flex; gap: 15px; align-items: center;">';
+                    html += '<div style="flex: 1;"><strong>' + g.title + '</strong><div style="color: var(--gray);">' + g.type.toUpperCase() + '</div></div>';
+                    html += '<button class="btn btn-danger" onclick="deleteGalleryItem(\'' + doc.id + '\')">Eliminar</button>';
+                    html += '</div>';
+                });
+                list.innerHTML = html;
+            });
         }
 
-        // Agregar a galería
-        async function saveGallery(e) {
+        function saveGallery(e) {
             e.preventDefault();
-            
-            const type = document.getElementById('galleryType').value;
-            const title = document.getElementById('galleryTitle').value;
-            
-            const galleryData = {
-                title: title,
+            var type = document.getElementById('galleryType').value;
+            var galleryData = {
+                title: document.getElementById('galleryTitle').value,
                 type: type,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
             };
@@ -1681,35 +1088,26 @@
                 galleryData.imageUrl = document.getElementById('galleryImageUrl').value;
             }
             
-            try {
-                await db.collection('galeria').add(galleryData);
-                showSuccess('✅ Agregado a galería');
+            db.collection('galeria').add(galleryData).then(function() {
+                alert('Agregado a galería');
                 closeModal('galleryModal');
                 document.getElementById('galleryForm').reset();
-                await loadGallery();
+                loadGallery();
                 renderAdminGallery();
-            } catch (error) {
-                console.error('Error guardando galería:', error);
-                alert('❌ Error: ' + error.message);
-            }
+            }).catch(function(error) {
+                alert('Error: ' + error.message);
+            });
         }
 
-        // Eliminar item galería
-        async function deleteGalleryItem(galleryId) {
-            if (!confirm('¿Eliminar este elemento?')) return;
-            
-            try {
-                await db.collection('galeria').doc(galleryId).delete();
-                showSuccess('✅ Elemento eliminado');
-                await loadGallery();
+        function deleteGalleryItem(galleryId) {
+            if (!confirm('¿Eliminar?')) return;
+            db.collection('galeria').doc(galleryId).delete().then(function() {
+                alert('Eliminado');
+                loadGallery();
                 renderAdminGallery();
-            } catch (error) {
-                console.error('Error eliminando:', error);
-                alert('❌ Error: ' + error.message);
-            }
+            });
         }
 
-        // Modal functions
         function openModal(id) {
             document.getElementById(id).classList.add('active');
         }
@@ -1718,185 +1116,107 @@
             document.getElementById(id).classList.remove('active');
         }
 
-        function showLoginForm() {
-            document.getElementById('registerForm').style.display = 'none';
-            document.getElementById('forgotPasswordForm').style.display = 'none';
-            document.getElementById('loginForm').style.display = 'block';
-        }
-
-        function showRegisterForm() {
-            document.getElementById('loginForm').style.display = 'none';
-            document.getElementById('forgotPasswordForm').style.display = 'none';
-            document.getElementById('registerForm').style.display = 'block';
-        }
-
-        function showForgotPasswordForm() {
-            document.getElementById('loginForm').style.display = 'none';
-            document.getElementById('registerForm').style.display = 'none';
-            document.getElementById('forgotPasswordForm').style.display = 'block';
-        }
-
-        function showSuccess(message) {
-            const msg = document.getElementById('successMessage');
-            if (msg) {
-                msg.textContent = message;
-                msg.classList.add('show');
-                setTimeout(() => msg.classList.remove('show'), 3000);
-            } else {
-                const div = document.createElement('div');
-                div.style.cssText = 'position: fixed; top: 20px; right: 20px; background: #d1fae5; color: #10b981; padding: 18px 24px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); z-index: 10000;';
-                div.textContent = message;
-                document.body.appendChild(div);
-                setTimeout(() => div.remove(), 3000);
-            }
-        }
-
         function switchTab(tab) {
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+            document.querySelectorAll('.tab-btn').forEach(function(btn) {
+                btn.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-content').forEach(function(content) {
+                content.classList.remove('active');
+            });
+            document.querySelector('[data-tab="' + tab + '"]').classList.add('active');
             document.getElementById(tab + 'Tab').classList.add('active');
         }
 
-        // Event Listeners
-        document.addEventListener('DOMContentLoaded', async function() {
-            console.log('🚀 Iniciando CryoClean Pro...');
+        document.addEventListener('DOMContentLoaded', function() {
+            loadServices();
+            loadGallery();
             
-            try {
-                await loadServices();
-                await loadGallery();
-                updateFirebaseStatus(true);
-            } catch (error) {
-                console.error('Error inicial:', error);
-                updateFirebaseStatus(false);
-            }
-            
-            // WhatsApp
-            document.getElementById('whatsappBtn').addEventListener('click', () => {
-                window.open('https://wa.me/593989898143?text=Hola! Me interesa sus servicios', '_blank');
+            document.getElementById('whatsappBtn').addEventListener('click', function() {
+                window.open('https://wa.me/593989898143', '_blank');
             });
             
-            // Buttons
-            document.getElementById('btnLogin').addEventListener('click', () => openModal('loginModal'));
+            document.getElementById('btnLogin').addEventListener('click', function() {
+                openModal('loginModal');
+            });
+            
             document.getElementById('btnLogoutUser').addEventListener('click', logout);
-            document.getElementById('btnCart').addEventListener('click', () => openModal('cartModal'));
-            document.getElementById('btnAgendarCita').addEventListener('click', () => openModal('appointmentModal'));
-            document.getElementById('btnVerServicios').addEventListener('click', () => {
-                document.getElementById('servicios').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('btnCart').addEventListener('click', function() {
+                openModal('cartModal');
             });
             
-            // Login/Register
-            document.getElementById('btnLoginSubmit').addEventListener('click', loginUser);
-            document.getElementById('btnRegisterSubmit').addEventListener('click', registerUser);
-            document.getElementById('btnShowRegister').addEventListener('click', showRegisterForm);
-            document.getElementById('btnShowLogin').addEventListener('click', showLoginForm);
-            document.getElementById('btnShowForgotPassword').addEventListener('click', showForgotPasswordForm);
-            document.getElementById('btnBackToLogin').addEventListener('click', showLoginForm);
-            document.getElementById('btnSendResetEmail').addEventListener('click', sendPasswordReset);
+            document.getElementById('btnVerServicios').addEventListener('click', function() {
+                document.getElementById('servicios').scrollIntoView({behavior: 'smooth'});
+            });
             
-            // Cart
-            document.getElementById('btnProceedBooking').addEventListener('click', () => {
+            document.getElementById('btnLoginSubmit').addEventListener('click', loginUser);
+            
+            document.getElementById('btnProceedBooking').addEventListener('click', function() {
                 if (cart.length === 0) {
                     alert('Carrito vacío');
                     return;
                 }
                 closeModal('cartModal');
                 openModal('appointmentModal');
-                const servicesEl = document.getElementById('apptServices');
-                servicesEl.innerHTML = cart.map(item => `
-                    <div>${item.icon} ${item.name} (x${item.quantity}) - ${(item.price * item.quantity).toFixed(2)}</div>
-                `).join('');
+                var servicesEl = document.getElementById('apptServices');
+                var html = '';
+                for (var i = 0; i < cart.length; i++) {
+                    html += '<div>' + cart[i].icon + ' ' + cart[i].name + ' (x' + cart[i].quantity + ') -  + (cart[i].price * cart[i].quantity).toFixed(2) + '</div>';
+                }
+                servicesEl.innerHTML = html;
             });
             
-            // Payment methods
-            document.querySelectorAll('.payment-method').forEach(method => {
+            document.querySelectorAll('.payment-method').forEach(function(method) {
                 method.addEventListener('click', function() {
-                    document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+                    document.querySelectorAll('.payment-method').forEach(function(m) {
+                        m.classList.remove('selected');
+                    });
                     this.classList.add('selected');
                     selectedPaymentMethod = this.getAttribute('data-payment');
-                    
-                    const paymentInfo = document.getElementById('paymentInfo');
-                    const paymentInfoText = document.getElementById('paymentInfoText');
-                    
-                    const paymentInfoTexts = {
-                        transferencia: 'Los datos de cuenta bancaria se enviarán por email una vez confirmada la cita.',
-                        tarjeta: 'Se enviará un enlace de pago seguro a tu email para procesar el pago con tarjeta.',
-                        btc: 'La dirección Bitcoin se enviará por email. Red: Bitcoin (BTC).',
-                        usdt: 'La dirección USDT se enviará por email. Red: TRC20 (TRON).'
-                    };
-                    
-                    paymentInfoText.textContent = paymentInfoTexts[selectedPaymentMethod];
-                    paymentInfo.style.display = 'block';
                 });
             });
             
-            // Appointment
             document.getElementById('appointmentForm').addEventListener('submit', submitAppointment);
-            document.getElementById('btnWhatsAppConfirm').addEventListener('click', () => {
-                const name = document.getElementById('apptName').value;
-                const date = document.getElementById('apptDate').value;
-                const time = document.getElementById('apptTime').value;
-                const services = cart.map(s => `${s.name} (x${s.quantity})`).join(', ');
-                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-                const payment = selectedPaymentMethod ? getPaymentMethodLabel(selectedPaymentMethod) : 'No especificado';
-                
-                const msg = encodeURIComponent(
-                    `Hola! Quiero agendar:\n\n` +
-                    `👤 ${name}\n` +
-                    `📅 ${date} ${time}\n` +
-                    `🛠️ ${services}\n` +
-                    `💳 ${payment}\n` +
-                    `💰 ${total.toFixed(2)}`
-                );
-                window.open(`https://wa.me/593989898143?text=${msg}`, '_blank');
-            });
             
-            // Admin
             document.getElementById('btnLogout').addEventListener('click', logout);
-            document.getElementById('btnAddService').addEventListener('click', () => {
+            document.getElementById('btnAddService').addEventListener('click', function() {
                 document.getElementById('serviceModalTitle').textContent = 'Agregar Servicio';
                 document.getElementById('serviceForm').reset();
                 document.getElementById('serviceEditId').value = '';
                 openModal('serviceModal');
             });
-            document.getElementById('btnAddGallery').addEventListener('click', () => openModal('galleryModal'));
+            
+            document.getElementById('btnAddGallery').addEventListener('click', function() {
+                openModal('galleryModal');
+            });
+            
             document.getElementById('serviceForm').addEventListener('submit', saveService);
             document.getElementById('galleryForm').addEventListener('submit', saveGallery);
-            document.getElementById('editCitaForm').addEventListener('submit', saveEditCita);
             
-            // Gallery type toggle
             document.getElementById('galleryType').addEventListener('change', function() {
-                const imageGroup = document.getElementById('imageUrlGroup');
-                const videoGroup = document.getElementById('videoUrlGroup');
-                
+                var imageGroup = document.getElementById('imageUrlGroup');
+                var videoGroup = document.getElementById('videoUrlGroup');
                 if (this.value === 'video') {
                     imageGroup.style.display = 'none';
                     videoGroup.style.display = 'block';
-                    document.getElementById('galleryImageUrl').removeAttribute('required');
-                    document.getElementById('galleryVideoUrl').setAttribute('required', 'required');
                 } else {
                     imageGroup.style.display = 'block';
                     videoGroup.style.display = 'none';
-                    document.getElementById('galleryImageUrl').setAttribute('required', 'required');
-                    document.getElementById('galleryVideoUrl').removeAttribute('required');
                 }
             });
             
-            // Tabs
-            document.querySelectorAll('.tab-btn').forEach(btn => {
+            document.querySelectorAll('.tab-btn').forEach(function(btn) {
                 btn.addEventListener('click', function() {
                     switchTab(this.getAttribute('data-tab'));
                 });
             });
             
-            // Close modals
-            document.querySelectorAll('.close-btn').forEach(btn => {
+            document.querySelectorAll('.close-btn').forEach(function(btn) {
                 btn.addEventListener('click', function() {
                     closeModal(this.getAttribute('data-modal'));
                 });
             });
             
-            document.querySelectorAll('.modal').forEach(modal => {
+            document.querySelectorAll('.modal').forEach(function(modal) {
                 modal.addEventListener('click', function(e) {
                     if (e.target === this) {
                         closeModal(this.id);
@@ -1904,12 +1224,8 @@
                 });
             });
             
-            // Min date para citas (hoy)
-            const today = new Date().toISOString().split('T')[0];
+            var today = new Date().toISOString().split('T')[0];
             document.getElementById('apptDate').setAttribute('min', today);
-            document.getElementById('editCitaDate').setAttribute('min', today);
-            
-            console.log('✅ Aplicación lista');
         });
     </script>
 </body>
