@@ -1,217 +1,310 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CryoClean Pro Admin - Gestión Total</title>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-    <style>
-        /* Estilos Base y Variables */
-        :root {
-            --primary: #10b981; --secondary: #3b82f6; --dark: #1e293b;
-            --danger: #ef4444; --light: #f8fafc;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background: #f1f5f9; color: var(--dark); padding-bottom: 50px; }
-        
-        /* Layout */
-        .header { background: white; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
-        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
-        
-        /* UI Components */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
-        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); position: relative; }
-        .btn { padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: 0.3s; }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-danger { background: var(--danger); color: white; }
-        .btn-edit { background: var(--secondary); color: white; margin-right: 5px; }
-        
-        /* Forms & Modals */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center; }
-        .modal.active { display: flex; }
-        .modal-content { background: white; padding: 30px; border-radius: 20px; width: 90%; max-width: 500px; }
-        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; }
-        
-        /* Gallery specific */
-        .gallery-item img, .gallery-item iframe { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; }
-        .admin-controls { margin-top: 15px; display: flex; justify-content: flex-end; }
-        .badge { position: absolute; top: 10px; right: 10px; background: var(--primary); color: white; padding: 5px 10px; border-radius: 20px; font-size: 12px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CryoClean Pro | Plataforma PRO</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--primary:#10b981;
+--secondary:#3b82f6;
+--dark:#1e293b;
+--gray:#64748b;
+--success:#10b981;
+--danger:#ef4444;
+--btc:#f7931a;
+--usdt:#26a17b;
+}
+
+body{
+font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;
+background:linear-gradient(135deg,#e0f2fe,#dbeafe,#dcfce7);
+min-height:100vh;
+color:var(--dark);
+}
+
+.container{max-width:1400px;margin:auto;padding:20px}
+
+header{
+background:rgba(255,255,255,.96);
+backdrop-filter:blur(10px);
+padding:15px 0;
+position:sticky;top:0;z-index:1000;
+box-shadow:0 4px 6px rgba(0,0,0,.05)
+}
+
+nav{display:flex;justify-content:space-between;align-items:center;max-width:1400px;margin:auto;padding:0 20px}
+
+.logo{display:flex;align-items:center;gap:12px;font-size:28px;font-weight:bold;color:var(--primary)}
+
+.hero{
+background:white;border-radius:24px;padding:80px 40px;
+margin:40px 0;text-align:center;
+box-shadow:0 20px 60px rgba(0,0,0,.08)
+}
+
+.services-grid{
+display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:30px;margin:40px 0
+}
+
+.service-card{
+background:white;border-radius:20px;padding:35px;
+box-shadow:0 10px 40px rgba(0,0,0,.08);
+transition:.4s
+}
+.service-card:hover{transform:translateY(-10px)}
+
+.service-price{
+font-size:30px;font-weight:bold;color:var(--primary);margin:10px 0
+}
+
+.btn{
+padding:12px 28px;border:none;border-radius:12px;
+font-weight:600;cursor:pointer;font-size:15px;
+transition:.3s
+}
+
+.btn-primary{background:linear-gradient(135deg,var(--primary),#22c55e);color:white}
+.btn-success{background:var(--success);color:white}
+.btn-danger{background:var(--danger);color:white}
+
+.modal{
+display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);
+z-index:2000;align-items:center;justify-content:center
+}
+.modal.active{display:flex}
+
+.modal-content{
+background:white;border-radius:24px;padding:40px;
+width:95%;max-width:650px;max-height:90vh;overflow:auto
+}
+
+.form-group{margin-bottom:18px}
+.form-group label{font-weight:600;display:block;margin-bottom:6px}
+.form-group input,.form-group select{
+width:100%;padding:12px;border-radius:10px;border:2px solid #e2e8f0
+}
+
+.payment-method{
+border:2px solid #e2e8f0;
+padding:15px;border-radius:12px;
+margin-bottom:10px;cursor:pointer;
+display:flex;align-items:center;gap:10px
+}
+.payment-method.selected{border-color:var(--primary);background:#ecfdf5}
+
+.cart-item{
+display:flex;justify-content:space-between;
+padding:15px;background:#f8fafc;border-radius:12px;margin-bottom:10px
+}
+.cart-total{
+font-size:26px;font-weight:bold;text-align:right;color:var(--primary)
+}
+
+.wallet-box{
+background:#f1f5f9;padding:15px;border-radius:12px;
+font-size:15px;word-break:break-all
+}
+</style>
 </head>
+
 <body>
 
-<div class="header">
-    <div class="nav-container">
-        <h2>❄️ CryoClean Admin</h2>
-        <div>
-            <button class="btn btn-primary" onclick="openModal('serviceModal')">+ Servicio</button>
-            <button class="btn btn-primary" onclick="openModal('galleryModal')">+ Galería</button>
-        </div>
-    </div>
-</div>
+<header>
+<nav>
+<div class="logo">❄️ CryoClean PRO</div>
+</nav>
+</header>
 
 <div class="container">
-    <h2 style="margin-bottom: 20px;">Catálogo de Servicios</h2>
-    <div id="servicesGrid" class="grid"></div>
 
-    <hr style="margin: 50px 0; border: 0; border-top: 1px solid #ccc;">
+<section class="hero">
+<h1>Limpieza Industrial PRO</h1>
+<p>Pagos profesionales con PayPhone y Criptomonedas</p>
+</section>
 
-    <h2 style="margin-bottom: 20px;">Galería de Proyectos</h2>
-    <div id="galleryGrid" class="grid"></div>
+<section>
+<h2 style="text-align:center;font-size:36px">Servicios</h2>
+<div class="services-grid" id="servicesContainer"></div>
+</section>
+
 </div>
 
-<div id="serviceModal" class="modal">
-    <div class="modal-content">
-        <h3 id="serviceTitle">Nuevo Servicio</h3>
-        <input type="hidden" id="serviceId">
-        <input type="text" id="serviceName" placeholder="Nombre del servicio">
-        <textarea id="serviceDesc" placeholder="Descripción"></textarea>
-        <input type="number" id="servicePrice" placeholder="Precio ($)">
-        <input type="text" id="serviceIcon" placeholder="Emoji o Icono (p.ej. ❄️)">
-        <button class="btn btn-primary" onclick="saveService()" style="width: 100%;">Guardar</button>
-        <button class="btn" onclick="closeModal('serviceModal')" style="width: 100%; margin-top:10px;">Cancelar</button>
-    </div>
+<!-- CARRITO -->
+<div id="cartModal" class="modal">
+<div class="modal-content">
+<h2>Carrito</h2>
+<div id="cartItems"></div>
+<div class="cart-total" id="cartTotal">Total: $0</div>
+<button class="btn btn-success" id="btnCheckout" style="width:100%">Continuar</button>
+</div>
 </div>
 
-<div id="galleryModal" class="modal">
-    <div class="modal-content">
-        <h3>Añadir a Galería</h3>
-        <select id="galleryType" onchange="toggleGalleryInputs()">
-            <option value="image">Imagen</option>
-            <option value="video">Video (YouTube)</option>
-        </select>
-        <input type="text" id="galleryTitle" placeholder="Título del proyecto">
-        <input type="url" id="galleryUrl" placeholder="URL de la imagen o video">
-        <button class="btn btn-primary" onclick="saveGalleryItem()" style="width: 100%;">Publicar</button>
-        <button class="btn" onclick="closeModal('galleryModal')" style="width: 100%; margin-top:10px;">Cancelar</button>
-    </div>
+<!-- PAGO -->
+<div id="paymentModal" class="modal">
+<div class="modal-content">
+<h2>Selecciona método de pago</h2>
+
+<div class="payment-method" data-pay="payphone">💳 PayPhone</div>
+<div class="payment-method" data-pay="transfer">🏦 Transferencia Bancaria</div>
+<div class="payment-method" data-pay="btc">₿ Bitcoin</div>
+<div class="payment-method" data-pay="usdt">₮ USDT</div>
+
+<div id="paymentInfo" style="margin-top:20px"></div>
+
+<button class="btn btn-primary" id="btnConfirmPay" style="width:100%;margin-top:15px">
+Confirmar Pago
+</button>
+
 </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
 <script>
-    // CONFIGURACIÓN FIREBASE
-    const firebaseConfig = {
-        apiKey: "AIzaSyBsPssHAMzBzYrHvdMFqtR31n2E55ovr8A",
-        authDomain: "cryocleanpro.firebaseapp.com",
-        projectId: "cryocleanpro",
-        storageBucket: "cryocleanpro.firebasestorage.app",
-        messagingSenderId: "835260147208",
-        appId: "1:835260147208:web:6cfd00fc634ded777353bd"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
+/* ====== CONFIG ====== */
+const BTC_WALLET = "TU_WALLET_BTC";
+const USDT_WALLET = "TU_WALLET_USDT";
 
-    // FUNCIONES DE SERVICIOS
-    function loadServices() {
-        db.collection('servicios').onSnapshot(snapshot => {
-            const grid = document.getElementById('servicesGrid');
-            grid.innerHTML = '';
-            snapshot.forEach(doc => {
-                const s = doc.data();
-                grid.innerHTML += `
-                    <div class="card">
-                        <span class="badge">$${s.price}</span>
-                        <div style="font-size: 30px;">${s.icon || '⚙️'}</div>
-                        <h3>${s.name}</h3>
-                        <p style="color: #666; font-size: 14px;">${s.description}</p>
-                        <div class="admin-controls">
-                            <button class="btn btn-edit" onclick="editService('${doc.id}', ${JSON.stringify(s).replace(/"/g, '&quot;')})">Editar</button>
-                            <button class="btn btn-danger" onclick="deleteItem('servicios', '${doc.id}')">Borrar</button>
-                        </div>
-                    </div>`;
-            });
-        });
-    }
+/* ====== FIREBASE ====== */
+firebase.initializeApp({
+apiKey: "AIzaSyBsPssHAMzBzYrHvdMFqtR31n2E55ovr8A",
+authDomain: "cryocleanpro.firebaseapp.com",
+projectId: "cryocleanpro"
+});
+const db = firebase.firestore();
 
-    function saveService() {
-        const id = document.getElementById('serviceId').value;
-        const data = {
-            name: document.getElementById('serviceName').value,
-            description: document.getElementById('serviceDesc').value,
-            price: document.getElementById('servicePrice').value,
-            icon: document.getElementById('serviceIcon').value
-        };
+let services=[],cart=[],paymentMethod=null;
 
-        if(id) {
-            db.collection('servicios').doc(id).update(data);
-        } else {
-            db.collection('servicios').add(data);
-        }
-        closeModal('serviceModal');
-        clearServiceForm();
-    }
+/* ====== SERVICIOS ====== */
+function loadServices(){
+db.collection("servicios").get().then(snap=>{
+services=[];
+snap.forEach(doc=>services.push({...doc.data(),id:doc.id}));
+renderServices();
+});
+}
 
-    function editService(id, data) {
-        document.getElementById('serviceId').value = id;
-        document.getElementById('serviceName').value = data.name;
-        document.getElementById('serviceDesc').value = data.description;
-        document.getElementById('servicePrice').value = data.price;
-        document.getElementById('serviceIcon').value = data.icon;
-        document.getElementById('serviceTitle').innerText = "Editar Servicio";
-        openModal('serviceModal');
-    }
+function renderServices(){
+const cont=document.getElementById("servicesContainer");
+cont.innerHTML="";
+services.forEach(s=>{
+cont.innerHTML+=`
+<div class="service-card">
+<div style="font-size:55px">${s.icon||"🔧"}</div>
+<h3>${s.name}</h3>
+<p>${s.description}</p>
+<div class="service-price">$${Number(s.price).toFixed(2)}</div>
+<button class="btn btn-primary" onclick="addToCart('${s.id}')">Agregar</button>
+</div>`;
+});
+}
 
-    // FUNCIONES DE GALERÍA
-    function loadGallery() {
-        db.collection('galeria').onSnapshot(snapshot => {
-            const grid = document.getElementById('galleryGrid');
-            grid.innerHTML = '';
-            snapshot.forEach(doc => {
-                const item = doc.data();
-                let mediaHtml = item.type === 'video' 
-                    ? `<iframe src="${transformYoutubeUrl(item.url)}" frameborder="0"></iframe>`
-                    : `<img src="${item.url}" alt="Proyecto">`;
-                
-                grid.innerHTML += `
-                    <div class="card gallery-item">
-                        ${mediaHtml}
-                        <p style="margin-top:10px;"><strong>${item.title}</strong></p>
-                        <div class="admin-controls">
-                            <button class="btn btn-danger" onclick="deleteItem('galeria', '${doc.id}')">Eliminar</button>
-                        </div>
-                    </div>`;
-            });
-        });
-    }
+/* ====== CARRITO ====== */
+function addToCart(id){
+const s=services.find(x=>x.id===id);
+const e=cart.find(x=>x.id===id);
+if(e)e.quantity++;
+else cart.push({...s,quantity:1});
+renderCart();
+document.getElementById("cartModal").classList.add("active");
+}
 
-    function saveGalleryItem() {
-        const data = {
-            type: document.getElementById('galleryType').value,
-            title: document.getElementById('galleryTitle').value,
-            url: document.getElementById('galleryUrl').value,
-            createdAt: new Date()
-        };
-        db.collection('galeria').add(data).then(() => closeModal('galleryModal'));
-    }
+function renderCart(){
+const cont=document.getElementById("cartItems");
+const totalEl=document.getElementById("cartTotal");
+let total=0;
+cont.innerHTML="";
+cart.forEach(i=>{
+let sub=i.price*i.quantity;
+total+=sub;
+cont.innerHTML+=`
+<div class="cart-item">
+<div>${i.icon} ${i.name} (x${i.quantity})</div>
+<div>$${sub.toFixed(2)}</div>
+</div>`;
+});
+totalEl.textContent=`Total: $${total.toFixed(2)}`;
+}
 
-    // UTILIDADES
-    function deleteItem(collection, id) {
-        if(confirm('¿Seguro que deseas eliminar este elemento?')) {
-            db.collection(collection).doc(id).delete();
-        }
-    }
+document.getElementById("btnCheckout").onclick=()=>{
+document.getElementById("cartModal").classList.remove("active");
+document.getElementById("paymentModal").classList.add("active");
+};
 
-    function transformYoutubeUrl(url) {
-        if (!url) return '';
-        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-        const match = url.match(regExp);
-        return (match && match[2].length === 11) ? `https://www.youtube.com/embed/${match[2]}` : url;
-    }
+/* ====== PAGOS ====== */
+document.querySelectorAll(".payment-method").forEach(el=>{
+el.onclick=()=>{
+document.querySelectorAll(".payment-method").forEach(m=>m.classList.remove("selected"));
+el.classList.add("selected");
+paymentMethod=el.dataset.pay;
+renderPaymentInfo();
+};
+});
 
-    function openModal(id) { document.getElementById(id).classList.add('active'); }
-    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-    function clearServiceForm() {
-        document.getElementById('serviceId').value = '';
-        document.getElementById('serviceName').value = '';
-        document.getElementById('serviceTitle').innerText = "Nuevo Servicio";
-    }
+function renderPaymentInfo(){
+const box=document.getElementById("paymentInfo");
+let total=cart.reduce((s,i)=>s+i.price*i.quantity,0);
 
-    // Inicializar
-    window.onload = () => {
-        loadServices();
-        loadGallery();
-    };
+if(paymentMethod==="btc"){
+box.innerHTML=`
+<p><strong>Envía exactamente:</strong></p>
+<h3 style="color:var(--btc)">$${total.toFixed(2)} en BTC</h3>
+<div class="wallet-box">${BTC_WALLET}</div>`;
+}
+
+if(paymentMethod==="usdt"){
+box.innerHTML=`
+<p><strong>Envía exactamente:</strong></p>
+<h3 style="color:var(--usdt)">$${total.toFixed(2)} en USDT</h3>
+<div class="wallet-box">${USDT_WALLET}</div>`;
+}
+
+if(paymentMethod==="transfer"){
+box.innerHTML=`
+<p><strong>Transferencia bancaria:</strong></p>
+<div class="wallet-box">
+Banco: Pichincha<br>
+Cuenta: 1234567890<br>
+Nombre: CryoClean Pro<br>
+RUC: 0999999999
+</div>`;
+}
+
+if(paymentMethod==="payphone"){
+box.innerHTML=`
+<p><strong>PayPhone:</strong></p>
+<p>Se abrirá ventana segura de pago.</p>`;
+}
+}
+
+document.getElementById("btnConfirmPay").onclick=()=>{
+if(!paymentMethod)return alert("Selecciona método");
+alert("Pago registrado como pendiente. Un operador lo confirmará.");
+saveOrder();
+};
+
+/* ====== GUARDAR ====== */
+function saveOrder(){
+let total=cart.reduce((s,i)=>s+i.price*i.quantity,0);
+db.collection("citas").add({
+services:cart,
+total,
+paymentMethod,
+status:"pending_payment",
+createdAt:firebase.firestore.FieldValue.serverTimestamp()
+});
+cart=[];
+document.getElementById("paymentModal").classList.remove("active");
+alert("Pedido creado correctamente");
+}
+
+/* ====== INIT ====== */
+loadServices();
 </script>
 
 </body>
