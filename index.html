@@ -3,309 +3,162 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CryoClean Pro | Plataforma PRO</title>
-
+<title>Sistema de Reservas PRO Empresarial</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
---primary:#10b981;
---secondary:#3b82f6;
---dark:#1e293b;
---gray:#64748b;
---success:#10b981;
---danger:#ef4444;
---btc:#f7931a;
---usdt:#26a17b;
-}
-
-body{
-font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;
-background:linear-gradient(135deg,#e0f2fe,#dbeafe,#dcfce7);
-min-height:100vh;
-color:var(--dark);
-}
-
-.container{max-width:1400px;margin:auto;padding:20px}
-
-header{
-background:rgba(255,255,255,.96);
-backdrop-filter:blur(10px);
-padding:15px 0;
-position:sticky;top:0;z-index:1000;
-box-shadow:0 4px 6px rgba(0,0,0,.05)
-}
-
-nav{display:flex;justify-content:space-between;align-items:center;max-width:1400px;margin:auto;padding:0 20px}
-
-.logo{display:flex;align-items:center;gap:12px;font-size:28px;font-weight:bold;color:var(--primary)}
-
-.hero{
-background:white;border-radius:24px;padding:80px 40px;
-margin:40px 0;text-align:center;
-box-shadow:0 20px 60px rgba(0,0,0,.08)
-}
-
-.services-grid{
-display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-gap:30px;margin:40px 0
-}
-
-.service-card{
-background:white;border-radius:20px;padding:35px;
-box-shadow:0 10px 40px rgba(0,0,0,.08);
-transition:.4s
-}
-.service-card:hover{transform:translateY(-10px)}
-
-.service-price{
-font-size:30px;font-weight:bold;color:var(--primary);margin:10px 0
-}
-
-.btn{
-padding:12px 28px;border:none;border-radius:12px;
-font-weight:600;cursor:pointer;font-size:15px;
-transition:.3s
-}
-
-.btn-primary{background:linear-gradient(135deg,var(--primary),#22c55e);color:white}
-.btn-success{background:var(--success);color:white}
-.btn-danger{background:var(--danger);color:white}
-
-.modal{
-display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);
-z-index:2000;align-items:center;justify-content:center
-}
-.modal.active{display:flex}
-
-.modal-content{
-background:white;border-radius:24px;padding:40px;
-width:95%;max-width:650px;max-height:90vh;overflow:auto
-}
-
-.form-group{margin-bottom:18px}
-.form-group label{font-weight:600;display:block;margin-bottom:6px}
-.form-group input,.form-group select{
-width:100%;padding:12px;border-radius:10px;border:2px solid #e2e8f0
-}
-
-.payment-method{
-border:2px solid #e2e8f0;
-padding:15px;border-radius:12px;
-margin-bottom:10px;cursor:pointer;
-display:flex;align-items:center;gap:10px
-}
-.payment-method.selected{border-color:var(--primary);background:#ecfdf5}
-
-.cart-item{
-display:flex;justify-content:space-between;
-padding:15px;background:#f8fafc;border-radius:12px;margin-bottom:10px
-}
-.cart-total{
-font-size:26px;font-weight:bold;text-align:right;color:var(--primary)
-}
-
-.wallet-box{
-background:#f1f5f9;padding:15px;border-radius:12px;
-font-size:15px;word-break:break-all
-}
+:root{--primary:#0d6efd;--dark:#121212;--light:#f5f5f5}
+body{margin:0;font-family:Segoe UI,Arial;background:var(--dark);color:white}
+header{padding:20px;text-align:center;background:#000}
+section{padding:20px;max-width:1200px;margin:auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:15px}
+.card{background:#1c1c1c;padding:15px;border-radius:12px}
+button{background:var(--primary);border:none;padding:10px 15px;border-radius:6px;color:white;cursor:pointer}
+input,textarea,select{width:100%;padding:8px;border-radius:5px;border:none;margin:6px 0}
+.hidden{display:none}
+.admin{border:2px dashed var(--primary);padding:20px;border-radius:12px;margin-top:30px}
+img{max-width:100%;border-radius:10px}
+.flex{display:flex;gap:10px;flex-wrap:wrap}
 </style>
 </head>
-
 <body>
-
 <header>
-<nav>
-<div class="logo">❄️ CryoClean PRO</div>
-</nav>
+<h1>🚀 Sistema de Reservas PRO Empresarial</h1>
+<p>Carrito + Agenda + Pagos + Panel Admin Completo</p>
 </header>
 
-<div class="container">
-
-<section class="hero">
-<h1>Limpieza Industrial PRO</h1>
-<p>Pagos profesionales con PayPhone y Criptomonedas</p>
-</section>
+<section id="servicios"></section>
 
 <section>
-<h2 style="text-align:center;font-size:36px">Servicios</h2>
-<div class="services-grid" id="servicesContainer"></div>
+<h2>🛒 Carrito</h2>
+<div id="cart"></div>
+<h3 id="total"></h3>
+<button onclick="abrirAgenda()">Agendar</button>
 </section>
 
-</div>
+<section id="agenda" class="hidden">
+<h2>📅 Datos de Reserva</h2>
+<input id="nombre" placeholder="Nombre completo">
+<input id="email" placeholder="Correo electrónico">
+<input id="telefono" placeholder="Teléfono">
+<input type="date" id="fecha">
+<select id="pago"></select>
+<button onclick="confirmarReserva()">Confirmar y Pagar</button>
+</section>
 
-<!-- CARRITO -->
-<div id="cartModal" class="modal">
-<div class="modal-content">
-<h2>Carrito</h2>
-<div id="cartItems"></div>
-<div class="cart-total" id="cartTotal">Total: $0</div>
-<button class="btn btn-success" id="btnCheckout" style="width:100%">Continuar</button>
-</div>
-</div>
+<section id="panelLogin" class="admin">
+<h2>🔐 Acceso Administrador</h2>
+<input id="adminUser" placeholder="Usuario">
+<input id="adminPass" type="password" placeholder="Contraseña">
+<button onclick="loginAdmin()">Ingresar</button>
+</section>
 
-<!-- PAGO -->
-<div id="paymentModal" class="modal">
-<div class="modal-content">
-<h2>Selecciona método de pago</h2>
+<section id="panelAdmin" class="admin hidden">
+<h2>⚙️ Panel Administrador Empresarial</h2>
 
-<div class="payment-method" data-pay="payphone">💳 PayPhone</div>
-<div class="payment-method" data-pay="transfer">🏦 Transferencia Bancaria</div>
-<div class="payment-method" data-pay="btc">₿ Bitcoin</div>
-<div class="payment-method" data-pay="usdt">₮ USDT</div>
+<h3>Servicios</h3>
+<div id="adminServicios"></div>
 
-<div id="paymentInfo" style="margin-top:20px"></div>
+<h3>Agregar / Editar Servicio</h3>
+<input id="sName" placeholder="Nombre">
+<input id="sPrice" type="number" placeholder="Precio">
+<input id="sIcon" placeholder="Icono (emoji)">
+<input id="sImg" placeholder="URL Imagen">
+<textarea id="sDesc" placeholder="Descripción"></textarea>
+<button onclick="addServicio()">Guardar Servicio</button>
 
-<button class="btn btn-primary" id="btnConfirmPay" style="width:100%;margin-top:15px">
-Confirmar Pago
-</button>
-
-</div>
-</div>
-
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+<h3>Métodos de Pago con URL</h3>
+<div id="adminPagos"></div>
+<input id="pName" placeholder="Nombre del método">
+<input id="pUrl" placeholder="URL de pago">
+<button onclick="addPago()">Agregar método</button>
+</section>
 
 <script>
-/* ====== CONFIG ====== */
-const BTC_WALLET = "TU_WALLET_BTC";
-const USDT_WALLET = "TU_WALLET_USDT";
+let servicios = JSON.parse(localStorage.getItem('servicios')) || [
+ {id:1,name:'Corte',price:5,icon:'✂️',img:'https://images.unsplash.com/photo-1517836357463-d25dfeac3438',desc:'Corte clásico profesional'},
+ {id:2,name:'Barba',price:3,icon:'🧔',img:'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c',desc:'Perfilado premium'}
+];
 
-/* ====== FIREBASE ====== */
-firebase.initializeApp({
-apiKey: "AIzaSyBsPssHAMzBzYrHvdMFqtR31n2E55ovr8A",
-authDomain: "cryocleanpro.firebaseapp.com",
-projectId: "cryocleanpro"
-});
-const db = firebase.firestore();
+let pagos = JSON.parse(localStorage.getItem('pagos')) || [
+ {name:'PayPhone',url:'https://payphone.app'},
+ {name:'Transferencia',url:'#'},
+ {name:'BTC',url:'https://commerce.coinbase.com'},
+ {name:'USDT',url:'https://nowpayments.io'}
+];
 
-let services=[],cart=[],paymentMethod=null;
+let cart=[];
 
-/* ====== SERVICIOS ====== */
-function loadServices(){
-db.collection("servicios").get().then(snap=>{
-services=[];
-snap.forEach(doc=>services.push({...doc.data(),id:doc.id}));
-renderServices();
-});
+function renderServicios(){
+ let html='<div class="grid">';
+ servicios.forEach(s=>{
+ html+=`<div class="card"><img src="${s.img}"><h3>${s.icon} ${s.name}</h3><p>${s.desc}</p><b>$${s.price.toFixed(2)}</b><br><button onclick="addCart(${s.id})">Agregar</button></div>`;
+ });
+ html+='</div>';
+ document.getElementById('servicios').innerHTML=html;
 }
 
-function renderServices(){
-const cont=document.getElementById("servicesContainer");
-cont.innerHTML="";
-services.forEach(s=>{
-cont.innerHTML+=`
-<div class="service-card">
-<div style="font-size:55px">${s.icon||"🔧"}</div>
-<h3>${s.name}</h3>
-<p>${s.description}</p>
-<div class="service-price">$${Number(s.price).toFixed(2)}</div>
-<button class="btn btn-primary" onclick="addToCart('${s.id}')">Agregar</button>
-</div>`;
-});
-}
-
-/* ====== CARRITO ====== */
-function addToCart(id){
-const s=services.find(x=>x.id===id);
-const e=cart.find(x=>x.id===id);
-if(e)e.quantity++;
-else cart.push({...s,quantity:1});
-renderCart();
-document.getElementById("cartModal").classList.add("active");
+function addCart(id){
+ let item=cart.find(i=>i.id===id);
+ if(item)item.qty++;
+ else{ let s=servicios.find(x=>x.id===id); cart.push({...s,qty:1}); }
+ renderCart();
 }
 
 function renderCart(){
-const cont=document.getElementById("cartItems");
-const totalEl=document.getElementById("cartTotal");
-let total=0;
-cont.innerHTML="";
-cart.forEach(i=>{
-let sub=i.price*i.quantity;
-total+=sub;
-cont.innerHTML+=`
-<div class="cart-item">
-<div>${i.icon} ${i.name} (x${i.quantity})</div>
-<div>$${sub.toFixed(2)}</div>
-</div>`;
-});
-totalEl.textContent=`Total: $${total.toFixed(2)}`;
+ let html=''; let total=0;
+ cart.forEach(i=>{ let sub=i.qty*i.price; total+=sub;
+ html+=`<div>${i.icon} ${i.name} x${i.qty} = $${sub.toFixed(2)}</div>`;
+ });
+ document.getElementById('cart').innerHTML=html||'Vacío';
+ document.getElementById('total').innerText='Total: $'+total.toFixed(2);
 }
 
-document.getElementById("btnCheckout").onclick=()=>{
-document.getElementById("cartModal").classList.remove("active");
-document.getElementById("paymentModal").classList.add("active");
-};
+function abrirAgenda(){ if(cart.length==0)return alert('Carrito vacío'); document.getElementById('agenda').classList.remove('hidden'); renderPagos(); }
 
-/* ====== PAGOS ====== */
-document.querySelectorAll(".payment-method").forEach(el=>{
-el.onclick=()=>{
-document.querySelectorAll(".payment-method").forEach(m=>m.classList.remove("selected"));
-el.classList.add("selected");
-paymentMethod=el.dataset.pay;
-renderPaymentInfo();
-};
-});
+function renderPagos(){ let sel=document.getElementById('pago'); sel.innerHTML=''; pagos.forEach((p,i)=>{ sel.innerHTML+=`<option value="${i}">${p.name}</option>`; }); }
 
-function renderPaymentInfo(){
-const box=document.getElementById("paymentInfo");
-let total=cart.reduce((s,i)=>s+i.price*i.quantity,0);
-
-if(paymentMethod==="btc"){
-box.innerHTML=`
-<p><strong>Envía exactamente:</strong></p>
-<h3 style="color:var(--btc)">$${total.toFixed(2)} en BTC</h3>
-<div class="wallet-box">${BTC_WALLET}</div>`;
+function confirmarReserva(){
+ let p=pagos[document.getElementById('pago').value];
+ alert('Reserva creada. Redirigiendo a pago...');
+ window.open(p.url,'_blank');
+ cart=[]; renderCart(); document.getElementById('agenda').classList.add('hidden');
 }
 
-if(paymentMethod==="usdt"){
-box.innerHTML=`
-<p><strong>Envía exactamente:</strong></p>
-<h3 style="color:var(--usdt)">$${total.toFixed(2)} en USDT</h3>
-<div class="wallet-box">${USDT_WALLET}</div>`;
+// ADMIN
+const ADMIN_USER='admin'; const ADMIN_PASS='1234';
+
+function loginAdmin(){
+ let u=document.getElementById('adminUser').value;
+ let p=document.getElementById('adminPass').value;
+ if(u===ADMIN_USER && p===ADMIN_PASS){
+ document.getElementById('panelLogin').classList.add('hidden');
+ document.getElementById('panelAdmin').classList.remove('hidden');
+ renderAdmin();
+ } else alert('Credenciales incorrectas');
 }
 
-if(paymentMethod==="transfer"){
-box.innerHTML=`
-<p><strong>Transferencia bancaria:</strong></p>
-<div class="wallet-box">
-Banco: Pichincha<br>
-Cuenta: 1234567890<br>
-Nombre: CryoClean Pro<br>
-RUC: 0999999999
-</div>`;
+function renderAdmin(){
+ let sHtml=''; servicios.forEach((s,i)=>{
+ sHtml+=`<div class="flex"><img src="${s.img}" width="60"><div>${s.name} - $${s.price}</div><button onclick="delServicio(${i})">❌</button></div>`;
+ });
+ document.getElementById('adminServicios').innerHTML=sHtml;
+
+ let pHtml=''; pagos.forEach((p,i)=>{
+ pHtml+=`<div>${p.name} → ${p.url} <button onclick="delPago(${i})">❌</button></div>`;
+ });
+ document.getElementById('adminPagos').innerHTML=pHtml;
 }
 
-if(paymentMethod==="payphone"){
-box.innerHTML=`
-<p><strong>PayPhone:</strong></p>
-<p>Se abrirá ventana segura de pago.</p>`;
+function addServicio(){
+ servicios.push({id:Date.now(),name:sName.value,price:+sPrice.value,icon:sIcon.value,img:sImg.value,desc:sDesc.value});
+ localStorage.setItem('servicios',JSON.stringify(servicios));
+ renderServicios(); renderAdmin();
 }
-}
+function delServicio(i){ servicios.splice(i,1); localStorage.setItem('servicios',JSON.stringify(servicios)); renderServicios(); renderAdmin(); }
 
-document.getElementById("btnConfirmPay").onclick=()=>{
-if(!paymentMethod)return alert("Selecciona método");
-alert("Pago registrado como pendiente. Un operador lo confirmará.");
-saveOrder();
-};
+function addPago(){ pagos.push({name:pName.value,url:pUrl.value}); localStorage.setItem('pagos',JSON.stringify(pagos)); renderAdmin(); }
+function delPago(i){ pagos.splice(i,1); localStorage.setItem('pagos',JSON.stringify(pagos)); renderAdmin(); }
 
-/* ====== GUARDAR ====== */
-function saveOrder(){
-let total=cart.reduce((s,i)=>s+i.price*i.quantity,0);
-db.collection("citas").add({
-services:cart,
-total,
-paymentMethod,
-status:"pending_payment",
-createdAt:firebase.firestore.FieldValue.serverTimestamp()
-});
-cart=[];
-document.getElementById("paymentModal").classList.remove("active");
-alert("Pedido creado correctamente");
-}
-
-/* ====== INIT ====== */
-loadServices();
+renderServicios(); renderCart();
 </script>
-
 </body>
 </html>
