@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cryo Clean Pro | Limpieza Criogénica Profesional</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -17,11 +18,12 @@
       --blanco: #ffffff;
     }
 
+    html { scroll-behavior: smooth; }
+
     body {
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Inter', sans-serif;
       background: var(--negro);
       color: var(--texto);
-      scroll-behavior: smooth;
     }
 
     /* ===== NAVBAR ===== */
@@ -33,11 +35,18 @@
       padding: 15px 40px;
       display: flex; justify-content: space-between; align-items: center;
     }
-    .logo { font-size: 1.5rem; font-weight: 800; color: var(--azul); letter-spacing: 1px; }
+    .logo { font-family: 'Rajdhani', sans-serif; font-size: 1.6rem; font-weight: 700; color: var(--azul); letter-spacing: 2px; }
     .logo span { color: var(--blanco); }
     .nav-links { display: flex; gap: 30px; list-style: none; }
     .nav-links a { color: var(--texto); text-decoration: none; font-size: 0.9rem; transition: color 0.3s; }
     .nav-links a:hover { color: var(--azul); }
+    .nav-cta {
+      background: linear-gradient(135deg, var(--azul), var(--azul-oscuro));
+      color: var(--negro) !important; padding: 8px 20px; border-radius: 50px;
+      font-weight: 600 !important;
+    }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 2px; background: var(--azul); transition: 0.3s; }
 
     /* ===== HERO ===== */
     .hero {
@@ -52,16 +61,40 @@
       position: absolute; top: 0; left: 0; right: 0; bottom: 0;
       background: radial-gradient(ellipse at center, rgba(0,212,255,0.08) 0%, transparent 70%);
     }
-    .hero-content { position: relative; z-index: 1; max-width: 800px; }
+    .particles {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      overflow: hidden; pointer-events: none;
+    }
+    .particle {
+      position: absolute; border-radius: 50%;
+      background: rgba(0,212,255,0.4);
+      animation: float linear infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-100px) rotate(720deg); opacity: 0; }
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 800px; animation: fadeInUp 0.8s ease; }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
     .badge {
       display: inline-block; background: rgba(0,212,255,0.1);
       border: 1px solid rgba(0,212,255,0.3);
       color: var(--azul); padding: 8px 20px; border-radius: 50px;
-      font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 25px;
+      font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 25px;
     }
-    .hero h1 { font-size: 3.5rem; font-weight: 900; line-height: 1.1; margin-bottom: 20px; }
+    .hero h1 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      font-weight: 700; line-height: 1.1; margin-bottom: 20px;
+    }
     .hero h1 .highlight { color: var(--azul); }
-    .hero p { font-size: 1.2rem; color: #9ca3af; max-width: 600px; margin: 0 auto 40px; }
+    .hero p { font-size: 1.1rem; color: #9ca3af; max-width: 600px; margin: 0 auto 40px; line-height: 1.7; }
+    .hero-btns { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
     .btn-primary {
       background: linear-gradient(135deg, var(--azul), var(--azul-oscuro));
       color: var(--negro); padding: 15px 40px; border-radius: 50px;
@@ -74,30 +107,30 @@
       background: transparent; color: var(--azul);
       border: 2px solid var(--azul); padding: 13px 35px;
       border-radius: 50px; font-size: 1rem; font-weight: 700;
-      text-decoration: none; display: inline-block;
-      transition: all 0.3s; margin-left: 15px;
+      text-decoration: none; display: inline-block; transition: all 0.3s;
     }
     .btn-secondary:hover { background: rgba(0,212,255,0.1); }
 
     /* ===== STATS ===== */
     .stats {
       background: var(--gris); padding: 50px 40px;
-      display: flex; justify-content: center; gap: 80px; flex-wrap: wrap;
+      display: flex; justify-content: center; gap: 60px; flex-wrap: wrap;
       border-top: 1px solid rgba(0,212,255,0.1);
       border-bottom: 1px solid rgba(0,212,255,0.1);
     }
     .stat { text-align: center; }
-    .stat-num { font-size: 2.5rem; font-weight: 900; color: var(--azul); }
-    .stat-label { font-size: 0.9rem; color: #6b7280; margin-top: 5px; }
+    .stat-num { font-family: 'Rajdhani', sans-serif; font-size: 2.8rem; font-weight: 700; color: var(--azul); }
+    .stat-label { font-size: 0.85rem; color: #6b7280; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; }
 
     /* ===== SECCIONES ===== */
-    section { padding: 80px 40px; }
-    .section-title {
-      text-align: center; margin-bottom: 60px;
+    section { padding: 90px 40px; }
+    .section-title { text-align: center; margin-bottom: 60px; }
+    .section-title h2 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 12px;
     }
-    .section-title h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 12px; }
     .section-title h2 span { color: var(--azul); }
-    .section-title p { color: #6b7280; font-size: 1rem; max-width: 500px; margin: 0 auto; }
+    .section-title p { color: #6b7280; font-size: 1rem; max-width: 500px; margin: 0 auto; line-height: 1.6; }
     .divider {
       width: 60px; height: 3px;
       background: linear-gradient(90deg, var(--azul), transparent);
@@ -122,13 +155,13 @@
       background: linear-gradient(90deg, var(--azul), transparent);
     }
     .servicio-icon { font-size: 2.5rem; margin-bottom: 15px; }
-    .servicio-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; color: var(--blanco); }
+    .servicio-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; color: var(--blanco); font-family: 'Rajdhani', sans-serif; letter-spacing: 0.5px; }
     .servicio-card p { color: #9ca3af; font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; }
     .servicio-precio {
       display: flex; justify-content: space-between; align-items: center;
       border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;
     }
-    .precio { font-size: 1.4rem; font-weight: 900; color: var(--azul); }
+    .precio { font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--azul); }
     .btn-servicio {
       background: rgba(0,212,255,0.1); color: var(--azul);
       border: 1px solid rgba(0,212,255,0.3); padding: 8px 16px;
@@ -137,8 +170,35 @@
     }
     .btn-servicio:hover { background: rgba(0,212,255,0.2); }
 
+    /* ===== PROCESO ===== */
+    #proceso { background: var(--gris); }
+    .proceso-steps {
+      display: flex; gap: 0; max-width: 1000px; margin: 0 auto;
+      flex-wrap: wrap; justify-content: center;
+    }
+    .step {
+      flex: 1; min-width: 200px; text-align: center; padding: 30px 20px;
+      position: relative;
+    }
+    .step:not(:last-child)::after {
+      content: '→';
+      position: absolute; right: -10px; top: 50%;
+      transform: translateY(-60%);
+      color: var(--azul); font-size: 1.5rem;
+    }
+    .step-num {
+      width: 60px; height: 60px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--azul), var(--azul-oscuro));
+      color: var(--negro); font-family: 'Rajdhani', sans-serif;
+      font-size: 1.5rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 15px;
+    }
+    .step h4 { color: var(--blanco); font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+    .step p { color: #6b7280; font-size: 0.85rem; line-height: 1.5; }
+
     /* ===== GALERÍA ===== */
-    #galeria { background: var(--gris); }
+    #galeria { background: var(--negro); }
     .galeria-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 15px; max-width: 1100px; margin: 0 auto;
@@ -149,50 +209,67 @@
       border: 1px solid rgba(0,212,255,0.1);
       background: var(--gris-claro);
       display: flex; align-items: center; justify-content: center;
-      cursor: pointer; transition: transform 0.3s;
+      cursor: pointer; transition: transform 0.3s, border-color 0.3s;
     }
-    .galeria-item:hover { transform: scale(1.02); }
-    .galeria-item img { width: 100%; height: 100%; object-fit: cover; }
+    .galeria-item:hover { transform: scale(1.02); border-color: rgba(0,212,255,0.4); }
     .galeria-placeholder {
       text-align: center; color: #4b5563;
       display: flex; flex-direction: column; align-items: center; gap: 10px;
     }
-    .galeria-placeholder span { font-size: 2rem; }
+    .galeria-placeholder span { font-size: 2.5rem; }
     .galeria-placeholder p { font-size: 0.8rem; }
+    .galeria-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+      padding: 20px 15px 12px;
+      color: var(--blanco); font-size: 0.85rem; font-weight: 500;
+    }
 
     /* ===== VIDEOS ===== */
-    #videos { background: var(--negro); }
+    #videos { background: var(--gris); }
     .videos-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 25px; max-width: 1100px; margin: 0 auto;
     }
     .video-card {
-      background: var(--gris); border-radius: 16px;
-      border: 1px solid rgba(0,212,255,0.1);
-      overflow: hidden;
+      background: var(--negro); border-radius: 16px;
+      border: 1px solid rgba(0,212,255,0.1); overflow: hidden;
+      transition: border-color 0.3s;
     }
+    .video-card:hover { border-color: rgba(0,212,255,0.3); }
     .video-placeholder {
       aspect-ratio: 16/9; background: var(--gris-claro);
       display: flex; align-items: center; justify-content: center;
       flex-direction: column; gap: 10px; color: #4b5563;
+      cursor: pointer; position: relative; overflow: hidden;
     }
-    .video-placeholder span { font-size: 3rem; }
+    .video-placeholder::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(0,212,255,0.05) 0%, transparent 70%);
+    }
+    .play-btn {
+      width: 60px; height: 60px; border-radius: 50%;
+      background: rgba(0,212,255,0.2); border: 2px solid var(--azul);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; transition: background 0.3s;
+    }
+    .video-placeholder:hover .play-btn { background: rgba(0,212,255,0.35); }
     .video-card-info { padding: 20px; }
-    .video-card-info h4 { color: var(--blanco); font-size: 1rem; margin-bottom: 8px; }
-    .video-card-info p { color: #6b7280; font-size: 0.85rem; }
-    /* Iframe de video real */
-    .video-card iframe { width: 100%; aspect-ratio: 16/9; border: none; }
+    .video-card-info h4 { color: var(--blanco); font-size: 1rem; margin-bottom: 8px; font-weight: 600; }
+    .video-card-info p { color: #6b7280; font-size: 0.85rem; line-height: 1.5; }
 
     /* ===== TESTIMONIOS ===== */
-    #testimonios { background: var(--gris); }
+    #testimonios { background: var(--negro); }
     .testimonios-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 25px; max-width: 1000px; margin: 0 auto;
     }
     .testimonio {
-      background: var(--negro); border-radius: 16px;
+      background: var(--gris); border-radius: 16px;
       padding: 30px; border: 1px solid rgba(0,212,255,0.1);
+      transition: border-color 0.3s;
     }
+    .testimonio:hover { border-color: rgba(0,212,255,0.3); }
     .estrellas { color: #fbbf24; font-size: 1.1rem; margin-bottom: 15px; }
     .testimonio p { color: #9ca3af; font-size: 0.95rem; line-height: 1.7; font-style: italic; margin-bottom: 20px; }
     .cliente { display: flex; align-items: center; gap: 12px; }
@@ -200,7 +277,577 @@
       width: 45px; height: 45px; border-radius: 50%;
       background: linear-gradient(135deg, var(--azul), var(--azul-oscuro));
       display: flex; align-items: center; justify-content: center;
-      font-weight: 700; color: var(--negro); font-size: 1.1rem;
+      font-weight: 700; color: var(--negro); font-size: 1.1rem; font-family: 'Rajdhani', sans-serif;
     }
-    .cliente-info h5 { color: var(--blanco); font-size: 0.95rem; }
-    .cliente-info span { color: #6b7280;
+    .cliente-info h5 { color: var(--blanco); font-size: 0.95rem; font-weight: 600; }
+    .cliente-info span { color: #6b7280; font-size: 0.8rem; }
+
+    /* ===== CONTACTO ===== */
+    #contacto { background: var(--gris); }
+    .contacto-container {
+      max-width: 900px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+    }
+    .contacto-info h3 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.8rem; font-weight: 700; color: var(--blanco); margin-bottom: 20px;
+    }
+    .contacto-info p { color: #9ca3af; font-size: 0.95rem; line-height: 1.7; margin-bottom: 30px; }
+    .contacto-item { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+    .contacto-icon {
+      width: 45px; height: 45px; border-radius: 10px;
+      background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.2);
+      display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .contacto-item-info h5 { color: var(--blanco); font-size: 0.9rem; font-weight: 600; }
+    .contacto-item-info p { color: #9ca3af; font-size: 0.85rem; margin: 0; }
+    .contacto-form { display: flex; flex-direction: column; gap: 15px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label { color: #9ca3af; font-size: 0.85rem; }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      background: var(--negro); border: 1px solid rgba(0,212,255,0.2);
+      color: var(--texto); padding: 12px 15px; border-radius: 10px;
+      font-size: 0.9rem; font-family: 'Inter', sans-serif;
+      transition: border-color 0.3s; outline: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--azul); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-group select option { background: var(--negro); }
+    .btn-submit {
+      background: linear-gradient(135deg, var(--azul), var(--azul-oscuro));
+      color: var(--negro); padding: 14px; border-radius: 10px;
+      font-size: 1rem; font-weight: 700; border: none; cursor: pointer;
+      font-family: 'Inter', sans-serif; transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,212,255,0.3); }
+    .form-success {
+      display: none; background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.3);
+      border-radius: 10px; padding: 15px; text-align: center; color: var(--azul);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #050508; padding: 50px 40px 25px;
+      border-top: 1px solid rgba(0,212,255,0.1);
+    }
+    .footer-content {
+      display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 50px;
+      max-width: 1100px; margin: 0 auto 40px;
+    }
+    .footer-brand .logo { font-size: 1.5rem; display: block; margin-bottom: 15px; }
+    .footer-brand p { color: #6b7280; font-size: 0.9rem; line-height: 1.6; }
+    .footer-col h4 { color: var(--blanco); font-weight: 600; margin-bottom: 15px; font-size: 0.95rem; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a { color: #6b7280; text-decoration: none; font-size: 0.875rem; transition: color 0.3s; }
+    .footer-col ul li a:hover { color: var(--azul); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.05); padding-top: 25px;
+      text-align: center; color: #4b5563; font-size: 0.85rem;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .footer-bottom span { color: var(--azul); }
+
+    /* ===== WHATSAPP FLOAT ===== */
+    .whatsapp-float {
+      position: fixed; bottom: 30px; right: 30px; z-index: 999;
+      background: #25d366; color: white; width: 60px; height: 60px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem; text-decoration: none;
+      box-shadow: 0 5px 20px rgba(37,211,102,0.4);
+      transition: transform 0.3s, box-shadow 0.3s;
+      animation: pulse-green 2s infinite;
+    }
+    .whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 5px 30px rgba(37,211,102,0.6); }
+    @keyframes pulse-green {
+      0%, 100% { box-shadow: 0 5px 20px rgba(37,211,102,0.4); }
+      50% { box-shadow: 0 5px 35px rgba(37,211,102,0.7); }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      nav { padding: 15px 20px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .nav-links.open {
+        display: flex; flex-direction: column;
+        position: absolute; top: 70px; left: 0; right: 0;
+        background: rgba(10,10,15,0.98); padding: 20px;
+        border-bottom: 1px solid rgba(0,212,255,0.2);
+      }
+      section { padding: 60px 20px; }
+      .stats { gap: 30px; padding: 40px 20px; }
+      .proceso-steps { flex-direction: column; }
+      .step:not(:last-child)::after { content: '↓'; right: auto; top: auto; position: relative; display: block; margin: 10px auto 0; }
+      .contacto-container { grid-template-columns: 1fr; gap: 40px; }
+      .footer-content { grid-template-columns: 1fr; gap: 30px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="logo">CRYO<span>CLEAN</span> PRO</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#proceso">Proceso</a></li>
+      <li><a href="#galeria">Galería</a></li>
+      <li><a href="#testimonios">Testimonios</a></li>
+      <li><a href="#contacto" class="nav-cta">Cotizar</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="particles" id="particles"></div>
+    <div class="hero-content">
+      <div class="badge">🧊 Tecnología Criogénica Industrial</div>
+      <h1>Limpieza <span class="highlight">Profesional</span><br>Sin Daños. Sin Residuos.</h1>
+      <p>Eliminamos suciedad, pintura, óxido y contaminantes con chorro de hielo seco. El método más eficiente, seguro y ecológico del mercado.</p>
+      <div class="hero-btns">
+        <a href="#contacto" class="btn-primary">Solicitar Cotización</a>
+        <a href="#servicios" class="btn-secondary">Ver Servicios</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num">500+</div>
+      <div class="stat-label">Proyectos Completados</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">98%</div>
+      <div class="stat-label">Clientes Satisfechos</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">0</div>
+      <div class="stat-label">Residuos Secundarios</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">12+</div>
+      <div class="stat-label">Años de Experiencia</div>
+    </div>
+  </div>
+
+  <!-- SERVICIOS -->
+  <section id="servicios">
+    <div class="section-title">
+      <h2>Nuestros <span>Servicios</span></h2>
+      <div class="divider"></div>
+      <p>Soluciones de limpieza criogénica para cada industria y necesidad</p>
+    </div>
+    <div class="servicios-grid">
+      <div class="servicio-card">
+        <div class="servicio-icon">⚙️</div>
+        <h3>LIMPIEZA INDUSTRIAL</h3>
+        <p>Equipos, maquinaria, motores y líneas de producción. Sin desmontaje, sin tiempo de inactividad prolongado.</p>
+        <div class="servicio-precio">
+          <span class="precio">Desde $150</span>
+          <a href="#contacto" class="btn-servicio">Cotizar</a>
+        </div>
+      </div>
+      <div class="servicio-card">
+        <div class="servicio-icon">🏗️</div>
+        <h3>RESTAURACIÓN ESTRUCTURAL</h3>
+        <p>Remoción de pintura, óxido y recubrimientos en estructuras metálicas, fachadas y superficies de concreto.</p>
+        <div class="servicio-precio">
+          <span class="precio">Desde $200</span>
+          <a href="#contacto" class="btn-servicio">Cotizar</a>
+        </div>
+      </div>
+      <div class="servicio-card">
+        <div class="servicio-icon">🔥</div>
+        <h3>RESTAURACIÓN POST-INCENDIO</h3>
+        <p>Eliminación de hollín, humo y carbonización en estructuras, equipos y superficies afectadas por fuego.</p>
+        <div class="servicio-precio">
+          <span class="precio">Desde $300</span>
+          <a href="#contacto" class="btn-servicio">Cotizar</a>
+        </div>
+      </div>
+      <div class="servicio-card">
+        <div class="servicio-icon">💡</div>
+        <h3>LIMPIEZA ELÉCTRICA</h3>
+        <p>Tableros eléctricos, motores y componentes electrónicos sensibles. Sin humedad, sin riesgo de corto.</p>
+        <div class="servicio-precio">
+          <span class="precio">Desde $180</span>
+          <a href="#contacto" class="btn-servicio">Cotizar</a>
+        </div>
+      </div>
+      <div class="servicio-card">
+        <div class="servicio-icon">🚗</div>
+        <h3>SECTOR AUTOMOTRIZ</h3>
+        <p>Limpieza de motores, chassis, tapicería y compartimentos. Ideal para restauración de vehículos clásicos.</p>
+        <div class="servicio-precio">
+          <span class="precio">Desde $120</span>
+          <a href="#contacto" class="btn-servicio">Cotizar</a>
+        </div>
+      </div>
+      <div class="servicio-card">
+        <div class="servicio-icon">🍽️</div>
+        <h3>INDUSTRIA ALIMENTARIA</h3>
+        <p>Limpieza certificada para plantas de alimentos. Sin químicos, sin agua, cumple estándares sanitarios internacionales.</p>
+        <div class="servicio-precio">
+          <span class="precio">Desde $250</span>
+          <a href="#contacto" class="btn-servicio">Cotizar</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESO -->
+  <section id="proceso">
+    <div class="section-title">
+      <h2>¿Cómo <span>Funciona</span>?</h2>
+      <div class="divider"></div>
+      <p>Un proceso simple, seguro y de resultados garantizados</p>
+    </div>
+    <div class="proceso-steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>Diagnóstico</h4>
+        <p>Inspeccionamos el área, identificamos el tipo de suciedad y evaluamos la superficie.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>Preparación</h4>
+        <p>Protegemos zonas sensibles y preparamos el equipo de hielo seco calibrado para la tarea.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>Aplicación</h4>
+        <p>Proyectamos pellets de CO₂ a alta velocidad. El impacto y sublimación remueven los contaminantes.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h4>Verificación</h4>
+        <p>Inspeccionamos el resultado final y entregamos informe fotográfico del trabajo realizado.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERÍA -->
+  <section id="galeria">
+    <div class="section-title">
+      <h2>Galería de <span>Trabajos</span></h2>
+      <div class="divider"></div>
+      <p>Resultados reales de nuestros proyectos completados</p>
+    </div>
+    <div class="galeria-grid">
+      <div class="galeria-item">
+        <div class="galeria-placeholder">
+          <span>⚙️</span>
+          <p>Motor Industrial</p>
+        </div>
+        <div class="galeria-label">Limpieza Motor Industrial — Antes/Después</div>
+      </div>
+      <div class="galeria-item">
+        <div class="galeria-placeholder">
+          <span>🏗️</span>
+          <p>Estructura Metálica</p>
+        </div>
+        <div class="galeria-label">Remoción de Óxido — Estructura Puente</div>
+      </div>
+      <div class="galeria-item">
+        <div class="galeria-placeholder">
+          <span>🔥</span>
+          <p>Post-incendio</p>
+        </div>
+        <div class="galeria-label">Restauración Post-Incendio — Nave Industrial</div>
+      </div>
+      <div class="galeria-item">
+        <div class="galeria-placeholder">
+          <span>💡</span>
+          <p>Tablero Eléctrico</p>
+        </div>
+        <div class="galeria-label">Limpieza Tablero Eléctrico HV</div>
+      </div>
+      <div class="galeria-item">
+        <div class="galeria-placeholder">
+          <span>🚗</span>
+          <p>Motor Automotriz</p>
+        </div>
+        <div class="galeria-label">Restauración Motor — Clásico 1967</div>
+      </div>
+      <div class="galeria-item">
+        <div class="galeria-placeholder">
+          <span>🍽️</span>
+          <p>Planta Alimentaria</p>
+        </div>
+        <div class="galeria-label">Sanitización — Planta Procesadora</div>
+      </div>
+    </div>
+    <p style="text-align:center; color:#6b7280; margin-top:25px; font-size:0.85rem;">
+      💡 Reemplaza los placeholders con tus imágenes reales para mayor impacto visual.
+    </p>
+  </section>
+
+  <!-- VIDEOS -->
+  <section id="videos">
+    <div class="section-title">
+      <h2>Videos <span>Demostración</span></h2>
+      <div class="divider"></div>
+      <p>Mira la tecnología criogénica en acción</p>
+    </div>
+    <div class="videos-grid">
+      <div class="video-card">
+        <div class="video-placeholder">
+          <div class="play-btn">▶</div>
+          <p style="font-size:0.8rem; margin-top:5px;">Haz clic para reproducir</p>
+        </div>
+        <div class="video-card-info">
+          <h4>Limpieza de Motor Industrial</h4>
+          <p>Demostración completa del proceso criogénico en motor de 500HP. Duración: 4:32</p>
+        </div>
+      </div>
+      <div class="video-card">
+        <div class="video-placeholder">
+          <div class="play-btn">▶</div>
+          <p style="font-size:0.8rem; margin-top:5px;">Haz clic para reproducir</p>
+        </div>
+        <div class="video-card-info">
+          <h4>Antes y Después — Fachada Industrial</h4>
+          <p>Remoción de graffiti y pintura en fachada de 200m². Sin daño a la superficie. Duración: 3:15</p>
+        </div>
+      </div>
+      <div class="video-card">
+        <div class="video-placeholder">
+          <div class="play-btn">▶</div>
+          <p style="font-size:0.8rem; margin-top:5px;">Haz clic para reproducir</p>
+        </div>
+        <div class="video-card-info">
+          <h4>¿Qué es la Limpieza Criogénica?</h4>
+          <p>Explicación técnica del proceso y ventajas frente a métodos tradicionales. Duración: 2:48</p>
+        </div>
+      </div>
+    </div>
+    <p style="text-align:center; color:#6b7280; margin-top:25px; font-size:0.85rem;">
+      💡 Agrega tus videos reales reemplazando los placeholders con iframes de YouTube.
+    </p>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section id="testimonios">
+    <div class="section-title">
+      <h2>Lo que dicen nuestros <span>Clientes</span></h2>
+      <div class="divider"></div>
+      <p>Más de 500 empresas confían en Cryo Clean Pro</p>
+    </div>
+    <div class="testimonios-grid">
+      <div class="testimonio">
+        <div class="estrellas">★★★★★</div>
+        <p>"Increíble resultado en nuestras líneas de producción. Sin parar operaciones, sin residuos. Lo que antes tomaba 2 días de limpieza manual, lo completaron en 4 horas."</p>
+        <div class="cliente">
+          <div class="cliente-avatar">CR</div>
+          <div class="cliente-info">
+            <h5>Carlos Rodríguez</h5>
+            <span>Gerente de Planta — IndusMetal S.A.</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonio">
+        <div class="estrellas">★★★★★</div>
+        <p>"Después del incendio en nuestra bodega pensábamos que perdíamos todo el equipo. Cryo Clean Pro restauró el 90% de la maquinaria. El ahorro fue enorme."</p>
+        <div class="cliente">
+          <div class="cliente-avatar">MG</div>
+          <div class="cliente-info">
+            <h5>María González</h5>
+            <span>Directora Operativa — LogisCorp</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonio">
+        <div class="estrellas">★★★★★</div>
+        <p>"Usamos el servicio para nuestra planta procesadora de alimentos. Pasamos la auditoría sanitaria sin problemas. El proceso es limpio, rápido y 100% seguro."</p>
+        <div class="cliente">
+          <div class="cliente-avatar">JP</div>
+          <div class="cliente-info">
+            <h5>Jorge Pérez</h5>
+            <span>Jefe de Calidad — AgroFood Ecuador</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto">
+    <div class="section-title">
+      <h2>Solicita tu <span>Cotización</span></h2>
+      <div class="divider"></div>
+      <p>Respuesta en menos de 24 horas. Visita técnica sin costo.</p>
+    </div>
+    <div class="contacto-container">
+      <div class="contacto-info">
+        <h3>Hablemos de tu proyecto</h3>
+        <p>Cuéntanos tu necesidad y nuestro equipo técnico te entregará una propuesta personalizada sin compromiso.</p>
+        <div class="contacto-item">
+          <div class="contacto-icon">📍</div>
+          <div class="contacto-item-info">
+            <h5>Ubicación</h5>
+            <p>Quito, Ecuador — Servicio a nivel nacional</p>
+          </div>
+        </div>
+        <div class="contacto-item">
+          <div class="contacto-icon">📞</div>
+          <div class="contacto-item-info">
+            <h5>Teléfono / WhatsApp</h5>
+            <p>+593 99 000 0000</p>
+          </div>
+        </div>
+        <div class="contacto-item">
+          <div class="contacto-icon">✉️</div>
+          <div class="contacto-item-info">
+            <h5>Email</h5>
+            <p>info@cryocleanpro.ec</p>
+          </div>
+        </div>
+        <div class="contacto-item">
+          <div class="contacto-icon">⏰</div>
+          <div class="contacto-item-info">
+            <h5>Horario</h5>
+            <p>Lun – Vie: 08:00 – 18:00</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <form class="contacto-form" id="contactForm">
+          <div class="form-group">
+            <label>Nombre completo *</label>
+            <input type="text" placeholder="Tu nombre" required />
+          </div>
+          <div class="form-group">
+            <label>Empresa</label>
+            <input type="text" placeholder="Nombre de tu empresa" />
+          </div>
+          <div class="form-group">
+            <label>Email *</label>
+            <input type="email" placeholder="tu@email.com" required />
+          </div>
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input type="tel" placeholder="+593 99 000 0000" />
+          </div>
+          <div class="form-group">
+            <label>Servicio de interés</label>
+            <select>
+              <option value="">Selecciona un servicio</option>
+              <option>Limpieza Industrial</option>
+              <option>Restauración Estructural</option>
+              <option>Restauración Post-Incendio</option>
+              <option>Limpieza Eléctrica</option>
+              <option>Sector Automotriz</option>
+              <option>Industria Alimentaria</option>
+              <option>Otro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Descripción del proyecto</label>
+            <textarea placeholder="Cuéntanos sobre tu necesidad, superficie aproximada, ubicación..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Enviar Solicitud →</button>
+          <div class="form-success" id="formSuccess">
+            ✅ ¡Mensaje enviado! Te contactaremos en menos de 24 horas.
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <span class="logo">CRYO<span>CLEAN</span> PRO</span>
+        <p>Líderes en limpieza criogénica industrial. Tecnología de hielo seco para resultados profesionales sin residuos ni daños colaterales.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Servicios</h4>
+        <ul>
+          <li><a href="#servicios">Limpieza Industrial</a></li>
+          <li><a href="#servicios">Restauración Estructural</a></li>
+          <li><a href="#servicios">Post-Incendio</a></li>
+          <li><a href="#servicios">Limpieza Eléctrica</a></li>
+          <li><a href="#servicios">Automotriz</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Empresa</h4>
+        <ul>
+          <li><a href="#proceso">Cómo Funciona</a></li>
+          <li><a href="#galeria">Galería</a></li>
+          <li><a href="#testimonios">Testimonios</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2024 <span>Cryo Clean Pro</span>. Todos los derechos reservados. Limpieza Criogénica Profesional — Ecuador.
+    </div>
+  </footer>
+
+  <!-- WHATSAPP FLOTANTE -->
+  <a href="https://wa.me/593990000000" class="whatsapp-float" target="_blank" title="Contactar por WhatsApp">
+    💬
+  </a>
+
+  <script>
+    // Partículas en hero
+    const container = document.getElementById('particles');
+    for (let i = 0; i < 20; i++) {
+      const p = document.createElement('div');
+      p.classList.add('particle');
+      const size = Math.random() * 4 + 2;
+      p.style.cssText = `
+        width:${size}px; height:${size}px;
+        left:${Math.random()*100}%;
+        animation-duration:${Math.random()*15+10}s;
+        animation-delay:${Math.random()*10}s;
+        opacity:${Math.random()*0.5+0.1};
+      `;
+      container.appendChild(p);
+    }
+
+    // Menú hamburguesa
+    document.getElementById('hamburger').addEventListener('click', () => {
+      document.getElementById('navLinks').classList.toggle('open');
+    });
+
+    // Cerrar menú al hacer click en un enlace
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.addEventListener('click', () => {
+        document.getElementById('navLinks').classList.remove('open');
+      });
+    });
+
+    // Formulario
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const btn = this.querySelector('.btn-submit');
+      btn.textContent = 'Enviando...';
+      btn.disabled = true;
+      setTimeout(() => {
+        document.getElementById('formSuccess').style.display = 'block';
+        btn.style.display = 'none';
+        this.querySelectorAll('input, textarea, select').forEach(el => el.value = '');
+      }, 1200);
+    });
+
+    // Scroll suave para botones de video (placeholder)
+    document.querySelectorAll('.video-placeholder').forEach(v => {
+      v.addEventListener('click', () => {
+        alert('Reemplaza este placeholder con un iframe de tu video de YouTube o Vimeo.');
+      });
+    });
+  </script>
+</body>
+</html>
