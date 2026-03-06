@@ -1,164 +1,206 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sistema de Reservas PRO Empresarial</title>
-<style>
-:root{--primary:#0d6efd;--dark:#121212;--light:#f5f5f5}
-body{margin:0;font-family:Segoe UI,Arial;background:var(--dark);color:white}
-header{padding:20px;text-align:center;background:#000}
-section{padding:20px;max-width:1200px;margin:auto}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:15px}
-.card{background:#1c1c1c;padding:15px;border-radius:12px}
-button{background:var(--primary);border:none;padding:10px 15px;border-radius:6px;color:white;cursor:pointer}
-input,textarea,select{width:100%;padding:8px;border-radius:5px;border:none;margin:6px 0}
-.hidden{display:none}
-.admin{border:2px dashed var(--primary);padding:20px;border-radius:12px;margin-top:30px}
-img{max-width:100%;border-radius:10px}
-.flex{display:flex;gap:10px;flex-wrap:wrap}
-</style>
-</head>
-<body>
-<header>
-<h1>🚀 Sistema de Reservas PRO Empresarial</h1>
-<p>Carrito + Agenda + Pagos + Panel Admin Completo</p>
-</header>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cryo Clean Pro | Limpieza Criogénica Profesional</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-<section id="servicios"></section>
+    :root {
+      --azul: #00d4ff;
+      --azul-oscuro: #0099cc;
+      --negro: #0a0a0f;
+      --gris: #111827;
+      --gris-claro: #1f2937;
+      --texto: #e5e7eb;
+      --blanco: #ffffff;
+    }
 
-<section>
-<h2>🛒 Carrito</h2>
-<div id="cart"></div>
-<h3 id="total"></h3>
-<button onclick="abrirAgenda()">Agendar</button>
-</section>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--negro);
+      color: var(--texto);
+      scroll-behavior: smooth;
+    }
 
-<section id="agenda" class="hidden">
-<h2>📅 Datos de Reserva</h2>
-<input id="nombre" placeholder="Nombre completo">
-<input id="email" placeholder="Correo electrónico">
-<input id="telefono" placeholder="Teléfono">
-<input type="date" id="fecha">
-<select id="pago"></select>
-<button onclick="confirmarReserva()">Confirmar y Pagar</button>
-</section>
+    /* ===== NAVBAR ===== */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 1000;
+      background: rgba(10,10,15,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,212,255,0.2);
+      padding: 15px 40px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .logo { font-size: 1.5rem; font-weight: 800; color: var(--azul); letter-spacing: 1px; }
+    .logo span { color: var(--blanco); }
+    .nav-links { display: flex; gap: 30px; list-style: none; }
+    .nav-links a { color: var(--texto); text-decoration: none; font-size: 0.9rem; transition: color 0.3s; }
+    .nav-links a:hover { color: var(--azul); }
 
-<section id="panelLogin" class="admin">
-<h2>🔐 Acceso Administrador</h2>
-<input id="adminUser" placeholder="Usuario">
-<input id="adminPass" type="password" placeholder="Contraseña">
-<button onclick="loginAdmin()">Ingresar</button>
-</section>
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0a0a0f 0%, #0d1b2a 50%, #0a1628 100%);
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 120px 20px 60px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(ellipse at center, rgba(0,212,255,0.08) 0%, transparent 70%);
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 800px; }
+    .badge {
+      display: inline-block; background: rgba(0,212,255,0.1);
+      border: 1px solid rgba(0,212,255,0.3);
+      color: var(--azul); padding: 8px 20px; border-radius: 50px;
+      font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 25px;
+    }
+    .hero h1 { font-size: 3.5rem; font-weight: 900; line-height: 1.1; margin-bottom: 20px; }
+    .hero h1 .highlight { color: var(--azul); }
+    .hero p { font-size: 1.2rem; color: #9ca3af; max-width: 600px; margin: 0 auto 40px; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--azul), var(--azul-oscuro));
+      color: var(--negro); padding: 15px 40px; border-radius: 50px;
+      font-size: 1rem; font-weight: 700; text-decoration: none;
+      display: inline-block; transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 0 30px rgba(0,212,255,0.3);
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 50px rgba(0,212,255,0.5); }
+    .btn-secondary {
+      background: transparent; color: var(--azul);
+      border: 2px solid var(--azul); padding: 13px 35px;
+      border-radius: 50px; font-size: 1rem; font-weight: 700;
+      text-decoration: none; display: inline-block;
+      transition: all 0.3s; margin-left: 15px;
+    }
+    .btn-secondary:hover { background: rgba(0,212,255,0.1); }
 
-<section id="panelAdmin" class="admin hidden">
-<h2>⚙️ Panel Administrador Empresarial</h2>
+    /* ===== STATS ===== */
+    .stats {
+      background: var(--gris); padding: 50px 40px;
+      display: flex; justify-content: center; gap: 80px; flex-wrap: wrap;
+      border-top: 1px solid rgba(0,212,255,0.1);
+      border-bottom: 1px solid rgba(0,212,255,0.1);
+    }
+    .stat { text-align: center; }
+    .stat-num { font-size: 2.5rem; font-weight: 900; color: var(--azul); }
+    .stat-label { font-size: 0.9rem; color: #6b7280; margin-top: 5px; }
 
-<h3>Servicios</h3>
-<div id="adminServicios"></div>
+    /* ===== SECCIONES ===== */
+    section { padding: 80px 40px; }
+    .section-title {
+      text-align: center; margin-bottom: 60px;
+    }
+    .section-title h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 12px; }
+    .section-title h2 span { color: var(--azul); }
+    .section-title p { color: #6b7280; font-size: 1rem; max-width: 500px; margin: 0 auto; }
+    .divider {
+      width: 60px; height: 3px;
+      background: linear-gradient(90deg, var(--azul), transparent);
+      margin: 15px auto;
+    }
 
-<h3>Agregar / Editar Servicio</h3>
-<input id="sName" placeholder="Nombre">
-<input id="sPrice" type="number" placeholder="Precio">
-<input id="sIcon" placeholder="Icono (emoji)">
-<input id="sImg" placeholder="URL Imagen">
-<textarea id="sDesc" placeholder="Descripción"></textarea>
-<button onclick="addServicio()">Guardar Servicio</button>
+    /* ===== SERVICIOS ===== */
+    #servicios { background: var(--negro); }
+    .servicios-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px; max-width: 1100px; margin: 0 auto;
+    }
+    .servicio-card {
+      background: var(--gris); border-radius: 16px;
+      border: 1px solid rgba(0,212,255,0.1);
+      padding: 30px; transition: transform 0.3s, border-color 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .servicio-card:hover { transform: translateY(-5px); border-color: rgba(0,212,255,0.4); }
+    .servicio-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--azul), transparent);
+    }
+    .servicio-icon { font-size: 2.5rem; margin-bottom: 15px; }
+    .servicio-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; color: var(--blanco); }
+    .servicio-card p { color: #9ca3af; font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; }
+    .servicio-precio {
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;
+    }
+    .precio { font-size: 1.4rem; font-weight: 900; color: var(--azul); }
+    .btn-servicio {
+      background: rgba(0,212,255,0.1); color: var(--azul);
+      border: 1px solid rgba(0,212,255,0.3); padding: 8px 16px;
+      border-radius: 8px; font-size: 0.85rem; cursor: pointer;
+      text-decoration: none; transition: all 0.3s;
+    }
+    .btn-servicio:hover { background: rgba(0,212,255,0.2); }
 
-<h3>Métodos de Pago con URL</h3>
-<div id="adminPagos"></div>
-<input id="pName" placeholder="Nombre del método">
-<input id="pUrl" placeholder="URL de pago">
-<button onclick="addPago()">Agregar método</button>
-</section>
+    /* ===== GALERÍA ===== */
+    #galeria { background: var(--gris); }
+    .galeria-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px; max-width: 1100px; margin: 0 auto;
+    }
+    .galeria-item {
+      border-radius: 12px; overflow: hidden;
+      aspect-ratio: 4/3; position: relative;
+      border: 1px solid rgba(0,212,255,0.1);
+      background: var(--gris-claro);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: transform 0.3s;
+    }
+    .galeria-item:hover { transform: scale(1.02); }
+    .galeria-item img { width: 100%; height: 100%; object-fit: cover; }
+    .galeria-placeholder {
+      text-align: center; color: #4b5563;
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+    }
+    .galeria-placeholder span { font-size: 2rem; }
+    .galeria-placeholder p { font-size: 0.8rem; }
 
-<script>
-let servicios = JSON.parse(localStorage.getItem('servicios')) || [
- {id:1,name:'Corte',price:5,icon:'✂️',img:'https://images.unsplash.com/photo-1517836357463-d25dfeac3438',desc:'Corte clásico profesional'},
- {id:2,name:'Barba',price:3,icon:'🧔',img:'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c',desc:'Perfilado premium'}
-];
+    /* ===== VIDEOS ===== */
+    #videos { background: var(--negro); }
+    .videos-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px; max-width: 1100px; margin: 0 auto;
+    }
+    .video-card {
+      background: var(--gris); border-radius: 16px;
+      border: 1px solid rgba(0,212,255,0.1);
+      overflow: hidden;
+    }
+    .video-placeholder {
+      aspect-ratio: 16/9; background: var(--gris-claro);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 10px; color: #4b5563;
+    }
+    .video-placeholder span { font-size: 3rem; }
+    .video-card-info { padding: 20px; }
+    .video-card-info h4 { color: var(--blanco); font-size: 1rem; margin-bottom: 8px; }
+    .video-card-info p { color: #6b7280; font-size: 0.85rem; }
+    /* Iframe de video real */
+    .video-card iframe { width: 100%; aspect-ratio: 16/9; border: none; }
 
-let pagos = JSON.parse(localStorage.getItem('pagos')) || [
- {name:'PayPhone',url:'https://payphone.app'},
- {name:'Transferencia',url:'#'},
- {name:'BTC',url:'https://commerce.coinbase.com'},
- {name:'USDT',url:'https://nowpayments.io'}
-];
-
-let cart=[];
-
-function renderServicios(){
- let html='<div class="grid">';
- servicios.forEach(s=>{
- html+=`<div class="card"><img src="${s.img}"><h3>${s.icon} ${s.name}</h3><p>${s.desc}</p><b>$${s.price.toFixed(2)}</b><br><button onclick="addCart(${s.id})">Agregar</button></div>`;
- });
- html+='</div>';
- document.getElementById('servicios').innerHTML=html;
-}
-
-function addCart(id){
- let item=cart.find(i=>i.id===id);
- if(item)item.qty++;
- else{ let s=servicios.find(x=>x.id===id); cart.push({...s,qty:1}); }
- renderCart();
-}
-
-function renderCart(){
- let html=''; let total=0;
- cart.forEach(i=>{ let sub=i.qty*i.price; total+=sub;
- html+=`<div>${i.icon} ${i.name} x${i.qty} = $${sub.toFixed(2)}</div>`;
- });
- document.getElementById('cart').innerHTML=html||'Vacío';
- document.getElementById('total').innerText='Total: $'+total.toFixed(2);
-}
-
-function abrirAgenda(){ if(cart.length==0)return alert('Carrito vacío'); document.getElementById('agenda').classList.remove('hidden'); renderPagos(); }
-
-function renderPagos(){ let sel=document.getElementById('pago'); sel.innerHTML=''; pagos.forEach((p,i)=>{ sel.innerHTML+=`<option value="${i}">${p.name}</option>`; }); }
-
-function confirmarReserva(){
- let p=pagos[document.getElementById('pago').value];
- alert('Reserva creada. Redirigiendo a pago...');
- window.open(p.url,'_blank');
- cart=[]; renderCart(); document.getElementById('agenda').classList.add('hidden');
-}
-
-// ADMIN
-const ADMIN_USER='admin'; const ADMIN_PASS='1234';
-
-function loginAdmin(){
- let u=document.getElementById('adminUser').value;
- let p=document.getElementById('adminPass').value;
- if(u===ADMIN_USER && p===ADMIN_PASS){
- document.getElementById('panelLogin').classList.add('hidden');
- document.getElementById('panelAdmin').classList.remove('hidden');
- renderAdmin();
- } else alert('Credenciales incorrectas');
-}
-
-function renderAdmin(){
- let sHtml=''; servicios.forEach((s,i)=>{
- sHtml+=`<div class="flex"><img src="${s.img}" width="60"><div>${s.name} - $${s.price}</div><button onclick="delServicio(${i})">❌</button></div>`;
- });
- document.getElementById('adminServicios').innerHTML=sHtml;
-
- let pHtml=''; pagos.forEach((p,i)=>{
- pHtml+=`<div>${p.name} → ${p.url} <button onclick="delPago(${i})">❌</button></div>`;
- });
- document.getElementById('adminPagos').innerHTML=pHtml;
-}
-
-function addServicio(){
- servicios.push({id:Date.now(),name:sName.value,price:+sPrice.value,icon:sIcon.value,img:sImg.value,desc:sDesc.value});
- localStorage.setItem('servicios',JSON.stringify(servicios));
- renderServicios(); renderAdmin();
-}
-function delServicio(i){ servicios.splice(i,1); localStorage.setItem('servicios',JSON.stringify(servicios)); renderServicios(); renderAdmin(); }
-
-function addPago(){ pagos.push({name:pName.value,url:pUrl.value}); localStorage.setItem('pagos',JSON.stringify(pagos)); renderAdmin(); }
-function delPago(i){ pagos.splice(i,1); localStorage.setItem('pagos',JSON.stringify(pagos)); renderAdmin(); }
-
-renderServicios(); renderCart();
-</script>
-</body>
-</html>
+    /* ===== TESTIMONIOS ===== */
+    #testimonios { background: var(--gris); }
+    .testimonios-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px; max-width: 1000px; margin: 0 auto;
+    }
+    .testimonio {
+      background: var(--negro); border-radius: 16px;
+      padding: 30px; border: 1px solid rgba(0,212,255,0.1);
+    }
+    .estrellas { color: #fbbf24; font-size: 1.1rem; margin-bottom: 15px; }
+    .testimonio p { color: #9ca3af; font-size: 0.95rem; line-height: 1.7; font-style: italic; margin-bottom: 20px; }
+    .cliente { display: flex; align-items: center; gap: 12px; }
+    .cliente-avatar {
+      width: 45px; height: 45px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--azul), var(--azul-oscuro));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; color: var(--negro); font-size: 1.1rem;
+    }
+    .cliente-info h5 { color: var(--blanco); font-size: 0.95rem; }
+    .cliente-info span { color: #6b7280;
