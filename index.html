@@ -319,8 +319,8 @@
         <h3>Hablemos de tu proyecto</h3>
         <p>Cuéntanos tu necesidad y nuestro equipo técnico te entregará una propuesta personalizada sin compromiso.</p>
         <div class="contacto-item"><div class="contacto-icon">📍</div><div class="contacto-item-info"><h5>Ubicación</h5><p>Quito, Ecuador — Servicio a nivel nacional</p></div></div>
-        <div class="contacto-item"><div class="contacto-icon">📞</div><div class="contacto-item-info"><h5>Teléfono / WhatsApp</h5><p>+593 99 000 0000</p></div></div>
-        <div class="contacto-item"><div class="contacto-icon">✉️</div><div class="contacto-item-info"><h5>Email</h5><p>info@cryocleanpro.ec</p></div></div>
+        <div class="contacto-item"><div class="contacto-icon">📞</div><div class="contacto-item-info"><h5>Teléfono / WhatsApp</h5><p id="contactoTelefono">+593 99 000 0000</p></div></div>
+        <div class="contacto-item"><div class="contacto-icon">✉️</div><div class="contacto-item-info"><h5>Email</h5><p id="contactoEmail">info@cryocleanpro.ec</p></div></div>
         <div class="contacto-item"><div class="contacto-icon">⏰</div><div class="contacto-item-info"><h5>Horario</h5><p>Lun – Vie: 08:00 – 18:00</p></div></div>
       </div>
       <div>
@@ -363,7 +363,7 @@
     <div class="footer-bottom">© 2024 <span>Cryo Clean Pro</span>. Todos los derechos reservados.</div>
   </footer>
 
-  <a href="https://wa.me/593990000000" class="whatsapp-float" target="_blank" title="WhatsApp">💬</a>
+  <a href="https://wa.me/593990000000" class="whatsapp-float" id="whatsappFloat" target="_blank" title="WhatsApp">💬</a>
 
   <!-- MODAL LOGIN -->
   <div class="modal-overlay" id="loginModal">
@@ -468,9 +468,25 @@
     </div>
   </div>
 
+  <!-- MODAL SERVICIO -->
+  <div class="modal-overlay" id="servicioModal">
+    <div class="modal" style="max-width:500px">
+      <button class="modal-close" id="closeServicioModal">✕</button>
+      <h3 id="servicioModalTitle">➕ Nuevo Servicio</h3>
+      <p style="color:#6b7280;font-size:0.9rem;margin-bottom:20px">Completa los datos del servicio</p>
+      <input type="hidden" id="servicioEditId" />
+      <div class="form-group" style="margin-bottom:12px"><label>Icono (emoji)</label><input type="text" id="sIcon" placeholder="⚙️" style="background:var(--negro);border:1px solid rgba(0,212,255,0.2);color:var(--texto);padding:10px;border-radius:8px;width:100%;font-size:1.2rem;outline:none" /></div>
+      <div class="form-group" style="margin-bottom:12px"><label>Nombre del servicio *</label><input type="text" id="sNombre" placeholder="Limpieza Industrial" style="background:var(--negro);border:1px solid rgba(0,212,255,0.2);color:var(--texto);padding:10px;border-radius:8px;width:100%;outline:none" /></div>
+      <div class="form-group" style="margin-bottom:12px"><label>Descripción *</label><textarea id="sDescripcion" placeholder="Describe el servicio..." style="background:var(--negro);border:1px solid rgba(0,212,255,0.2);color:var(--texto);padding:10px;border-radius:8px;width:100%;min-height:80px;font-family:Inter,sans-serif;outline:none;resize:vertical"></textarea></div>
+      <div class="form-group" style="margin-bottom:20px"><label>Precio desde ($) *</label><input type="number" id="sPrecio" placeholder="150" style="background:var(--negro);border:1px solid rgba(0,212,255,0.2);color:var(--texto);padding:10px;border-radius:8px;width:100%;outline:none" /></div>
+      <button class="btn-submit" id="btnGuardarServicio" style="width:100%">Guardar Servicio</button>
+      <div style="color:#f87171;font-size:0.85rem;margin-top:10px;display:none" id="servicioError">Completa todos los campos requeridos.</div>
+    </div>
+  </div>
+
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, serverTimestamp, query, orderBy, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, serverTimestamp, query, orderBy, setDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
     import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
     // ─── CONFIGURACIÓN FIREBASE ───────────────────────────────────────────────
@@ -663,33 +679,65 @@
     }
 
     // ─── SERVICIOS ────────────────────────────────────────────────────────────
+    async function cargarServiciosSitio() {
+      try {
+        const snap = await getDocs(collection(db, 'servicios'));
+        if (snap.empty) return; // Mantiene los servicios por defecto del HTML
+        const grid = document.getElementById('serviciosGrid');
+        grid.innerHTML = '';
+        snap.forEach(docSnap => {
+          const s = docSnap.data();
+          const card = document.createElement('div');
+          card.className = 'servicio-card';
+          card.innerHTML = `
+            <div class="servicio-icon">${s.icon || '⚙️'}</div>
+            <h3>${s.nombre}</h3>
+            <p>${s.descripcion}</p>
+            <div class="servicio-precio">
+              <span class="precio">Desde $${s.precio}</span>
+              <a href="#contacto" class="btn-servicio">Cotizar</a>
+            </div>`;
+          grid.appendChild(card);
+        });
+      } catch(e) { console.log('Servicios sitio:', e.message); }
+    }
+    cargarServiciosSitio();
+
     async function cargarServicios() {
       const lista = document.getElementById('listaServicios');
       lista.innerHTML = '<div class="loading-msg">🔄 Cargando servicios...</div>';
       try {
         const snap = await getDocs(collection(db, 'servicios'));
-        if (snap.empty) { lista.innerHTML = '<div class="loading-msg">No hay servicios configurados</div>'; return; }
+        if (snap.empty) {
+          lista.innerHTML = '<div class="loading-msg">📭 No hay servicios. Haz clic en "+ Agregar Servicio".</div>';
+          return;
+        }
         lista.innerHTML = '';
         snap.forEach(docSnap => {
           const s = docSnap.data();
           const card = document.createElement('div');
           card.className = 'cotizacion-card';
           card.innerHTML = `
-            <div style="display:flex;justify-content:space-between;align-items:start">
+            <div style="display:flex;justify-content:space-between;align-items:start;flex-wrap:wrap;gap:10px">
               <div>
                 <h4 style="color:var(--blanco);font-size:1.1rem;margin-bottom:8px">${s.icon || '⚙️'} ${s.nombre}</h4>
-                <p style="color:#9ca3af;margin-bottom:10px">${s.descripcion}</p>
-                <div style="color:var(--azul);font-size:1.3rem;font-weight:700">$${s.precio}</div>
+                <p style="color:#9ca3af;margin-bottom:10px;font-size:0.9rem">${s.descripcion}</p>
+                <div style="color:var(--azul);font-size:1.3rem;font-weight:700">Desde $${s.precio}</div>
               </div>
-              <div style="display:flex;gap:10px">
-                <button class="btn-delete" data-id="${docSnap.id}">🗑️ Eliminar</button>
+              <div style="display:flex;gap:10px;flex-shrink:0">
+                <button class="btn-edit btn-editar-servicio" data-id="${docSnap.id}">✏️ Editar</button>
+                <button class="btn-delete btn-borrar-servicio" data-id="${docSnap.id}">🗑️ Eliminar</button>
               </div>
             </div>`;
-          card.querySelector('.btn-delete').addEventListener('click', async () => {
-            if (confirm('¿Eliminar servicio?')) {
+          card.querySelector('.btn-borrar-servicio').addEventListener('click', async () => {
+            if (confirm('¿Eliminar este servicio?')) {
               await deleteDoc(doc(db, 'servicios', docSnap.id));
               cargarServicios();
+              cargarServiciosSitio();
             }
+          });
+          card.querySelector('.btn-editar-servicio').addEventListener('click', () => {
+            abrirModalServicio(docSnap.id, s);
           });
           lista.appendChild(card);
         });
@@ -698,12 +746,65 @@
       }
     }
 
+    // ─── MODAL SERVICIO ───────────────────────────────────────────────────────
+    function abrirModalServicio(id = null, datos = {}) {
+      document.getElementById('servicioEditId').value = id || '';
+      document.getElementById('servicioModalTitle').textContent = id ? '✏️ Editar Servicio' : '➕ Nuevo Servicio';
+      document.getElementById('sIcon').value = datos.icon || '';
+      document.getElementById('sNombre').value = datos.nombre || '';
+      document.getElementById('sDescripcion').value = datos.descripcion || '';
+      document.getElementById('sPrecio').value = datos.precio || '';
+      document.getElementById('servicioError').style.display = 'none';
+      document.getElementById('servicioModal').classList.add('active');
+    }
+
+    document.getElementById('btnAddServicio').addEventListener('click', () => abrirModalServicio());
+    document.getElementById('closeServicioModal').addEventListener('click', () =>
+      document.getElementById('servicioModal').classList.remove('active'));
+    document.getElementById('servicioModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('servicioModal'))
+        document.getElementById('servicioModal').classList.remove('active');
+    });
+
+    document.getElementById('btnGuardarServicio').addEventListener('click', async () => {
+      const id = document.getElementById('servicioEditId').value;
+      const nombre = document.getElementById('sNombre').value.trim();
+      const descripcion = document.getElementById('sDescripcion').value.trim();
+      const precio = document.getElementById('sPrecio').value.trim();
+      const icon = document.getElementById('sIcon').value.trim() || '⚙️';
+      const errEl = document.getElementById('servicioError');
+
+      if (!nombre || !descripcion || !precio) {
+        errEl.style.display = 'block'; return;
+      }
+      errEl.style.display = 'none';
+      const btn = document.getElementById('btnGuardarServicio');
+      btn.textContent = 'Guardando...'; btn.disabled = true;
+
+      try {
+        const datos = { icon, nombre, descripcion, precio: parseFloat(precio) };
+        if (id) {
+          await updateDoc(doc(db, 'servicios', id), datos);
+        } else {
+          await addDoc(collection(db, 'servicios'), datos);
+        }
+        document.getElementById('servicioModal').classList.remove('active');
+        cargarServicios();
+        cargarServiciosSitio();
+      } catch (err) {
+        errEl.textContent = '❌ Error: ' + err.message;
+        errEl.style.display = 'block';
+      }
+      btn.textContent = 'Guardar Servicio'; btn.disabled = false;
+    });
+
     // ─── CONFIGURACIÓN ────────────────────────────────────────────────────────
     async function cargarConfiguracion() {
       try {
         const configDoc = await getDoc(doc(db, 'configuracion', 'settings'));
         if (configDoc.exists()) {
           const data = configDoc.data();
+          // Rellenar formularios admin
           document.getElementById('horaInicio').value = data.horaInicio || '08:00';
           document.getElementById('horaFin').value = data.horaFin || '18:00';
           document.getElementById('duracionServicio').value = data.duracionServicio || 3;
@@ -716,6 +817,33 @@
         }
       } catch (err) { console.error('Error cargando config:', err); }
     }
+
+    // Aplicar configuración al sitio público (se llama al cargar la página)
+    async function aplicarConfigSitio() {
+      try {
+        const configDoc = await getDoc(doc(db, 'configuracion', 'settings'));
+        if (configDoc.exists()) {
+          const data = configDoc.data();
+          // Actualizar teléfono en sección contacto
+          if (data.whatsapp) {
+            const telEl = document.getElementById('contactoTelefono');
+            if (telEl) telEl.textContent = data.whatsapp;
+            // Actualizar botón WhatsApp flotante
+            const waBtn = document.getElementById('whatsappFloat');
+            if (waBtn) {
+              const numero = data.whatsapp.replace(/\D/g, '');
+              waBtn.href = `https://wa.me/${numero}`;
+            }
+          }
+          // Actualizar email en sección contacto
+          if (data.email) {
+            const emailEl = document.getElementById('contactoEmail');
+            if (emailEl) emailEl.textContent = data.email;
+          }
+        }
+      } catch (err) { console.log('Config sitio:', err.message); }
+    }
+    aplicarConfigSitio();
 
     document.getElementById('horariosForm').addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -749,7 +877,20 @@
           whatsapp: document.getElementById('configWhatsApp').value,
           email: document.getElementById('configEmail').value
         }, { merge: true });
-        alert('✅ Configuración guardada');
+        // Actualizar sitio inmediatamente
+        const tel = document.getElementById('configWhatsApp').value;
+        const email = document.getElementById('configEmail').value;
+        if (tel) {
+          const telEl = document.getElementById('contactoTelefono');
+          if (telEl) telEl.textContent = tel;
+          const waBtn = document.getElementById('whatsappFloat');
+          if (waBtn) waBtn.href = `https://wa.me/${tel.replace(/\D/g,'')}`;
+        }
+        if (email) {
+          const emailEl = document.getElementById('contactoEmail');
+          if (emailEl) emailEl.textContent = email;
+        }
+        alert('✅ Configuración guardada y aplicada al sitio');
       } catch (err) { alert('❌ Error: ' + err.message); }
     });
 
@@ -875,14 +1016,3 @@
 
       if (completed > 0) {
         setTimeout(() => {
-          progressEl.style.display = 'none';
-          progressFill.style.width = '0%';
-        }, 2500);
-        cargarGaleriaAdmin();
-        cargarGaleriaPublica();
-      }
-      fileInput.value = '';
-    }
-  </script>
-</body>
-</html>
