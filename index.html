@@ -320,7 +320,7 @@
         <p>Cuéntanos tu necesidad y nuestro equipo técnico te entregará una propuesta personalizada sin compromiso.</p>
         <div class="contacto-item"><div class="contacto-icon">📍</div><div class="contacto-item-info"><h5>Ubicación</h5><p>Quito, Ecuador — Servicio a nivel nacional</p></div></div>
         <div class="contacto-item"><div class="contacto-icon">📞</div><div class="contacto-item-info"><h5>Teléfono / WhatsApp</h5><p id="contactoTelefono">+593 99 000 0000</p></div></div>
-        <div class="contacto-item"><div class="contacto-icon">✉️</div><div class="contacto-item-info"><h5>Email</h5><p id="contactoEmail">info@cryocleanpro.ec</p></div></div>
+        <div class="contacto-item"><div class="contacto-icon">✉️</div><div class="contacto-item-info"><h5>Email</h5><p id="contactoEmail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="741d1a121b3417060d1b171811151a04061b5a1117">[email&#160;protected]</a></p></div></div>
         <div class="contacto-item"><div class="contacto-icon">⏰</div><div class="contacto-item-info"><h5>Horario</h5><p>Lun – Vie: 08:00 – 18:00</p></div></div>
       </div>
       <div>
@@ -1007,12 +1007,4 @@
           });
 
           completed++;
-          progressText.textContent = `✅ ${completed}/${arr.length} imagen(es) subida(s)`;
-        } catch (err) {
-          progressText.textContent = `❌ Error subiendo "${file.name}": ${err.message}`;
-          console.error(err);
-        }
-      }
-
-      if (completed > 0) {
-        setTimeout(() => {
+          progressText.textContent = `✅ ${completed}/${arr.length} imagen(es) subid
