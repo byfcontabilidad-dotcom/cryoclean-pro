@@ -11,6 +11,7 @@
       --azul: #00d4ff; --azul-oscuro: #0099cc;
       --negro: #0a0a0f; --gris: #111827;
       --gris-claro: #1f2937; --texto: #e5e7eb; --blanco: #ffffff;
+      --bitcoin: #f7931a;
     }
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', sans-serif; background: var(--negro); color: var(--texto); }
@@ -150,7 +151,6 @@
     .whatsapp-float:hover { transform: scale(1.1); }
     @keyframes pulse-green { 0%,100%{box-shadow:0 5px 20px rgba(37,211,102,0.4)} 50%{box-shadow:0 5px 35px rgba(37,211,102,0.7)} }
 
-    /* MODAL LOGIN */
     .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(6px); }
     .modal-overlay.active { display: flex; }
     .modal { background: var(--gris); border-radius: 20px; border: 1px solid rgba(0,212,255,0.25); padding: 40px; width: 100%; max-width: 400px; position: relative; }
@@ -160,8 +160,8 @@
     .modal-close:hover { color: var(--blanco); }
     .modal .form-group { margin-bottom: 15px; }
     .modal-error { color: #f87171; font-size: 0.85rem; margin-top: 10px; display: none; }
+    .btn-link { background: none; border: none; color: var(--azul); cursor: pointer; text-decoration: underline; font-size: 0.85rem; margin-top: 10px; }
 
-    /* PANEL ADMIN */
     #adminPanel { display: none; position: fixed; inset: 0; background: var(--negro); z-index: 3000; overflow-y: auto; }
     .admin-header { background: var(--gris); border-bottom: 1px solid rgba(0,212,255,0.2); padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10; }
     .admin-header h2 { font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; color: var(--azul); }
@@ -186,6 +186,7 @@
     .cotizacion-contacto a { color: var(--azul); font-size: 0.85rem; text-decoration: none; }
     .btn-delete { background: rgba(255,80,80,0.1); border: 1px solid rgba(255,80,80,0.3); color: #f87171; padding: 5px 12px; border-radius: 6px; cursor: pointer; font-size: 0.8rem; font-family: 'Inter', sans-serif; }
     .btn-delete:hover { background: rgba(255,80,80,0.2); }
+    .btn-edit { background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.3); color: var(--azul); padding: 5px 12px; border-radius: 6px; cursor: pointer; font-size: 0.8rem; }
     .loading-msg { text-align: center; color: #6b7280; padding: 40px; font-size: 0.9rem; }
 
     .upload-zone { border: 2px dashed rgba(0,212,255,0.3); border-radius: 16px; padding: 50px 20px; text-align: center; cursor: pointer; transition: all 0.3s; background: rgba(0,212,255,0.02); }
@@ -204,6 +205,14 @@
     .admin-img-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.65); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
     .admin-img-item:hover .admin-img-overlay { opacity: 1; }
 
+    .crypto-payment { display: flex; align-items: center; gap: 15px; padding: 15px; background: var(--gris); border-radius: 12px; border: 1px solid rgba(0,212,255,0.1); margin-bottom: 15px; }
+    .crypto-logo { width: 60px; height: 60px; border-radius: 50%; }
+    .crypto-qr { width: 150px; height: 150px; border-radius: 12px; margin-top: 10px; }
+    .time-slot { display: inline-block; padding: 10px 15px; margin: 5px; border: 1px solid rgba(0,212,255,0.2); border-radius: 8px; cursor: pointer; transition: all 0.3s; }
+    .time-slot:hover { border-color: var(--azul); background: rgba(0,212,255,0.05); }
+    .time-slot.selected { background: var(--azul); color: var(--negro); }
+    .time-slot.occupied { background: rgba(255,80,80,0.1); border-color: rgba(255,80,80,0.3); cursor: not-allowed; opacity: 0.5; }
+
     @media (max-width: 768px) {
       nav { padding: 15px 20px; }
       .nav-links { display: none; }
@@ -221,7 +230,6 @@
 </head>
 <body>
 
-  <!-- NAVBAR -->
   <nav>
     <a href="#inicio" class="logo">CRYO<span>CLEAN</span> PRO</a>
     <ul class="nav-links" id="navLinks">
@@ -235,7 +243,6 @@
     <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
   </nav>
 
-  <!-- HERO -->
   <section class="hero" id="inicio">
     <div class="particles" id="particles"></div>
     <div class="hero-content">
@@ -249,7 +256,6 @@
     </div>
   </section>
 
-  <!-- STATS -->
   <div class="stats">
     <div class="stat"><div class="stat-num">500+</div><div class="stat-label">Proyectos Completados</div></div>
     <div class="stat"><div class="stat-num">98%</div><div class="stat-label">Clientes Satisfechos</div></div>
@@ -257,10 +263,9 @@
     <div class="stat"><div class="stat-num">12+</div><div class="stat-label">Años de Experiencia</div></div>
   </div>
 
-  <!-- SERVICIOS -->
   <section id="servicios">
     <div class="section-title"><h2>Nuestros <span>Servicios</span></h2><div class="divider"></div><p>Soluciones de limpieza criogénica para cada industria y necesidad</p></div>
-    <div class="servicios-grid">
+    <div class="servicios-grid" id="serviciosGrid">
       <div class="servicio-card"><div class="servicio-icon">⚙️</div><h3>LIMPIEZA INDUSTRIAL</h3><p>Equipos, maquinaria, motores y líneas de producción. Sin desmontaje, sin tiempo de inactividad prolongado.</p><div class="servicio-precio"><span class="precio">Desde $150</span><a href="#contacto" class="btn-servicio">Cotizar</a></div></div>
       <div class="servicio-card"><div class="servicio-icon">🏗️</div><h3>RESTAURACIÓN ESTRUCTURAL</h3><p>Remoción de pintura, óxido y recubrimientos en estructuras metálicas, fachadas y concreto.</p><div class="servicio-precio"><span class="precio">Desde $200</span><a href="#contacto" class="btn-servicio">Cotizar</a></div></div>
       <div class="servicio-card"><div class="servicio-icon">🔥</div><h3>RESTAURACIÓN POST-INCENDIO</h3><p>Eliminación de hollín, humo y carbonización en estructuras y equipos afectados por fuego.</p><div class="servicio-precio"><span class="precio">Desde $300</span><a href="#contacto" class="btn-servicio">Cotizar</a></div></div>
@@ -270,7 +275,6 @@
     </div>
   </section>
 
-  <!-- PROCESO -->
   <section id="proceso">
     <div class="section-title"><h2>¿Cómo <span>Funciona</span>?</h2><div class="divider"></div><p>Un proceso simple, seguro y de resultados garantizados</p></div>
     <div class="proceso-steps">
@@ -281,7 +285,6 @@
     </div>
   </section>
 
-  <!-- GALERÍA -->
   <section id="galeria">
     <div class="section-title"><h2>Galería de <span>Trabajos</span></h2><div class="divider"></div><p>Imágenes reales gestionadas desde el panel admin</p></div>
     <div class="galeria-grid" id="galeriaGrid">
@@ -294,7 +297,6 @@
     </div>
   </section>
 
-  <!-- VIDEOS -->
   <section id="videos">
     <div class="section-title"><h2>Videos <span>Demostración</span></h2><div class="divider"></div><p>Mira la tecnología criogénica en acción</p></div>
     <div class="videos-grid">
@@ -304,7 +306,6 @@
     </div>
   </section>
 
-  <!-- TESTIMONIOS -->
   <section id="testimonios">
     <div class="section-title"><h2>Lo que dicen nuestros <span>Clientes</span></h2><div class="divider"></div><p>Más de 500 empresas confían en Cryo Clean Pro</p></div>
     <div class="testimonios-grid">
@@ -314,7 +315,6 @@
     </div>
   </section>
 
-  <!-- CONTACTO -->
   <section id="contacto">
     <div class="section-title"><h2>Solicita tu <span>Cotización</span></h2><div class="divider"></div><p>Respuesta en menos de 24 horas. Visita técnica sin costo.</p></div>
     <div class="contacto-container">
@@ -354,7 +354,6 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <div class="footer-content">
       <div class="footer-brand">
@@ -369,16 +368,28 @@
 
   <a href="https://wa.me/593990000000" class="whatsapp-float" target="_blank" title="WhatsApp">💬</a>
 
-  <!-- MODAL LOGIN ADMIN -->
+  <!-- MODAL LOGIN -->
   <div class="modal-overlay" id="loginModal">
     <div class="modal">
       <button class="modal-close" id="closeModal">✕</button>
-      <h3>⚙ Panel Admin</h3>
-      <p>Acceso exclusivo para administradores</p>
-      <div class="form-group"><label>Email</label><input type="email" id="adminEmail" placeholder="admin@cryocleanpro.ec" /></div>
-      <div class="form-group"><label>Contraseña</label><input type="password" id="adminPass" placeholder="••••••••" /></div>
-      <button class="btn-submit" id="btnLogin" style="margin-top:10px;width:100%">Ingresar al Panel</button>
-      <div class="modal-error" id="loginError">Email o contraseña incorrectos.</div>
+      <div id="loginView">
+        <h3>⚙ Panel Admin</h3>
+        <p>Acceso exclusivo para administradores</p>
+        <div class="form-group"><label>Email</label><input type="email" id="adminEmail" placeholder="admin@cryocleanpro.ec" /></div>
+        <div class="form-group"><label>Contraseña</label><input type="password" id="adminPass" placeholder="••••••••" /></div>
+        <button class="btn-submit" id="btnLogin" style="margin-top:10px;width:100%">Ingresar al Panel</button>
+        <button class="btn-link" id="btnShowReset">¿Olvidaste tu contraseña?</button>
+        <div class="modal-error" id="loginError">Email o contraseña incorrectos.</div>
+      </div>
+      <div id="resetView" style="display: none;">
+        <h3>🔑 Recuperar Contraseña</h3>
+        <p>Ingresa tu email para recibir un enlace de recuperación</p>
+        <div class="form-group"><label>Email</label><input type="email" id="resetEmail" placeholder="tu@email.com" /></div>
+        <button class="btn-submit" id="btnResetPassword" style="margin-top:10px;width:100%">Enviar Enlace</button>
+        <button class="btn-link" id="btnBackToLogin">Volver al login</button>
+        <div class="form-success" id="resetSuccess" style="display: none;">✅ Email enviado! Revisa tu correo.</div>
+        <div class="modal-error" id="resetError">Error al enviar. Verifica el email.</div>
+      </div>
     </div>
   </div>
 
@@ -391,7 +402,11 @@
     <div class="admin-body">
       <div class="admin-tabs">
         <button class="tab-btn active" data-tab="cotizaciones">📋 Cotizaciones</button>
+        <button class="tab-btn" data-tab="servicios">⚙️ Servicios</button>
+        <button class="tab-btn" data-tab="horarios">⏰ Horarios</button>
         <button class="tab-btn" data-tab="galeria-admin">🖼 Galería</button>
+        <button class="tab-btn" data-tab="crypto">₿ Crypto</button>
+        <button class="tab-btn" data-tab="config">⚙️ Configuración</button>
       </div>
 
       <div class="tab-content active" id="tab-cotizaciones">
@@ -402,8 +417,24 @@
         <div id="listaCotizaciones"><div class="loading-msg">🔄 Cargando cotizaciones...</div></div>
       </div>
 
+      <div class="tab-content" id="tab-servicios">
+        <h3 style="color:var(--blanco);margin-bottom:20px">Gestión de Servicios y Precios</h3>
+        <button class="btn-submit" id="btnAddServicio" style="margin-bottom:20px">+ Agregar Servicio</button>
+        <div id="listaServicios"></div>
+      </div>
+
+      <div class="tab-content" id="tab-horarios">
+        <h3 style="color:var(--blanco);margin-bottom:20px">Configuración de Horarios</h3>
+        <form id="horariosForm" style="max-width:600px">
+          <div class="form-group"><label>Hora Inicio</label><input type="time" id="horaInicio" value="08:00" /></div>
+          <div class="form-group"><label>Hora Fin</label><input type="time" id="horaFin" value="18:00" /></div>
+          <div class="form-group"><label>Duración por Servicio (horas)</label><input type="number" id="duracionServicio" value="3" min="1" max="8" /></div>
+          <button type="submit" class="btn-submit">Guardar Horarios</button>
+        </form>
+      </div>
+
       <div class="tab-content" id="tab-galeria-admin">
-        <h3 style="color:var(--blanco);font-family:'Rajdhani',sans-serif;font-size:1.4rem;margin-bottom:20px">Subir imágenes a la galería</h3>
+        <h3 style="color:var(--blanco);margin-bottom:20px">Subir imágenes a la galería</h3>
         <div class="upload-zone" id="uploadZone">
           <span class="icon">🖼</span>
           <p>Arrastra imágenes aquí o <strong>haz clic para seleccionar</strong></p>
@@ -414,21 +445,36 @@
           <div class="progress-text" id="progressText">Subiendo...</div>
           <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
         </div>
-        <div class="admin-galeria-grid" id="adminGaleriaGrid"><div class="loading-msg">🔄 Cargando imágenes...</div></div>
+        <div class="admin-galeria-grid" id="adminGaleriaGrid"></div>
+      </div>
+
+      <div class="tab-content" id="tab-crypto">
+        <h3 style="color:var(--blanco);margin-bottom:20px">Configuración de Criptomonedas</h3>
+        <form id="cryptoForm" style="max-width:600px">
+          <div class="form-group"><label>Dirección Bitcoin (BTC)</label><input type="text" id="btcAddress" placeholder="bc1q..." /></div>
+          <div class="form-group"><label>QR Code Bitcoin (URL)</label><input type="url" id="btcQR" placeholder="https://..." /></div>
+          <div class="form-group"><label>Dirección USDT (TRC20)</label><input type="text" id="usdtAddress" placeholder="T..." /></div>
+          <div class="form-group"><label>QR Code USDT (URL)</label><input type="url" id="usdtQR" placeholder="https://..." /></div>
+          <button type="submit" class="btn-submit">Guardar Configuración Crypto</button>
+        </form>
+      </div>
+
+      <div class="tab-content" id="tab-config">
+        <h3 style="color:var(--blanco);margin-bottom:20px">Configuración General</h3>
+        <form id="configForm" style="max-width:600px">
+          <div class="form-group"><label>WhatsApp</label><input type="tel" id="configWhatsApp" placeholder="+593 99 000 0000" /></div>
+          <div class="form-group"><label>Email de Contacto</label><input type="email" id="configEmail" placeholder="info@cryocleanpro.ec" /></div>
+          <button type="submit" class="btn-submit">Guardar Configuración</button>
+        </form>
       </div>
     </div>
   </div>
 
-  <!-- FIREBASE (ES MODULES) -->
   <script type="module">
-    import { initializeApp }
-      from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, serverTimestamp, query, orderBy }
-      from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
-      from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-    import { getStorage, ref, uploadBytesResumable, getDownloadURL, listAll, deleteObject }
-      from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, serverTimestamp, query, orderBy, setDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getStorage, ref, uploadBytesResumable, getDownloadURL, listAll, deleteObject } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyBsPssHAMzBzYrHvdMFqtR31n2E55ovr8A",
@@ -440,12 +486,11 @@
       measurementId: "G-08T6FNZV77"
     };
 
-    const app      = initializeApp(firebaseConfig);
-    const db       = getFirestore(app);
-    const auth     = getAuth(app);
-    const storage  = getStorage(app);
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+    const storage = getStorage(app);
 
-    /* ── Partículas hero ── */
     const pContainer = document.getElementById('particles');
     for (let i = 0; i < 20; i++) {
       const p = document.createElement('div');
@@ -455,29 +500,27 @@
       pContainer.appendChild(p);
     }
 
-    /* ── Navbar hamburguesa ── */
     document.getElementById('hamburger').addEventListener('click', () =>
       document.getElementById('navLinks').classList.toggle('open'));
     document.querySelectorAll('.nav-links a').forEach(a =>
       a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open')));
 
-    /* ── Formulario cotización → Firestore ── */
     document.getElementById('contactForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const btn = document.getElementById('btnSubmit');
-      const ok  = document.getElementById('formSuccess');
+      const ok = document.getElementById('formSuccess');
       const err = document.getElementById('formError');
       btn.textContent = 'Enviando...'; btn.disabled = true;
       ok.style.display = 'none'; err.style.display = 'none';
       try {
         await addDoc(collection(db, 'cotizaciones'), {
-          nombre:      document.getElementById('fNombre').value.trim(),
-          empresa:     document.getElementById('fEmpresa').value.trim(),
-          email:       document.getElementById('fEmail').value.trim(),
-          telefono:    document.getElementById('fTelefono').value.trim(),
-          servicio:    document.getElementById('fServicio').value,
+          nombre: document.getElementById('fNombre').value.trim(),
+          empresa: document.getElementById('fEmpresa').value.trim(),
+          email: document.getElementById('fEmail').value.trim(),
+          telefono: document.getElementById('fTelefono').value.trim(),
+          servicio: document.getElementById('fServicio').value,
           descripcion: document.getElementById('fDescripcion').value.trim(),
-          fecha:       serverTimestamp()
+          fecha: serverTimestamp()
         });
         ok.style.display = 'block';
         btn.style.display = 'none';
@@ -489,7 +532,6 @@
       }
     });
 
-    /* ── Login modal ── */
     document.getElementById('adminLoginBtn').addEventListener('click', (e) => {
       e.preventDefault();
       document.getElementById('loginModal').classList.add('active');
@@ -504,9 +546,42 @@
       if (e.key === 'Enter') document.getElementById('btnLogin').click();
     });
 
+    document.getElementById('btnShowReset').addEventListener('click', () => {
+      document.getElementById('loginView').style.display = 'none';
+      document.getElementById('resetView').style.display = 'block';
+    });
+
+    document.getElementById('btnBackToLogin').addEventListener('click', () => {
+      document.getElementById('resetView').style.display = 'none';
+      document.getElementById('loginView').style.display = 'block';
+    });
+
+    document.getElementById('btnResetPassword').addEventListener('click', async () => {
+      const email = document.getElementById('resetEmail').value;
+      const success = document.getElementById('resetSuccess');
+      const error = document.getElementById('resetError');
+      success.style.display = 'none';
+      error.style.display = 'none';
+      
+      if (!email) {
+        error.textContent = 'Ingresa tu email';
+        error.style.display = 'block';
+        return;
+      }
+
+      try {
+        await sendPasswordResetEmail(auth, email);
+        success.style.display = 'block';
+        document.getElementById('resetEmail').value = '';
+      } catch (err) {
+        error.textContent = 'Error: ' + err.message;
+        error.style.display = 'block';
+      }
+    });
+
     document.getElementById('btnLogin').addEventListener('click', async () => {
       const email = document.getElementById('adminEmail').value;
-      const pass  = document.getElementById('adminPass').value;
+      const pass = document.getElementById('adminPass').value;
       const errEl = document.getElementById('loginError');
       errEl.style.display = 'none';
       const btn = document.getElementById('btnLogin');
@@ -522,7 +597,6 @@
 
     document.getElementById('btnLogout').addEventListener('click', () => signOut(auth));
 
-    /* ── Auth state ── */
     onAuthStateChanged(auth, (user) => {
       const panel = document.getElementById('adminPanel');
       if (user) {
@@ -530,13 +604,14 @@
         document.body.style.overflow = 'hidden';
         cargarCotizaciones();
         cargarGaleriaAdmin();
+        cargarServicios();
+        cargarConfiguracion();
       } else {
         panel.style.display = 'none';
         document.body.style.overflow = '';
       }
     });
 
-    /* ── Tabs admin ── */
     document.querySelectorAll('.tab-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -546,19 +621,18 @@
       });
     });
 
-    /* ── Cargar cotizaciones ── */
     async function cargarCotizaciones() {
       const lista = document.getElementById('listaCotizaciones');
       const total = document.getElementById('totalCotizaciones');
       lista.innerHTML = '<div class="loading-msg">🔄 Cargando...</div>';
       try {
-        const q    = query(collection(db, 'cotizaciones'), orderBy('fecha', 'desc'));
+        const q = query(collection(db, 'cotizaciones'), orderBy('fecha', 'desc'));
         const snap = await getDocs(q);
         total.textContent = snap.size + ' solicitudes';
         if (snap.empty) { lista.innerHTML = '<div class="loading-msg">📭 Aún no hay cotizaciones.</div>'; return; }
         lista.innerHTML = '';
         snap.forEach(docSnap => {
-          const d     = docSnap.data();
+          const d = docSnap.data();
           const fecha = d.fecha?.toDate
             ? d.fecha.toDate().toLocaleDateString('es-EC', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' })
             : 'Sin fecha';
@@ -578,7 +652,7 @@
             ${d.servicio ? `<span class="cotizacion-servicio">${d.servicio}</span>` : ''}
             <div class="cotizacion-desc">${d.descripcion || 'Sin descripción'}</div>
             <div class="cotizacion-contacto">
-              ${d.email    ? `<a href="mailto:${d.email}">✉ ${d.email}</a>` : ''}
+              ${d.email ? `<a href="mailto:${d.email}">✉ ${d.email}</a>` : ''}
               ${d.telefono ? `<a href="tel:${d.telefono}">📞 ${d.telefono}</a>` : ''}
             </div>`;
           card.querySelector('.btn-delete').addEventListener('click', async () => {
@@ -590,17 +664,115 @@
           lista.appendChild(card);
         });
       } catch (err) {
-        lista.innerHTML = `<div class="loading-msg">❌ Error: ${err.message}<br><br>
-          <small>Verifica las reglas de Firestore en Firebase Console:<br>
-          allow read, write: if request.auth != null;</small></div>`;
+        lista.innerHTML = `<div class="loading-msg">❌ Error: ${err.message}</div>`;
       }
     }
 
-    /* ── Galería pública (carga desde Storage) ── */
+    async function cargarServicios() {
+      const lista = document.getElementById('listaServicios');
+      lista.innerHTML = '<div class="loading-msg">🔄 Cargando servicios...</div>';
+      try {
+        const snap = await getDocs(collection(db, 'servicios'));
+        if (snap.empty) {
+          lista.innerHTML = '<div class="loading-msg">No hay servicios configurados</div>';
+          return;
+        }
+        lista.innerHTML = '';
+        snap.forEach(docSnap => {
+          const s = docSnap.data();
+          const card = document.createElement('div');
+          card.className = 'cotizacion-card';
+          card.innerHTML = `
+            <div style="display:flex;justify-content:space-between;align-items:start">
+              <div>
+                <h4 style="color:var(--blanco);font-size:1.1rem;margin-bottom:8px">${s.icon || '⚙️'} ${s.nombre}</h4>
+                <p style="color:#9ca3af;margin-bottom:10px">${s.descripcion}</p>
+                <div style="color:var(--azul);font-size:1.3rem;font-weight:700">$${s.precio}</div>
+              </div>
+              <div style="display:flex;gap:10px">
+                <button class="btn-edit" data-id="${docSnap.id}">✏️ Editar</button>
+                <button class="btn-delete" data-id="${docSnap.id}">🗑️ Eliminar</button>
+              </div>
+            </div>`;
+          card.querySelector('.btn-delete').addEventListener('click', async () => {
+            if (confirm('¿Eliminar servicio?')) {
+              await deleteDoc(doc(db, 'servicios', docSnap.id));
+              cargarServicios();
+            }
+          });
+          lista.appendChild(card);
+        });
+      } catch (err) {
+        lista.innerHTML = `<div class="loading-msg">❌ Error: ${err.message}</div>`;
+      }
+    }
+
+    async function cargarConfiguracion() {
+      try {
+        const configDoc = await getDoc(doc(db, 'configuracion', 'settings'));
+        if (configDoc.exists()) {
+          const data = configDoc.data();
+          document.getElementById('horaInicio').value = data.horaInicio || '08:00';
+          document.getElementById('horaFin').value = data.horaFin || '18:00';
+          document.getElementById('duracionServicio').value = data.duracionServicio || 3;
+          document.getElementById('btcAddress').value = data.btcAddress || '';
+          document.getElementById('btcQR').value = data.btcQR || '';
+          document.getElementById('usdtAddress').value = data.usdtAddress || '';
+          document.getElementById('usdtQR').value = data.usdtQR || '';
+          document.getElementById('configWhatsApp').value = data.whatsapp || '';
+          document.getElementById('configEmail').value = data.email || '';
+        }
+      } catch (err) {
+        console.error('Error cargando config:', err);
+      }
+    }
+
+    document.getElementById('horariosForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      try {
+        await setDoc(doc(db, 'configuracion', 'settings'), {
+          horaInicio: document.getElementById('horaInicio').value,
+          horaFin: document.getElementById('horaFin').value,
+          duracionServicio: parseInt(document.getElementById('duracionServicio').value)
+        }, { merge: true });
+        alert('✅ Horarios guardados');
+      } catch (err) {
+        alert('❌ Error: ' + err.message);
+      }
+    });
+
+    document.getElementById('cryptoForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      try {
+        await setDoc(doc(db, 'configuracion', 'settings'), {
+          btcAddress: document.getElementById('btcAddress').value,
+          btcQR: document.getElementById('btcQR').value,
+          usdtAddress: document.getElementById('usdtAddress').value,
+          usdtQR: document.getElementById('usdtQR').value
+        }, { merge: true });
+        alert('✅ Configuración crypto guardada');
+      } catch (err) {
+        alert('❌ Error: ' + err.message);
+      }
+    });
+
+    document.getElementById('configForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      try {
+        await setDoc(doc(db, 'configuracion', 'settings'), {
+          whatsapp: document.getElementById('configWhatsApp').value,
+          email: document.getElementById('configEmail').value
+        }, { merge: true });
+        alert('✅ Configuración guardada');
+      } catch (err) {
+        alert('❌ Error: ' + err.message);
+      }
+    });
+
     async function cargarGaleriaPublica() {
       try {
         const listRef = ref(storage, 'galeria/');
-        const result  = await listAll(listRef);
+        const result = await listAll(listRef);
         if (!result.items.length) return;
         const grid = document.getElementById('galeriaGrid');
         grid.innerHTML = '';
@@ -612,18 +784,17 @@
           div.innerHTML = `<img src="${url}" alt="${nombre}" loading="lazy"><div class="galeria-label">${nombre}</div>`;
           grid.appendChild(div);
         }
-      } catch { /* mantiene placeholders */ }
+      } catch {}
     }
     cargarGaleriaPublica();
 
-    /* ── Galería admin ── */
     async function cargarGaleriaAdmin() {
       const grid = document.getElementById('adminGaleriaGrid');
       grid.innerHTML = '<div class="loading-msg">🔄 Cargando imágenes...</div>';
       try {
         const listRef = ref(storage, 'galeria/');
-        const result  = await listAll(listRef);
-        if (!result.items.length) { grid.innerHTML = '<div class="loading-msg">📁 No hay imágenes aún. Sube la primera.</div>'; return; }
+        const result = await listAll(listRef);
+        if (!result.items.length) { grid.innerHTML = '<div class="loading-msg">📁 No hay imágenes aún.</div>'; return; }
         grid.innerHTML = '';
         for (const item of result.items) {
           const url = await getDownloadURL(item);
@@ -643,20 +814,19 @@
           grid.appendChild(div);
         }
       } catch (err) {
-        grid.innerHTML = `<div class="loading-msg">❌ Error: ${err.message}<br><small>Verifica las reglas de Storage.</small></div>`;
+        grid.innerHTML = `<div class="loading-msg">❌ Error: ${err.message}</div>`;
       }
     }
 
-    /* ── Upload imágenes ── */
-    const uploadZone   = document.getElementById('uploadZone');
-    const fileInput    = document.getElementById('fileInput');
-    const progressEl   = document.getElementById('uploadProgress');
+    const uploadZone = document.getElementById('uploadZone');
+    const fileInput = document.getElementById('fileInput');
+    const progressEl = document.getElementById('uploadProgress');
     const progressFill = document.getElementById('progressFill');
     const progressText = document.getElementById('progressText');
 
     uploadZone.addEventListener('click', () => fileInput.click());
-    uploadZone.addEventListener('dragover',  (e) => { e.preventDefault(); uploadZone.classList.add('dragover'); });
-    uploadZone.addEventListener('dragleave', ()  => uploadZone.classList.remove('dragover'));
+    uploadZone.addEventListener('dragover', (e) => { e.preventDefault(); uploadZone.classList.add('dragover'); });
+    uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
     uploadZone.addEventListener('drop', (e) => { e.preventDefault(); uploadZone.classList.remove('dragover'); handleFiles(e.dataTransfer.files); });
     fileInput.addEventListener('change', () => handleFiles(fileInput.files));
 
@@ -672,7 +842,7 @@
           return;
         }
         const storRef = ref(storage, `galeria/${Date.now()}-${file.name}`);
-        const task    = uploadBytesResumable(storRef, file);
+        const task = uploadBytesResumable(storRef, file);
         task.on('state_changed',
           (snap) => {
             const pct = Math.round(snap.bytesTransferred / snap.totalBytes * 100);
