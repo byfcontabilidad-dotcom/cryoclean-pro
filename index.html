@@ -206,12 +206,9 @@
     .admin-img-item:hover .admin-img-overlay { opacity: 1; }
 
     .crypto-payment { display: flex; align-items: center; gap: 15px; padding: 15px; background: var(--gris); border-radius: 12px; border: 1px solid rgba(0,212,255,0.1); margin-bottom: 15px; }
-    .crypto-logo { width: 60px; height: 60px; border-radius: 50%; }
-    .crypto-qr { width: 150px; height: 150px; border-radius: 12px; margin-top: 10px; }
     .time-slot { display: inline-block; padding: 10px 15px; margin: 5px; border: 1px solid rgba(0,212,255,0.2); border-radius: 8px; cursor: pointer; transition: all 0.3s; }
     .time-slot:hover { border-color: var(--azul); background: rgba(0,212,255,0.05); }
     .time-slot.selected { background: var(--azul); color: var(--negro); }
-    .time-slot.occupied { background: rgba(255,80,80,0.1); border-color: rgba(255,80,80,0.3); cursor: not-allowed; opacity: 0.5; }
 
     @media (max-width: 768px) {
       nav { padding: 15px 20px; }
@@ -286,7 +283,7 @@
   </section>
 
   <section id="galeria">
-    <div class="section-title"><h2>Galería de <span>Trabajos</span></h2><div class="divider"></div><p>Imágenes reales gestionadas desde el panel admin</p></div>
+    <div class="section-title"><h2>Galería de <span>Trabajos</span></h2><div class="divider"></div><p>Imágenes reales de nuestros proyectos</p></div>
     <div class="galeria-grid" id="galeriaGrid">
       <div class="galeria-item"><div class="galeria-placeholder"><span>⚙️</span><p>Motor Industrial</p></div><div class="galeria-label">Limpieza Motor Industrial</div></div>
       <div class="galeria-item"><div class="galeria-placeholder"><span>🏗️</span><p>Estructura Metálica</p></div><div class="galeria-label">Remoción de Óxido</div></div>
@@ -348,7 +345,7 @@
           <div class="form-group"><label>Descripción del proyecto</label><textarea id="fDescripcion" placeholder="Cuéntanos sobre tu necesidad, superficie aproximada, ubicación..."></textarea></div>
           <button type="submit" class="btn-submit" id="btnSubmit">Enviar Solicitud →</button>
           <div class="form-success" id="formSuccess">✅ ¡Cotización enviada! Te contactaremos en menos de 24 horas.</div>
-          <div class="form-error" id="formError">❌ Error al enviar. Intenta de nuevo o verifica las reglas de Firestore.</div>
+          <div class="form-error" id="formError">❌ Error al enviar. Por favor intenta de nuevo.</div>
         </form>
       </div>
     </div>
@@ -435,10 +432,11 @@
 
       <div class="tab-content" id="tab-galeria-admin">
         <h3 style="color:var(--blanco);margin-bottom:20px">Subir imágenes a la galería</h3>
+        <p style="color:#6b7280;font-size:0.85rem;margin-bottom:20px">📦 Almacenamiento: <strong style="color:var(--azul)">Cloudinary</strong> — Plan gratuito (25GB)</p>
         <div class="upload-zone" id="uploadZone">
           <span class="icon">🖼</span>
           <p>Arrastra imágenes aquí o <strong>haz clic para seleccionar</strong></p>
-          <p style="font-size:0.8rem;margin-top:6px">JPG, PNG, WEBP — Máx. 5MB por imagen</p>
+          <p style="font-size:0.8rem;margin-top:6px">JPG, PNG, WEBP — Máx. 10MB por imagen</p>
           <input type="file" id="fileInput" accept="image/*" multiple />
         </div>
         <div class="upload-progress" id="uploadProgress">
@@ -472,25 +470,28 @@
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, serverTimestamp, query, orderBy, setDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, serverTimestamp, query, orderBy, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
     import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-    import { getStorage, ref, uploadBytesResumable, getDownloadURL, listAll, deleteObject } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
+    // ─── CONFIGURACIÓN FIREBASE ───────────────────────────────────────────────
     const firebaseConfig = {
       apiKey: "AIzaSyBsPssHAMzBzYrHvdMFqtR31n2E55ovr8A",
       authDomain: "cryocleanpro.firebaseapp.com",
       projectId: "cryocleanpro",
       storageBucket: "cryocleanpro.firebasestorage.app",
       messagingSenderId: "835260147208",
-      appId: "1:835260147208:web:6cfd00fc634ded777353bd",
-      measurementId: "G-08T6FNZV77"
+      appId: "1:835260147208:web:6cfd00fc634ded777353bd"
     };
+
+    // ─── CONFIGURACIÓN CLOUDINARY ─────────────────────────────────────────────
+    const CLOUD_NAME = "dppctkmrs";
+    const UPLOAD_PRESET = "DRY ICE PRO";
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     const auth = getAuth(app);
-    const storage = getStorage(app);
 
+    // ─── PARTÍCULAS ───────────────────────────────────────────────────────────
     const pContainer = document.getElementById('particles');
     for (let i = 0; i < 20; i++) {
       const p = document.createElement('div');
@@ -500,11 +501,13 @@
       pContainer.appendChild(p);
     }
 
+    // ─── MENÚ HAMBURGUESA ─────────────────────────────────────────────────────
     document.getElementById('hamburger').addEventListener('click', () =>
       document.getElementById('navLinks').classList.toggle('open'));
     document.querySelectorAll('.nav-links a').forEach(a =>
       a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open')));
 
+    // ─── FORMULARIO COTIZACIÓN ────────────────────────────────────────────────
     document.getElementById('contactForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const btn = document.getElementById('btnSubmit');
@@ -532,6 +535,7 @@
       }
     });
 
+    // ─── MODAL LOGIN ──────────────────────────────────────────────────────────
     document.getElementById('adminLoginBtn').addEventListener('click', (e) => {
       e.preventDefault();
       document.getElementById('loginModal').classList.add('active');
@@ -545,40 +549,28 @@
     document.getElementById('adminPass').addEventListener('keydown', (e) => {
       if (e.key === 'Enter') document.getElementById('btnLogin').click();
     });
-
     document.getElementById('btnShowReset').addEventListener('click', () => {
       document.getElementById('loginView').style.display = 'none';
       document.getElementById('resetView').style.display = 'block';
     });
-
     document.getElementById('btnBackToLogin').addEventListener('click', () => {
       document.getElementById('resetView').style.display = 'none';
       document.getElementById('loginView').style.display = 'block';
     });
-
     document.getElementById('btnResetPassword').addEventListener('click', async () => {
       const email = document.getElementById('resetEmail').value;
       const success = document.getElementById('resetSuccess');
       const error = document.getElementById('resetError');
-      success.style.display = 'none';
-      error.style.display = 'none';
-      
-      if (!email) {
-        error.textContent = 'Ingresa tu email';
-        error.style.display = 'block';
-        return;
-      }
-
+      success.style.display = 'none'; error.style.display = 'none';
+      if (!email) { error.textContent = 'Ingresa tu email'; error.style.display = 'block'; return; }
       try {
         await sendPasswordResetEmail(auth, email);
         success.style.display = 'block';
         document.getElementById('resetEmail').value = '';
       } catch (err) {
-        error.textContent = 'Error: ' + err.message;
-        error.style.display = 'block';
+        error.textContent = 'Error: ' + err.message; error.style.display = 'block';
       }
     });
-
     document.getElementById('btnLogin').addEventListener('click', async () => {
       const email = document.getElementById('adminEmail').value;
       const pass = document.getElementById('adminPass').value;
@@ -594,9 +586,9 @@
       }
       btn.textContent = 'Ingresar al Panel'; btn.disabled = false;
     });
-
     document.getElementById('btnLogout').addEventListener('click', () => signOut(auth));
 
+    // ─── AUTH STATE ───────────────────────────────────────────────────────────
     onAuthStateChanged(auth, (user) => {
       const panel = document.getElementById('adminPanel');
       if (user) {
@@ -612,6 +604,7 @@
       }
     });
 
+    // ─── TABS ─────────────────────────────────────────────────────────────────
     document.querySelectorAll('.tab-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -621,6 +614,7 @@
       });
     });
 
+    // ─── COTIZACIONES ─────────────────────────────────────────────────────────
     async function cargarCotizaciones() {
       const lista = document.getElementById('listaCotizaciones');
       const total = document.getElementById('totalCotizaciones');
@@ -668,15 +662,13 @@
       }
     }
 
+    // ─── SERVICIOS ────────────────────────────────────────────────────────────
     async function cargarServicios() {
       const lista = document.getElementById('listaServicios');
       lista.innerHTML = '<div class="loading-msg">🔄 Cargando servicios...</div>';
       try {
         const snap = await getDocs(collection(db, 'servicios'));
-        if (snap.empty) {
-          lista.innerHTML = '<div class="loading-msg">No hay servicios configurados</div>';
-          return;
-        }
+        if (snap.empty) { lista.innerHTML = '<div class="loading-msg">No hay servicios configurados</div>'; return; }
         lista.innerHTML = '';
         snap.forEach(docSnap => {
           const s = docSnap.data();
@@ -690,7 +682,6 @@
                 <div style="color:var(--azul);font-size:1.3rem;font-weight:700">$${s.precio}</div>
               </div>
               <div style="display:flex;gap:10px">
-                <button class="btn-edit" data-id="${docSnap.id}">✏️ Editar</button>
                 <button class="btn-delete" data-id="${docSnap.id}">🗑️ Eliminar</button>
               </div>
             </div>`;
@@ -707,6 +698,7 @@
       }
     }
 
+    // ─── CONFIGURACIÓN ────────────────────────────────────────────────────────
     async function cargarConfiguracion() {
       try {
         const configDoc = await getDoc(doc(db, 'configuracion', 'settings'));
@@ -722,9 +714,7 @@
           document.getElementById('configWhatsApp').value = data.whatsapp || '';
           document.getElementById('configEmail').value = data.email || '';
         }
-      } catch (err) {
-        console.error('Error cargando config:', err);
-      }
+      } catch (err) { console.error('Error cargando config:', err); }
     }
 
     document.getElementById('horariosForm').addEventListener('submit', async (e) => {
@@ -736,9 +726,7 @@
           duracionServicio: parseInt(document.getElementById('duracionServicio').value)
         }, { merge: true });
         alert('✅ Horarios guardados');
-      } catch (err) {
-        alert('❌ Error: ' + err.message);
-      }
+      } catch (err) { alert('❌ Error: ' + err.message); }
     });
 
     document.getElementById('cryptoForm').addEventListener('submit', async (e) => {
@@ -751,9 +739,7 @@
           usdtQR: document.getElementById('usdtQR').value
         }, { merge: true });
         alert('✅ Configuración crypto guardada');
-      } catch (err) {
-        alert('❌ Error: ' + err.message);
-      }
+      } catch (err) { alert('❌ Error: ' + err.message); }
     });
 
     document.getElementById('configForm').addEventListener('submit', async (e) => {
@@ -764,60 +750,81 @@
           email: document.getElementById('configEmail').value
         }, { merge: true });
         alert('✅ Configuración guardada');
-      } catch (err) {
-        alert('❌ Error: ' + err.message);
-      }
+      } catch (err) { alert('❌ Error: ' + err.message); }
     });
 
+    // ─── CLOUDINARY: SUBIR IMAGEN ─────────────────────────────────────────────
+    async function subirACloudinary(file, onProgress) {
+      return new Promise((resolve, reject) => {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('upload_preset', UPLOAD_PRESET);
+        formData.append('folder', 'galeria');
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`);
+        xhr.upload.onprogress = (e) => {
+          if (e.lengthComputable) onProgress(Math.round(e.loaded / e.total * 100));
+        };
+        xhr.onload = () => {
+          if (xhr.status === 200) resolve(JSON.parse(xhr.responseText));
+          else reject(new Error('Error Cloudinary: ' + xhr.responseText));
+        };
+        xhr.onerror = () => reject(new Error('Error de red'));
+        xhr.send(formData);
+      });
+    }
+
+    // ─── GALERÍA PÚBLICA (desde Firestore) ────────────────────────────────────
     async function cargarGaleriaPublica() {
       try {
-        const listRef = ref(storage, 'galeria/');
-        const result = await listAll(listRef);
-        if (!result.items.length) return;
+        const snap = await getDocs(query(collection(db, 'galeria'), orderBy('fecha', 'desc')));
+        if (snap.empty) return;
         const grid = document.getElementById('galeriaGrid');
         grid.innerHTML = '';
-        for (const item of result.items) {
-          const url = await getDownloadURL(item);
+        snap.forEach(docSnap => {
+          const d = docSnap.data();
           const div = document.createElement('div');
           div.className = 'galeria-item';
-          const nombre = decodeURIComponent(item.name.replace(/^\d+-/, '').replace(/\.[^.]+$/, ''));
-          div.innerHTML = `<img src="${url}" alt="${nombre}" loading="lazy"><div class="galeria-label">${nombre}</div>`;
+          div.innerHTML = `<img src="${d.url}" alt="${d.nombre}" loading="lazy"><div class="galeria-label">${d.nombre}</div>`;
           grid.appendChild(div);
-        }
-      } catch {}
+        });
+      } catch(e) { console.log('Galería pública:', e.message); }
     }
     cargarGaleriaPublica();
 
+    // ─── GALERÍA ADMIN ────────────────────────────────────────────────────────
     async function cargarGaleriaAdmin() {
       const grid = document.getElementById('adminGaleriaGrid');
       grid.innerHTML = '<div class="loading-msg">🔄 Cargando imágenes...</div>';
       try {
-        const listRef = ref(storage, 'galeria/');
-        const result = await listAll(listRef);
-        if (!result.items.length) { grid.innerHTML = '<div class="loading-msg">📁 No hay imágenes aún.</div>'; return; }
+        const snap = await getDocs(query(collection(db, 'galeria'), orderBy('fecha', 'desc')));
+        if (snap.empty) { grid.innerHTML = '<div class="loading-msg">📁 No hay imágenes aún. Sube la primera.</div>'; return; }
         grid.innerHTML = '';
-        for (const item of result.items) {
-          const url = await getDownloadURL(item);
+        snap.forEach(docSnap => {
+          const d = docSnap.data();
           const div = document.createElement('div');
           div.className = 'admin-img-item';
-          div.innerHTML = `<img src="${url}" alt="${item.name}" loading="lazy">
+          div.innerHTML = `
+            <img src="${d.url}" alt="${d.nombre}" loading="lazy">
             <div class="admin-img-overlay">
-              <button class="btn-delete" data-path="${item.fullPath}">🗑 Eliminar</button>
+              <button class="btn-delete" data-id="${docSnap.id}">🗑 Eliminar</button>
             </div>`;
           div.querySelector('.btn-delete').addEventListener('click', async () => {
             if (confirm('¿Eliminar esta imagen?')) {
-              await deleteObject(ref(storage, item.fullPath));
+              await deleteDoc(doc(db, 'galeria', docSnap.id));
               cargarGaleriaAdmin();
               cargarGaleriaPublica();
             }
           });
           grid.appendChild(div);
-        }
+        });
       } catch (err) {
         grid.innerHTML = `<div class="loading-msg">❌ Error: ${err.message}</div>`;
       }
     }
 
+    // ─── UPLOAD ZONE ──────────────────────────────────────────────────────────
     const uploadZone = document.getElementById('uploadZone');
     const fileInput = document.getElementById('fileInput');
     const progressEl = document.getElementById('uploadProgress');
@@ -830,37 +837,51 @@
     uploadZone.addEventListener('drop', (e) => { e.preventDefault(); uploadZone.classList.remove('dragover'); handleFiles(e.dataTransfer.files); });
     fileInput.addEventListener('change', () => handleFiles(fileInput.files));
 
-    function handleFiles(files) {
+    async function handleFiles(files) {
       const arr = Array.from(files);
       if (!arr.length) return;
       progressEl.style.display = 'block';
       let completed = 0;
-      arr.forEach(file => {
-        if (file.size > 5 * 1024 * 1024) {
-          alert(`"${file.name}" supera los 5MB permitidos.`);
-          completed++;
-          return;
+
+      for (const file of arr) {
+        if (file.size > 10 * 1024 * 1024) {
+          alert(`"${file.name}" supera los 10MB permitidos.`);
+          continue;
         }
-        const storRef = ref(storage, `galeria/${Date.now()}-${file.name}`);
-        const task = uploadBytesResumable(storRef, file);
-        task.on('state_changed',
-          (snap) => {
-            const pct = Math.round(snap.bytesTransferred / snap.totalBytes * 100);
+        try {
+          progressText.textContent = `Subiendo "${file.name}"… 0%`;
+          progressFill.style.width = '0%';
+
+          const data = await subirACloudinary(file, (pct) => {
             progressFill.style.width = pct + '%';
             progressText.textContent = `Subiendo "${file.name}"… ${pct}%`;
-          },
-          (err) => { progressText.textContent = `❌ Error subiendo "${file.name}": ${err.message}`; },
-          () => {
-            completed++;
-            progressText.textContent = `✅ ${completed}/${arr.length} imagen(es) subida(s)`;
-            if (completed === arr.length) {
-              setTimeout(() => { progressEl.style.display = 'none'; progressFill.style.width = '0%'; }, 2500);
-              cargarGaleriaAdmin();
-              cargarGaleriaPublica();
-            }
-          }
-        );
-      });
+          });
+
+          // Guardar URL en Firestore
+          await addDoc(collection(db, 'galeria'), {
+            url: data.secure_url,
+            public_id: data.public_id,
+            nombre: file.name.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' '),
+            fecha: serverTimestamp()
+          });
+
+          completed++;
+          progressText.textContent = `✅ ${completed}/${arr.length} imagen(es) subida(s)`;
+        } catch (err) {
+          progressText.textContent = `❌ Error subiendo "${file.name}": ${err.message}`;
+          console.error(err);
+        }
+      }
+
+      if (completed > 0) {
+        setTimeout(() => {
+          progressEl.style.display = 'none';
+          progressFill.style.width = '0%';
+        }, 2500);
+        cargarGaleriaAdmin();
+        cargarGaleriaPublica();
+      }
+      fileInput.value = '';
     }
   </script>
 </body>
