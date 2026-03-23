@@ -320,7 +320,7 @@
         <p>Cuéntanos tu necesidad y nuestro equipo técnico te entregará una propuesta personalizada sin compromiso.</p>
         <div class="contacto-item"><div class="contacto-icon">📍</div><div class="contacto-item-info"><h5>Ubicación</h5><p>Quito, Ecuador — Servicio a nivel nacional</p></div></div>
         <div class="contacto-item"><div class="contacto-icon">📞</div><div class="contacto-item-info"><h5>Teléfono / WhatsApp</h5><p id="contactoTelefono">+593 98 989 8143</p></div></div>
-        <div class="contacto-item"><div class="contacto-icon">✉️</div><div class="contacto-item-info"><h5>Email</h5><p id="contactoEmail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="741d1a121b3417060d1b171811151a04061b5a1117">[email&#160;protected]</a></p></div></div>
+        <div class="contacto-item"><div class="contacto-icon">✉️</div><div class="contacto-item-info"><h5>Email</h5><p id="contactoEmail">info@cryocleanpro.ec</p></div></div>
         <div class="contacto-item"><div class="contacto-icon">⏰</div><div class="contacto-item-info"><h5>Horario</h5><p>Lun – Vie: 08:00 – 18:00</p></div></div>
       </div>
       <div>
@@ -360,10 +360,10 @@
       <div class="footer-col"><h4>Servicios</h4><ul><li><a href="#servicios">Limpieza Industrial</a></li><li><a href="#servicios">Restauración Estructural</a></li><li><a href="#servicios">Post-Incendio</a></li><li><a href="#servicios">Limpieza Eléctrica</a></li><li><a href="#servicios">Automotriz</a></li></ul></div>
       <div class="footer-col"><h4>Empresa</h4><ul><li><a href="#proceso">Cómo Funciona</a></li><li><a href="#galeria">Galería</a></li><li><a href="#testimonios">Testimonios</a></li><li><a href="#contacto">Contacto</a></li></ul></div>
     </div>
-    <div class="footer-bottom">© 2024 <span>Cryo Clean Pro</span>. Todos los derechos reservados.</div>
+    <div class="footer-bottom">© 2025 <span>Cryo Clean Pro</span>. Todos los derechos reservados.</div>
   </footer>
 
-  <a href="https://wa.me/593990000000" class="whatsapp-float" id="whatsappFloat" target="_blank" title="WhatsApp">💬</a>
+  <a href="https://wa.me/593989898143" class="whatsapp-float" id="whatsappFloat" target="_blank" title="WhatsApp">💬</a>
 
   <!-- MODAL LOGIN -->
   <div class="modal-overlay" id="loginModal">
@@ -587,21 +587,26 @@
         error.textContent = 'Error: ' + err.message; error.style.display = 'block';
       }
     });
-    document.getElementById('btnLogin').addEventListener('click', async () => {
+
+    // ─── LOGIN (ÚNICO — sin duplicados) ───────────────────────────────────────
+    async function ejecutarLogin() {
       const email = document.getElementById('adminEmail').value;
       const pass = document.getElementById('adminPass').value;
       const errEl = document.getElementById('loginError');
-      errEl.style.display = 'none';
       const btn = document.getElementById('btnLogin');
+      errEl.style.display = 'none';
       btn.textContent = 'Ingresando...'; btn.disabled = true;
       try {
         await signInWithEmailAndPassword(auth, email, pass);
         document.getElementById('loginModal').classList.remove('active');
-      } catch {
+      } catch (e) {
         errEl.style.display = 'block';
+        console.error('Login error:', e.message);
       }
       btn.textContent = 'Ingresar al Panel'; btn.disabled = false;
-    });
+    }
+
+    document.getElementById('btnLogin').addEventListener('click', ejecutarLogin);
     document.getElementById('btnLogout').addEventListener('click', () => signOut(auth));
 
     // ─── AUTH STATE ───────────────────────────────────────────────────────────
@@ -682,7 +687,7 @@
     async function cargarServiciosSitio() {
       try {
         const snap = await getDocs(collection(db, 'servicios'));
-        if (snap.empty) return; // Mantiene los servicios por defecto del HTML
+        if (snap.empty) return;
         const grid = document.getElementById('serviciosGrid');
         grid.innerHTML = '';
         snap.forEach(docSnap => {
@@ -773,14 +778,10 @@
       const precio = document.getElementById('sPrecio').value.trim();
       const icon = document.getElementById('sIcon').value.trim() || '⚙️';
       const errEl = document.getElementById('servicioError');
-
-      if (!nombre || !descripcion || !precio) {
-        errEl.style.display = 'block'; return;
-      }
+      if (!nombre || !descripcion || !precio) { errEl.style.display = 'block'; return; }
       errEl.style.display = 'none';
       const btn = document.getElementById('btnGuardarServicio');
       btn.textContent = 'Guardando...'; btn.disabled = true;
-
       try {
         const datos = { icon, nombre, descripcion, precio: parseFloat(precio) };
         if (id) {
@@ -804,7 +805,6 @@
         const configDoc = await getDoc(doc(db, 'configuracion', 'settings'));
         if (configDoc.exists()) {
           const data = configDoc.data();
-          // Rellenar formularios admin
           document.getElementById('horaInicio').value = data.horaInicio || '08:00';
           document.getElementById('horaFin').value = data.horaFin || '18:00';
           document.getElementById('duracionServicio').value = data.duracionServicio || 3;
@@ -818,24 +818,17 @@
       } catch (err) { console.error('Error cargando config:', err); }
     }
 
-    // Aplicar configuración al sitio público (se llama al cargar la página)
     async function aplicarConfigSitio() {
       try {
         const configDoc = await getDoc(doc(db, 'configuracion', 'settings'));
         if (configDoc.exists()) {
           const data = configDoc.data();
-          // Actualizar teléfono en sección contacto
           if (data.whatsapp) {
             const telEl = document.getElementById('contactoTelefono');
             if (telEl) telEl.textContent = data.whatsapp;
-            // Actualizar botón WhatsApp flotante
             const waBtn = document.getElementById('whatsappFloat');
-            if (waBtn) {
-              const numero = data.whatsapp.replace(/\D/g, '');
-              waBtn.href = `https://wa.me/${numero}`;
-            }
+            if (waBtn) waBtn.href = `https://wa.me/${data.whatsapp.replace(/\D/g, '')}`;
           }
-          // Actualizar email en sección contacto
           if (data.email) {
             const emailEl = document.getElementById('contactoEmail');
             if (emailEl) emailEl.textContent = data.email;
@@ -877,7 +870,6 @@
           whatsapp: document.getElementById('configWhatsApp').value,
           email: document.getElementById('configEmail').value
         }, { merge: true });
-        // Actualizar sitio inmediatamente
         const tel = document.getElementById('configWhatsApp').value;
         const email = document.getElementById('configEmail').value;
         if (tel) {
@@ -894,14 +886,13 @@
       } catch (err) { alert('❌ Error: ' + err.message); }
     });
 
-    // ─── CLOUDINARY: SUBIR IMAGEN ─────────────────────────────────────────────
+    // ─── CLOUDINARY ───────────────────────────────────────────────────────────
     async function subirACloudinary(file, onProgress) {
       return new Promise((resolve, reject) => {
         const formData = new FormData();
         formData.append('file', file);
         formData.append('upload_preset', UPLOAD_PRESET);
         formData.append('folder', 'galeria');
-
         const xhr = new XMLHttpRequest();
         xhr.open('POST', `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`);
         xhr.upload.onprogress = (e) => {
@@ -916,7 +907,7 @@
       });
     }
 
-    // ─── GALERÍA PÚBLICA (desde Firestore) ────────────────────────────────────
+    // ─── GALERÍA PÚBLICA ──────────────────────────────────────────────────────
     async function cargarGaleriaPublica() {
       try {
         const snap = await getDocs(query(collection(db, 'galeria'), orderBy('fecha', 'desc')));
@@ -933,22 +924,7 @@
       } catch(e) { console.log('Galería pública:', e.message); }
     }
     cargarGaleriaPublica();
-// Fix: exponer login globalmente
-    document.getElementById('btnLogin').onclick = async function() {
-      const email = document.getElementById('adminEmail').value;
-      const pass = document.getElementById('adminPass').value;
-      const errEl = document.getElementById('loginError');
-      const btn = document.getElementById('btnLogin');
-      errEl.style.display = 'none';
-      btn.textContent = 'Ingresando...'; btn.disabled = true;
-      try {
-        await signInWithEmailAndPassword(auth, email, pass);
-        document.getElementById('loginModal').classList.remove('active');
-      } catch(e) {
-        errEl.style.display = 'block';
-      }
-      btn.textContent = 'Ingresar al Panel'; btn.disabled = false;
-    };
+
     // ─── GALERÍA ADMIN ────────────────────────────────────────────────────────
     async function cargarGaleriaAdmin() {
       const grid = document.getElementById('adminGaleriaGrid');
@@ -998,29 +974,32 @@
       if (!arr.length) return;
       progressEl.style.display = 'block';
       let completed = 0;
-
       for (const file of arr) {
-        if (file.size > 10 * 1024 * 1024) {
-          alert(`"${file.name}" supera los 10MB permitidos.`);
-          continue;
-        }
+        if (file.size > 10 * 1024 * 1024) { alert(`"${file.name}" supera los 10MB.`); continue; }
         try {
           progressText.textContent = `Subiendo "${file.name}"… 0%`;
           progressFill.style.width = '0%';
-
           const data = await subirACloudinary(file, (pct) => {
             progressFill.style.width = pct + '%';
             progressText.textContent = `Subiendo "${file.name}"… ${pct}%`;
           });
-
-          // Guardar URL en Firestore
           await addDoc(collection(db, 'galeria'), {
             url: data.secure_url,
             public_id: data.public_id,
             nombre: file.name.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' '),
             fecha: serverTimestamp()
           });
-
           completed++;
-          progressText.textContent = `✅ ${completed}/${arr.length} imagen(es) subid
+          progressText.textContent = `✅ ${completed}/${arr.length} imagen(es) subidas`;
+          progressFill.style.width = '100%';
+          cargarGaleriaAdmin();
+          cargarGaleriaPublica();
+        } catch (err) {
+          progressText.textContent = `❌ Error: ${err.message}`;
+        }
+      }
+    }
 
+  </script>
+</body>
+</html>
