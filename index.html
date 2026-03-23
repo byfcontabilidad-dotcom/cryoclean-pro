@@ -933,7 +933,22 @@
       } catch(e) { console.log('Galería pública:', e.message); }
     }
     cargarGaleriaPublica();
-
+// Fix: exponer login globalmente
+    document.getElementById('btnLogin').onclick = async function() {
+      const email = document.getElementById('adminEmail').value;
+      const pass = document.getElementById('adminPass').value;
+      const errEl = document.getElementById('loginError');
+      const btn = document.getElementById('btnLogin');
+      errEl.style.display = 'none';
+      btn.textContent = 'Ingresando...'; btn.disabled = true;
+      try {
+        await signInWithEmailAndPassword(auth, email, pass);
+        document.getElementById('loginModal').classList.remove('active');
+      } catch(e) {
+        errEl.style.display = 'block';
+      }
+      btn.textContent = 'Ingresar al Panel'; btn.disabled = false;
+    };
     // ─── GALERÍA ADMIN ────────────────────────────────────────────────────────
     async function cargarGaleriaAdmin() {
       const grid = document.getElementById('adminGaleriaGrid');
